@@ -1,0 +1,27 @@
+{% block form_endereco %}
+
+<div class="container">
+<form method="POST">
+  <div class="form-row">
+    <div class="col-7">
+      <input type="text" class="form-control" placeholder="Cidade" name="cidade">
+    </div>
+    <div class="col">
+	  <select class="form-control" name="estado" >
+	    <option selected>Estados...</option>
+	    {% for estado in estados %}
+	    <option  value="{{estado['ID_ESTADO']}}">{{estado['NOME_ESTADO']}}</option>
+	  	{% endfor %}
+	  </select>
+	 </div>
+    <div class="col">
+      <input type="text" class="form-control" placeholder="CEP">
+    </div>
+    <div class="col-auto">
+      <button type="submit" class="btn btn-primary mb-2">Enviar</button>
+    </div>
+  </div>
+</form>
+</div>
+
+{% endblock%}
