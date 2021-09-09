@@ -1,0 +1,36 @@
+{% include 'head.html'%}
+
+<div class="container" style="margin-top:1%">
+<table class="table border">
+	<!-- CABEÇALHO DA TABELA -->
+  <thead>
+    <tr>
+      <th scope="col">Nº PEDIDO</th>
+      <th scope="col">NOME_PRODUTO</th>
+      <th scope="col">DESCRICAO</th>
+      <th scope="col">QTD_PRODUTO</th>
+      <th scope="col">VALOR UNITÁRIO</th>
+      <th scope="col">VALOR TOTAL</th>
+      <th scope="col">ID CONTA</th>
+    </tr>
+  </thead>
+
+  <tbody>
+
+  	<!-- LOOP PARA ACESSAR PEDIDO -->
+  	{% for pedido in detalhes_pedido %}
+    <tr>
+      <th scope="row"><a href="{{pedido['ID_PEDIDO']}}">{{pedido['ID_PEDIDO']}}</a></th>
+      <td>{{pedido['NOME_PRODUTO']}}</td>
+      <td>{{pedido['DESCRICAO']}}</td>
+      <td>{{pedido['QTD_PRODUTO']}}</td>
+      <td>{{pedido['PRECO']}}</td>
+      <td>{{pedido['VALOR_TOTAL']}}</td>
+	 <td>{{pedido['ID_CONTA']}}</td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
+
+</div>
+{% include 'footer.html'%}
