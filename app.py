@@ -301,7 +301,7 @@ def db_listar_cor_produtos():
 
 def db_criar_pedido(valor_total,id_conta):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("INSERT INTO TB_PEDIDO (VALOR_TOTAL, id_conta) VALUES (?,?)", [valor_total,id_conta])
+        cur.execute("INSERT INTO TB_PEDIDO (VALOR_TOTAL, ID_CONTA) VALUES (?,?)", [valor_total,id_conta])
         id_pedido = cur.lastrowid
         con.commit()
         return {'id_pedido':id_pedido,'valor_total':valor_total, 'id_conta':id_conta}
@@ -311,20 +311,42 @@ def db_listar_pedidos():
         cur.execute("SELECT * FROM TB_PEDIDO")
         return rows_to_dict(cur.description, cur.fetchall())
 
-def db_localizar_cliente(id_conta):
+def db_localizar_pedido(id_pedido):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute('''SELECT cl.ID_CONTA, cl.CPF, cl.NOME, cl.DT_NASC, cl.EMAIL, cl.SENHA, en.RUA, en.NUMERO FROM TB_CLIENTE cl  INNER JOIN TB_ENDERECO en 
-        ON  cl.ID_ENDERECO = en.ID_ENDERECO WHERE cl.ID_CONTA = (?)''' , [id_conta])
+        cur.execute('''SELECT * FROM TB_PEDIDO WHERE ID_PEDIDO = (?)''' , [id_pedido])
+        return rows_to_dict(cur.description, cur.fetchall())
+
+def db_listar_pedidos_cliente(id_conta):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute('''SELECT * FROM TB_PEDIDO WHERE ID_CONTA = (?)''' , [id_conta])
         return rows_to_dict(cur.description, cur.fetchall())
 
 
-def db_atualizar_cliente(id_conta, nome, dt_nasc, email,chave_pix):
+def db_atualizar_pedido(id_pedido,valor_total):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("UPDATE TB_CLIENTE SET NOME = (?), DT_NASC = (?), EMAIL= (?), CHAVE_PIX = (?) WHERE ID_CONTA = (?) ", [nome, dt_nasc, email,chave_pix,id_conta])
+        cur.execute("UPDATE TB_PEDIDO SET VALOR_TOTAL = (?) WHERE ID_PEDIDO=(?)", [valor_total, id_pedido])
         con.commit()
-        return {'id_conta':id_conta,'nome':nome, 'dt_nasc':dt_nasc, 'email':email, 'chave_pix':chave_pix}
+        return {'valor_total':valor_total, 'id_pedido':id_pedido}
 
-#def db_listar_pedidos_por_cliente():
+def db_detalhes_do_pedido(id_pedido):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute('''
+                        SELECT  
+                                PEDIDO.ID_PEDIDO,
+                                PRODUTO.NOME_PRODUTO,
+                                PRODUTO.DESCRICAO, 
+                                POSSUI.QTD_PRODUTO,
+                                POSSUI.PRECO,
+                                PEDIDO.VALOR_TOTAL,
+                                PEDIDO.ID_CONTA
+                        FROM TB_POSSUI_PEDIDO_PRODUTO POSSUI  
+                        INNER JOIN TB_PRODUTO PRODUTO  ON PRODUTO.ID_PRODUTO = POSSUI.ID_PRODUTO
+                        INNER JOIN TB_PEDIDO PEDIDO ON  POSSUI.ID_PEDIDO = PEDIDO.ID_PEDIDO
+                        WHERE POSSUI.ID_PEDIDO = (?)
+                    ''' , [id_pedido])
+        return rows_to_dict(cur.description, cur.fetchall())
+
+
 
 
 
@@ -408,21 +430,21 @@ def db_listar_telefone_funcionario():
 #telefone_funcionario=db_criar_telefone_funcionario(46211111111,1145183646)
 
 
-estados = db_listar_estados()
-cidades= db_listar_cidades()
-enderecos = db_listar_enderecos()
-clientes = db_listar_clientes()
-funcionarios= db_listar_funcionarios()
-movimentacoes = db_listar_mov()
-produtos = db_listar_produtos()
-tamanho_produtos = db_listar_tamanho_produtos()
-cor_produtos= db_listar_cor_produtos()
-pedidos = db_listar_pedidos()
-possui_pedido_produtos = db_listar_possui_pedido_produto()
-pagamentos = db_listar_pagamentos()
-dados_bancarios = db_listar_dados_bancarios()
-telefone_clientes= db_listar_telefone_cliente()
-telefone_funcionarios= db_listar_telefone_funcionario()
+#estados = db_listar_estados()
+#cidades= db_listar_cidades()
+#enderecos = db_listar_enderecos()
+#clientes = db_listar_clientes()
+#funcionarios= db_listar_funcionarios()
+#movimentacoes = db_listar_mov()
+#produtos = db_listar_produtos()
+#tamanho_produtos = db_listar_tamanho_produtos()
+#cor_produtos= db_listar_cor_produtos()
+#pedidos = db_listar_pedidos()
+#possui_pedido_produtos = db_listar_possui_pedido_produto()
+#pagamentos = db_listar_pagamentos()
+#dados_bancarios = db_listar_dados_bancarios()
+#telefone_clientes= db_listar_telefone_cliente()
+#telefone_funcionarios= db_listar_telefone_funcionario()
 #print(f" ENDEREÇOS: {enderecos}\n CLIENTES: {clientes}\n FUNCIONARIOS: {funcionarios}\n MOVIMENTACOES: {movimentacoes}\n PRODUTOS: {produtos}\n TAMANHO: {tamanho_produtos}\n COR: {cor_produtos}\n PEDIDO: {pedidos}\n POSSUI_PEDIDO_PRODUTO: {possui_pedido_produtos}\n PAGAMENTOS: {pagamentos}\n DADOS_BANCARIOS: {dados_bancarios}\n telefone_clientes: {telefone_clientes}\n telefone_funcionarios: {telefone_funcionarios}")
 
 
@@ -442,13 +464,27 @@ app = Flask(__name__)
 def index():
     return render_template("index.html", erro = "")
 
+
 @app.route("/", methods=['GET', 'POST'])
 def index_redirect():
-    return redirect ("index.html", erro = "")
+    return redirect ("home")
+
+
+#PEDIDOS NA VISÃO CLIENTE - Podemos fazer uma verificação para validar se está logado ou não, ou se é funcionário
+@app.route("/pedidos", methods=['GET', 'POST'])
+def pedidos_cliente():
+    #lista os pedidos do cliente
+    pedidos = db_listar_pedidos_cliente(1)
+    return render_template('pedidos_cliente.html', pedidos=pedidos)
+
+#DESCRIÇÃO DO PEDIDO COM BASE NO ID DO PEDIDO
+@app.route("/pedidos/<id_pedido>", methods=['GET', 'POST'])
+def detalhes_pedido(id_pedido):
+    pedido = db_detalhes_do_pedido(id_pedido)
+    return render_template('detalhes_pedido.html',detalhes_pedido = pedido)
 
 
 def teste():
-
     if request.method == 'POST':
         estado_form =  request.form['estado']
         cidade= request.form['cidade']
