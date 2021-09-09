@@ -434,6 +434,7 @@ telefone_funcionarios= db_listar_telefone_funcionario()
 
 
 
+
 # Cria o objeto principal do Flask.
 app = Flask(__name__)
 
