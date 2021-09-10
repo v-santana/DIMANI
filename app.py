@@ -419,7 +419,7 @@ def db_listar_telefone_funcionario():
 #cliente = db_criar_cliente('49311111111','GABRIEL','2020-12-01','gabriel123@gmail.com','GABRIEL123',1,'gabriel123@gmail.com')
 #funcionario = db_criar_funcionario(46211111111,'LUCAS','lucas123@gmail.com','SENHA123',500.00,1,46211111111)
 #movimentacao = db_criar_mov(10,'2021-09-01 12:10:10','ENTRADA DE MATERIAL',46211111111) 
-#produto = db_criar_produto('CAMISA',"CAMISETA REGATA",10,10.00,46211111111,1)
+#produto = db_criar_produto('CAMISA',"CAMISA MANGA LONGA",10,30.00,46211111111,1)
 #tamanho_produto= db_criar_tamanho_produto('GG',1)
 #cor_produto=db_criar_cor_produto('Amarelo',1)
 #pedido = db_criar_pedido('500.00',1)
@@ -482,6 +482,12 @@ def pedidos_cliente():
 def detalhes_pedido(id_pedido):
     pedido = db_detalhes_do_pedido(id_pedido)
     return render_template('detalhes_pedido.html',detalhes_pedido = pedido)
+
+@app.route("/catalogo", methods=['GET'])
+def catalogo():
+    #lista o catálogo de produtos
+    catalogo_produtos = db_listar_produtos()
+    return render_template('catalogo.html', catalogo=catalogo_produtos)
 
 
 def teste():

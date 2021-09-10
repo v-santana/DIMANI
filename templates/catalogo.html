@@ -1,0 +1,23 @@
+{% include 'head.html'%}
+
+<div class="row"></div>
+
+{% for produto in catalogo %}
+
+    <div class="col-sm-3">
+    <div class="card" style="width: 25rem;">
+        <img class="card-img-top" src="static/images/carousel1.JPG" alt="Card image cap">
+        <div class="card-body">
+        <h5 class="card-title">{{produto['NOME_PRODUTO']}}</h5>
+        <p class="card-text">{{produto['VALOR']}}</p>
+        <a href="#" class="btn btn-primary">COMPRAR</a>
+        </div>
+    </div>
+    </div>
+
+{% endfor %}
+
+</div>
+
+
+{% include 'footer.html'%}
