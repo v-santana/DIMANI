@@ -83,9 +83,12 @@ def catalogo():
 @app.route("/detalhes_produto/<id_produto>", methods=['GET'])
 def detalhes_produto(id_produto):
     #expande detalhes do produto selecionado no catálogo
-    produto = db_localiza_produto(id_produto)
+    produto = db_localiza_produto(id_produto) [0]
     return render_template('detalhes_produto.html', detalhes_produto=produto)
 
+@app.route("/carrinho", methods=['GET'])
+def carrinho():
+    return render_template('carrinho.html')
 
 
 
