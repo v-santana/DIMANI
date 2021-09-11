@@ -10,7 +10,7 @@ from funcoes_bd import *
 #cliente = db_criar_cliente('49311111111','GABRIEL','2020-12-01','gabriel123@gmail.com','GABRIEL123',1,'gabriel123@gmail.com')
 #funcionario = db_criar_funcionario(46211111111,'LUCAS','lucas123@gmail.com','SENHA123',500.00,1,46211111111)
 #movimentacao = db_criar_mov(10,'2021-09-01 12:10:10','ENTRADA DE MATERIAL',46211111111) 
-#produto = db_criar_produto('CAMISA',"CAMISETA REGATA",10,10.00,46211111111,1)
+#produto = db_criar_produto('MANTA',"MANTA INFANTIL",10,100.00,46211111111,1)
 #tamanho_produto= db_criar_tamanho_produto('GG',1)
 #cor_produto=db_criar_cor_produto('Amarelo',1)
 #pedido = db_criar_pedido('500.00',1)
@@ -37,7 +37,7 @@ from funcoes_bd import *
 #telefone_clientes= db_listar_telefone_cliente()
 #telefone_funcionarios= db_listar_telefone_funcionario()
 #print(f" ENDEREÇOS: {enderecos}\n CLIENTES: {clientes}\n FUNCIONARIOS: {funcionarios}\n MOVIMENTACOES: {movimentacoes}\n PRODUTOS: {produtos}\n TAMANHO: {tamanho_produtos}\n COR: {cor_produtos}\n PEDIDO: {pedidos}\n POSSUI_PEDIDO_PRODUTO: {possui_pedido_produtos}\n PAGAMENTOS: {pagamentos}\n DADOS_BANCARIOS: {dados_bancarios}\n telefone_clientes: {telefone_clientes}\n telefone_funcionarios: {telefone_funcionarios}")
-#criar = criar_mov_produto(5,'ENTRADA',46211111111,None,'CACHECOL','CACHECOL DE LÃ',15.00)
+#criar = criar_mov_produto(5,'ENTRADA',46211111111,None,'MEIA','MEIA INFANTIL',20.00)
 
 ############################
 #### Definições da API. ####
@@ -79,6 +79,13 @@ def catalogo():
     #lista o catálogo de produtos
     catalogo_produtos = db_listar_produtos()
     return render_template('catalogo.html', catalogo=catalogo_produtos)
+
+@app.route("/detalhes_produto/<id_produto>", methods=['GET'])
+def detalhes_produto(id_produto):
+    #expande detalhes do produto selecionado no catálogo
+    produto = db_localiza_produto(id_produto)
+    return render_template('detalhes_produto.html', detalhes_produto=produto)
+
 
 
 

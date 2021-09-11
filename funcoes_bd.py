@@ -265,7 +265,7 @@ def criar_mov_produto(qtd_produto,tipo_mov,cpf_funcionario,id_produto=None, nome
                 #CRIA E RECEBE NAS VARIABVEIS A MOVIMENTAÇÃO E O PRODUTO
                 mov = db_criar_mov(qtd_produto,datetime.today(),tipo_mov,cpf_funcionario)
                 produto = db_criar_produto(nome_produto,descricao,qtd_produto,valor,cpf_funcionario,mov['id_mov'])
-                return {'mov':mov,'produto':produto}
+                return #{'mov':mov,'produto':produto}
             else:
                 produto = db_localiza_produto(id_produto)[0]
                 mov = db_criar_mov(qtd_produto,datetime.today(),tipo_mov,cpf_funcionario)

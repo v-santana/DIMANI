@@ -16,7 +16,9 @@
   	<!-- LOOP PARA ACESSAR PEDIDO -->
   	{% for pedido in pedidos %}
     <tr>
-      <th scope="row"><a href="pedidos/{{pedido['ID_PEDIDO']}}">{{pedido['ID_PEDIDO']}}</a></th>
+      <th scope="row">
+        <a href="pedidos/{{pedido['ID_PEDIDO']}}">{{pedido['ID_PEDIDO']}}</a>
+      </th>
       <td>{{pedido['VALOR_TOTAL']}}</td>
       <td>{{pedido['ID_CONTA']}}</td>
 
