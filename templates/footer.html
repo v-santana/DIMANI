@@ -47,13 +47,43 @@ function adiciona_carrinho(){
   var nome_produto = document.getElementById("nome_produto").textContent;
   var descricao_produto = document.getElementById("descricao_produto").textContent;
   var valor_produto = document.getElementById("valor_produto").textContent;
-  var lista = [id_produto, nome_produto, descricao_produto, valor_produto]
-  localStorage.setItem("produto_"+id_produto, lista );
-  //localStorage.setItem("nome_produto", nome_produto);
-  //localStorage.setItem("descricao_produto", descricao_produto);
-  //localStorage.setItem("valor_produto", valor_produto);
+  var produto =  [id_produto, nome_produto, descricao_produto,valor_produto];
 
-  return list;
+  localStorage.setItem("produto_"+id_produto, produto );
+  return;
+}
+
+
+function retorna_itens_lStorage(){
+  nome = {}
+  for(var i in window.localStorage){
+        val = localStorage.getItem(i);
+              if  (val != null) {
+                  item = val.split(",");
+                  nome[i] = item
+        }
+    }
+  return nome;
+}
+
+function cria_tabela_carrinho(conteudo){
+  var tabela = document.createElement("table");
+  var thead = document.createElement("thead");
+  var tbody=document.createElement("tbody");
+  var thd=function(i){return (i==0)?"th":"td";};
+  for (var i=0;i<conteudo.length;i++) {
+    var tr = document.createElement("tr");
+    for(var o=0;o<conteudo[i].length;o++){
+      var t = document.createElement(thd(i));
+      var texto=document.createTextNode(conteudo[i][o]);
+      t.appendChild(texto);
+      tr.appendChild(t);
+    }
+    (i==0)?thead.appendChild(tr):tbody.appendChild(tr);
+  }
+  tabela.appendChild(thead);
+  tabela.appendChild(tbody);
+  return tabela;
 }
 
 

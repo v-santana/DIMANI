@@ -1,4 +1,5 @@
 from funcoes_bd import *
+from localStoragePy import localStoragePy
 
 
 
@@ -38,6 +39,14 @@ from funcoes_bd import *
 #telefone_funcionarios= db_listar_telefone_funcionario()
 #print(f" ENDEREÇOS: {enderecos}\n CLIENTES: {clientes}\n FUNCIONARIOS: {funcionarios}\n MOVIMENTACOES: {movimentacoes}\n PRODUTOS: {produtos}\n TAMANHO: {tamanho_produtos}\n COR: {cor_produtos}\n PEDIDO: {pedidos}\n POSSUI_PEDIDO_PRODUTO: {possui_pedido_produtos}\n PAGAMENTOS: {pagamentos}\n DADOS_BANCARIOS: {dados_bancarios}\n telefone_clientes: {telefone_clientes}\n telefone_funcionarios: {telefone_funcionarios}")
 #criar = criar_mov_produto(5,'ENTRADA',46211111111,None,'MEIA','MEIA INFANTIL',20.00)
+
+
+
+def adiciona_carrinho(id_produto,nome_produto,descricao_produto,valor_produto):
+    localStorage = localStoragePy('/DIMANI/app.py', 'text')
+    lista = [id_produto, nome_produto, descricao_produto, valor_produto]
+    localStorage.setItem(f"produto_{id_produto}", lista)
+    return 
 
 ############################
 #### Definições da API. ####

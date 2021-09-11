@@ -1,9 +1,9 @@
 {% include 'head.html'%}
 
 <div class="container" style="margin-top:1%">
-<table class="table border">
+<table class="table border" id="tabela">
 	<!-- CABEÇALHO DA TABELA -->
-  <thead>
+  <thead id="thead">
     <tr>
       <th scope="col">Nº PRODUTO</th>
       <th scope="col">NOME_PRODUTO</th>
@@ -15,7 +15,7 @@
     </tr>
   </thead>
 
-  <tbody>
+  <tbody id="tbody">
 
   	<!-- LOOP PARA ACESSAR PEDIDO -->
   	{% for produto in detalhes_produto %}
@@ -34,3 +34,62 @@
 
 </div>
 {% include 'footer.html'%}
+<script type="text/javascript" charset="utf-8" async defer>
+
+function adiciona_carrinho(){
+  var id_produto = document.getElementById("id_produto").value;
+  var nome_produto = document.getElementById("nome_produto").textContent;
+  var descricao_produto = document.getElementById("descricao_produto").textContent;
+  var valor_produto = document.getElementById("valor_produto").textContent;
+  var produto =  [id_produto, nome_produto, descricao_produto,valor_produto];
+
+  localStorage.setItem("produto_"+id_produto, produto );
+  return;
+}
+
+
+function retorna_itens_lStorage(){
+  nome = {}
+  for(var i in window.localStorage){
+        val = localStorage.getItem(i);
+              if  (val != null) {
+                  item = val.split(",");
+                  nome[i] = item
+        }
+    }
+  return nome;
+}
+
+function cria_tabela_carrinho(conteudo){
+  var tabela = document.getElementById("tabela");
+  var thead = document.getElementById("thead");
+  var tbody=document.getElementById("tbody");
+  var thd=function(i){return (i==0)?"td":"td";};
+  for (var i=0;i<conteudo.length;i++) {
+    var tr = document.createElement("tr");
+    for(var o=0;o<conteudo[i].length;o++){
+      var t = document.createElement(thd(i));
+      var texto=document.createTextNode(conteudo[i][o]);
+      t.appendChild(texto);
+      tr.appendChild(t);
+    }
+    (i==0)?thead.appendChild(tr):tbody.appendChild(tr);
+  }
+  tabela.appendChild(tbody);
+  return tbody;
+}
+
+function  carrega_tabela_carrinho(){
+
+  var itens_storage = retorna_itens_lStorage()
+  tabela = document.getElementById("tabela")
+    for (item in itens_storage){
+      tabela.appendChild(cria_tabela_carrinho(
+        [[itens_storage[item][0],itens_storage[item][1],itens_storage[item][2],'INPUT DE QUANTIDADE',itens_storage[item][3],itens_storage[item][3]+' X QTD_PRODUTO', 'ID_DA_CONTA']]))
+  }
+
+};
+
+carrega_tabela_carrinho();
+
+</script>
