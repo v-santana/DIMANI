@@ -5,13 +5,12 @@
 	<!-- CABEÇALHO DA TABELA -->
   <thead id="thead">
     <tr>
-      <th scope="col">Nº PRODUTO</th>
-      <th scope="col">NOME_PRODUTO</th>
-      <th scope="col">DESCRICAO</th>
-      <th scope="col">QTD_PRODUTO</th>
+      <th scope="col">ID PRODUTO</th>
+      <th scope="col">PRODUTO</th>
+      <th scope="col">DESCRIÇÃO</th>
+      <th scope="col">QUANTIDADE</th>
       <th scope="col">VALOR UNITÁRIO</th>
       <th scope="col">VALOR TOTAL</th>
-      <th scope="col">ID CONTA</th>
     </tr>
   </thead>
 
@@ -26,7 +25,6 @@
       <td>{{produto['QTD_PRODUTO']}}</td>
       <td>{{produto['PRECO']}}</td>
       <td>{{produto['VALOR_TOTAL']}}</td>
-	 <td>{{produto['ID_CONTA']}}</td>
     </tr>
     {% endfor %}
   </tbody>
@@ -85,7 +83,7 @@ function  carrega_tabela_carrinho(){
   tabela = document.getElementById("tabela")
     for (item in itens_storage){
       tabela.appendChild(cria_tabela_carrinho(
-        [[itens_storage[item][0],itens_storage[item][1],itens_storage[item][2],'INPUT DE QUANTIDADE',itens_storage[item][3],itens_storage[item][3]+' X QTD_PRODUTO', 'ID_DA_CONTA']]))
+        [[itens_storage[item][0],itens_storage[item][1],itens_storage[item][2],'INPUT DE QUANTIDADE',itens_storage[item][3],itens_storage[item][3]+' X QTD_PRODUTO']]))
   }
 
 };

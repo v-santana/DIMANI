@@ -61,7 +61,7 @@ app = Flask(__name__)
 
 @app.route("/home", methods=['GET', 'POST'])
 def index():
-    return render_template("index.html", erro = "")
+    return render_template("home.html", erro = "")
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -99,7 +99,9 @@ def detalhes_produto(id_produto):
 def carrinho():
     return render_template('carrinho.html')
 
-
+@app.route("/login", methods=['GET'])
+def login():
+    return render_template('login.html')
 
 def teste():
     if request.method == 'POST':

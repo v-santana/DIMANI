@@ -11,8 +11,8 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
 
 
-  <nav class="navbar navbar-expand-lg navbar-light bg-light">
-    <a class="navbar-brand" href="#">DIMANI ATELIER</a>
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light bg-light">
+    <a class="navbar-brand" href="/home">DIMANI ATELIER</a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alterna navegação">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -22,31 +22,32 @@
           <a class="nav-link" href="/">Home <span class="sr-only">(Página atual)</span></a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="/catalogo">Catálogo</a>
+          <a class="nav-link" href="#">Sobre</a>
         </li>
         <li class="nav-item">
-          <a class="nav-link" href="#">Sobre</a>
+          <a class="nav-link" href="/catalogo">Catálogo</a>
         </li>
         <li class="nav-item dropdown">
           <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-            Login / Cadastre-se
+            Acompanhar Pedidos
           </a>
           <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-            <a class="dropdown-item" href="#">Configurações</a>
             <a class="dropdown-item" href="/pedidos">Pedidos</a>
-            <a class="dropdown-item" href="#">Sair</a>
+            <a class="dropdown-item" href="#">Trocas</a>
+            <a class="dropdown-item" href="#">Devoluções</a>
           </div>
+          <li class="nav-item">
+            <a class="nav-link" href="/carrinho">Carrinho</a>
+          </li>
       </ul>
     </div>
+      <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a class="btn btn-success" href="/login" >Login / Cadastre-se</a>
+        </li>
+      </ul>
   </nav>
     <title>DIMANI ATELIER</title>
   </head>
-
-
-
-
-
-
-
 
 {% endblock%}
