@@ -103,6 +103,10 @@ def carrinho():
 def login():
     return render_template('login.html')
 
+@app.route("/sobre", methods=['GET'])
+def sobre():
+    return render_template('sobre.html')
+
 def teste():
     if request.method == 'POST':
         estado_form =  request.form['estado']
