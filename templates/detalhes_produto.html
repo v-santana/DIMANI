@@ -1,19 +1,53 @@
 {% include 'head.html'%}
 
 
-  <div class="col-md-6 offset-md-3" style="max-width: 900px;">
+  <div class="col-md-6 offset-md-3" style="max-width: 1500px;">
     <div class="row g-0">
       <div class="col-md-4">
         <img src="/static/images/CAMISA_MANGALONGA.JPG" class="img-fluid rounded-start" alt="Img">
       </div>
-        <div class="col-md-8">
+        <div class="col-md-4">
           <div class="card-body">
             <input type="hidden" id="id_produto" name="id_produto" value="{{detalhes_produto['ID_PRODUTO']}}">
             <h5 class="card-title"  id="nome_produto">{{detalhes_produto['NOME_PRODUTO']}}</h5>
             <p class="card-text" id="valor_produto">{{detalhes_produto['VALOR']}}</p>
             <p class="card-text" id="descricao_produto">{{detalhes_produto['DESCRICAO']}}</small></p>
+            <p><div class="form-group">
+              <label>TAMANHO</label>
+              <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                <label class="btn btn-info">
+                  <input type="radio" name="options" id="option1" autocomplete="off" > P
+                </label>
+                <label class="btn btn-info">
+                  <input type="radio" name="options" id="option2" autocomplete="off"> M
+                </label>
+                <label class="btn btn-info">
+                  <input type="radio" name="options" id="option3" autocomplete="off"> G
+                </label>
+                <label class="btn btn-info">
+                  <input type="radio" name="options" id="option3" autocomplete="off"> GG
+                </label>
+              </div></p>
+            <form class="form-inline">
+              <label class="my-1 mr-2" for="inlineFormCustomSelectPref">QUANTIDADE</label>
+              <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
+                  <option value="1">1</option>
+                  <option value="2">2</option>
+                  <option value="3">3</option>
+                  <option value="4">4</option>
+                  <option value="5">5</option>
+                  <option value="6">6</option>
+                  <option value="7">7</option>
+                  <option value="8">8</option>
+                  <option value="9">9</option>
+                  <option value="10">10</option>
+              </select>
+            </form>
+              <div class="invalid-feedback">Exemplo de feedback invalido para o select</div>
+            </div>
+            <div>
             <a class="btn btn-primary" role="button" data-toggle="modal" data-target="#modalExemplo">ADICIONAR AO CARRINHO</a>
-            <input type="number" class="form-control" placeholder="Quantidade"name="Quantidade" required>
+            </div>
           </div>
         </div>
     </div>
