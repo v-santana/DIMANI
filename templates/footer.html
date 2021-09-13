@@ -1,7 +1,8 @@
 {% block footer %}
 
-  <footer class="footer footer-expand-lg footer-light bg-light">
-      <div class="row my-5 justify-content-center py-5 ">
+<div class="container-fluid pb-0 mb-0 justify-content-center text-light ">
+  <footer>
+      <div class="row my-5 justify-content-center py-5">
           <div class="col-11">
               <div class="row ">
                   <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto mx-auto a">
@@ -10,44 +11,87 @@
                   <div class="col-xl-2 col-md-4 col-sm-4 col-12">
                       <h6 class="mb-3 mb-lg-4 bold-text "><b>MENU</b></h6>
                       <ul class="list-unstyled">
-                        <li><a class="button" href="/home">Home</a></li>
-                        <li><a class="button" href="/sobre">Sobre</a></li>
-                        <li><a class="button" href="/catalogo">Catálogo</a></li>
+                          <li>Home</li>
+                          <li>About</li>
+                          <li>Blog</li>
+                          <li>Portfolio</li>
                       </ul>
                   </div>
                   <div class="col-xl-2 col-md-4 col-sm-4 col-12">
-                      <h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5"><b>ENDEREÇO</b></h6>
-                      <p class="mb-1">São Paulo - Pompéia</p>
-                      <p>Loja de Roupas</p>
+                      <h6 class="mb-3 mb-lg-4 text-muted bold-text mt-sm-0 mt-5"><b>ADDRESS</b></h6>
+                      <p class="mb-1">605, RATAN ICON BUILDING</p>
+                      <p>SEAWOODS SECTOR</p>
                   </div>
               </div>
               <div class="row ">
                   <div class="col-xl-8 col-md-4 col-sm-4 col-auto my-md-0 mt-5 order-sm-1 order-3 align-self-end">
                       <p class="social text-muted mb-0 pb-0 bold-text"> <span class="mx-2"><i class="fa fa-facebook" aria-hidden="true"></i></span> <span class="mx-2"><i class="fa fa-linkedin-square" aria-hidden="true"></i></span> <span class="mx-2"><i class="fa fa-twitter" aria-hidden="true"></i></span> <span class="mx-2"><i class="fa fa-instagram" aria-hidden="true"></i></span> </p><small class="rights"><span>&#174;</span> Pepper All Rights Reserved.</small>
                   </div>
+                  <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-1 align-self-end ">
+                      <h6 class="mt-55 mt-2 text-muted bold-text"><b>ANIRUDH SINGLA</b></h6><small> <span><i class="fa fa-envelope" aria-hidden="true"></i></span> anirudh@gmail.com</small>
+                  </div>
                   <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
-                      <h6 class="text-muted bold-text"><b>Joelma Santana</b></h6><small><span><i class="fa fa-envelope" aria-hidden="true"></i></span> dimani@atelier.com.br</small>
+                      <h6 class="text-muted bold-text"><b>RISHABH SHEKHAR</b></h6><small><span><i class="fa fa-envelope" aria-hidden="true"></i></span> rishab@gmail.com</small>
                   </div>
               </div>
           </div>
       </div>
   </footer>
-
+</div>
 
 <!-- JavaScript (Opcional) -->
 <script type="text/javascript" charset="utf-8" async defer>
+
+
+
+
+</script>
+
+<!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script type="text/javascript" charset="utf-8" async defer> 
+
+function formata_valor_com_cifrao(valor){
+  //com R$
+  var formatado = valor.toLocaleString('pt-br',{style: 'currency', currency: 'BRL'});
+  return formatado;
+}
+
+function formata_valor_sem_cifrao(valor){
+  //sem R$
+  var formatado = valor.toLocaleString('pt-br', {minimumFractionDigits: 2});
+  return formatado;
+}
+
+function getRadioValor(name){
+  var rads = document.getElementsByName(name);
+  
+  for(var i = 0; i < rads.length; i++){
+   if(rads[i].checked){
+    return rads[i].value;
+   }
+  
+  }
+  
+  return null;
+}
+
 
 function adiciona_carrinho(){
   var id_produto = document.getElementById("id_produto").value;
   var nome_produto = document.getElementById("nome_produto").textContent;
   var descricao_produto = document.getElementById("descricao_produto").textContent;
-  var valor_produto = document.getElementById("valor_produto").textContent;
-  var produto =  [id_produto, nome_produto, descricao_produto,valor_produto];
+  var valor_produto = document.getElementById("valor_produto").value;
+  var tamanho_produto = getRadioValor("options");
+  var qtd_produto = document.getElementById('customControlValidation1').value;
+  var produto =  [id_produto, nome_produto, descricao_produto,valor_produto,qtd_produto,tamanho_produto];
 
-  localStorage.setItem("produto_"+id_produto, produto );
-  return;
+  localStorage.setItem("produto_"+id_produto+"_"+tamanho_produto, produto );
+  return produto;
 }
-
 
 function retorna_itens_lStorage(){
   nome = {}
@@ -62,10 +106,10 @@ function retorna_itens_lStorage(){
 }
 
 function cria_tabela_carrinho(conteudo){
-  var tabela = document.createElement("table");
-  var thead = document.createElement("thead");
-  var tbody=document.createElement("tbody");
-  var thd=function(i){return (i==0)?"th":"td";};
+  var tabela = document.getElementById("tabela");
+  var thead = document.getElementById("thead");
+  var tbody=document.getElementById("tbody");
+  var thd=function(i){return (i==0)?"td":"td";};
   for (var i=0;i<conteudo.length;i++) {
     var tr = document.createElement("tr");
     for(var o=0;o<conteudo[i].length;o++){
@@ -76,18 +120,20 @@ function cria_tabela_carrinho(conteudo){
     }
     (i==0)?thead.appendChild(tr):tbody.appendChild(tr);
   }
-  tabela.appendChild(thead);
   tabela.appendChild(tbody);
-  return tabela;
+  return tbody;
+}
+
+// Função que formata os valores para real (SOMENTE O TEXTO EXIBIDO)
+function valores_em_real(){
+  var valor_real = document.getElementsByName("valor_produto_real")
+  for(var i = 0; i < valor_real.length; i++){
+     valor_real[i].textContent = formata_valor_com_cifrao(parseInt(valor_real[i].textContent))
+  }
 }
 
 
-
+valores_em_real();
 </script>
-
-<!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
-<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
 {% endblock %}

@@ -1,7 +1,7 @@
 {% include 'head.html'%}
 
 
-<div class="text-left">
+<div class="text-left ">
   <div id="carouselExampleIndicators" style=" height: 400px; width: 530px;"class="carousel slide" data-ride="carousel">
     <ol class="carousel-indicators"> 
       <li data-target="#carouselExampleIndicators" data-slide-to="0" class="active"></li>
@@ -36,41 +36,42 @@
         <div class="card-body">
           <input type="hidden" id="id_produto" name="id_produto" value="{{detalhes_produto['ID_PRODUTO']}}">
           <h5 class="card-title"  id="nome_produto">{{detalhes_produto['NOME_PRODUTO']}}</h5>
-          <p class="card-text" id="valor_produto">{{detalhes_produto['VALOR']}}</p>
+          <input type="hidden" id="valor_produto" value="{{detalhes_produto['VALOR']}}">
+          <p class="card-text" name="valor_produto_real" >{{detalhes_produto['VALOR']}}</p>
           <p class="card-text" id="descricao_produto">{{detalhes_produto['DESCRICAO']}}</small></p>
             <p><div class="form-group">
               <label>TAMANHO </label>
                   <div class="btn-group btn-group-toggle" data-toggle="buttons">
                     <label class="btn btn-info">
-                      <input type="radio" name="options" id="option1" autocomplete="off" > PP
+                      <input type="radio" name="options" id="option1" value="PP" autocomplete="off" > PP
                     </label>
                     <label class="btn btn-info">
-                      <input type="radio" name="options" id="option1" autocomplete="off" > P
+                      <input type="radio" name="options" id="option1" value="P" autocomplete="off" > P
                     </label>
                     <label class="btn btn-info">
-                      <input type="radio" name="options" id="option2" autocomplete="off"> M
+                      <input type="radio" name="options" id="option2" value="M" autocomplete="off"> M
                     </label>
                     <label class="btn btn-info">
-                      <input type="radio" name="options" id="option3" autocomplete="off"> G
+                      <input type="radio" name="options" id="option3" value="G" autocomplete="off"> G
                     </label>
                     <label class="btn btn-info">
-                      <input type="radio" name="options" id="option3" autocomplete="off"> GG
+                      <input type="radio" name="options" id="option3" value="GG" autocomplete="off"> GG
                   </div>
               </label>
-            </div></p>
+            </div>
             <form class="form-inline">
-              <label class="my-1 mr-2" for="inlineFormCustomSelectPref">QUANTIDADE</label>
-              <select class="custom-select my-1 mr-sm-2" id="inlineFormCustomSelectPref">
-                  <option value="1">1</option>
-                  <option value="2">2</option>
-                  <option value="3">3</option>
-                  <option value="4">4</option>
-                  <option value="5">5</option>
-                  <option value="6">6</option>
-                  <option value="7">7</option>
-                  <option value="8">8</option>
-                  <option value="9">9</option>
-                  <option value="10">10</option>
+              <label class="my-1 mr-2" for="customControlValidation1">QUANTIDADE</label>
+              <select class="custom-select my-1 mr-sm-2" id="customControlValidation1">
+                  <option name="options_qtd" value="1">1</option>
+                  <option name="options_qtd" value="2">2</option>
+                  <option name="options_qtd" value="3">3</option>
+                  <option name="options_qtd" value="4">4</option>
+                  <option name="options_qtd" value="5">5</option>
+                  <option name="options_qtd" value="6">6</option>
+                  <option name="options_qtd" value="7">7</option>
+                  <option name="options_qtd" value="8">8</option>
+                  <option name="options_qtd" value="9">9</option>
+                  <option name="options_qtd" value="10">10</option>
               </select>
             </form>
             <p></p><div>
@@ -105,6 +106,7 @@
     </div>
   </div>
 </div>
+
 
 
 {% include 'footer.html'%}

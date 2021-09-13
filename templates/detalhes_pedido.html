@@ -24,8 +24,8 @@
       <td>{{pedido['NOME_PRODUTO']}}</td>
       <td>{{pedido['DESCRICAO']}}</td>
       <td>{{pedido['QTD_PRODUTO']}}</td>
-      <td>{{pedido['PRECO']}}</td>
-      <td>{{pedido['VALOR_TOTAL']}}</td>
+      <td name="valor_produto_real">{{pedido['PRECO']}}</td>
+      <td name="valor_produto_real">{{pedido['VALOR_TOTAL']}}</td>
 	 <td>{{pedido['ID_CONTA']}}</td>
     </tr>
     {% endfor %}
