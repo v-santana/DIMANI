@@ -4,12 +4,12 @@
 {% for produto in catalogo %}
 
     <div class="col-sm-3">
-    <div class="card" style="width: 20rem;">
+    <div class="card text-center bg-light mb-3" style="width: 22rem;">
         <img class="card-img-top" src="static/images/carousel1.JPG" alt="Card image cap">
         <div class="card-body">
-        <h5 class="card-title">{{produto['NOME_PRODUTO']}}</h5>
-        <p class="card-text" name="valor_produto_real">{{produto['VALOR']}}</p>
-        <a class="btn btn-primary" href="detalhes_produto/{{produto['ID_PRODUTO']}}"  role="button">COMPRAR</a>
+        <h4 class="card-title">{{produto['NOME_PRODUTO']}}</h4>
+        <h5 class="card-text" name="valor_produto_real">{{produto['VALOR']}}</h5>
+        <a class="btn btn-light" style="background-color: #F6A5B8;" href="detalhes_produto/{{produto['ID_PRODUTO']}}"  role="button">COMPRAR</a>
         </div>
     </div>
     </div>
