@@ -6,13 +6,19 @@
     <!-- Meta tags Obrigatórias -->
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
 
-    <!-- Bootstrap CSS #F6A5B8-->
+    <!-- Bootstrap CSS-->
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
     <link rel="shortcut icon" href="/static/images/favicon.ico" />
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
 
   <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #F6A5B8;">
-    <a class="navbar-brand" href="/home">DIMANI ATELIER</a>
+    <a class="navbar-left" href="/home">
+      <img src="/static/images/LOGO_NAVBAR.PNG" alt="logo da navbar dimani" height="35" width="140">
+    </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alterna navegação">
       <span class="navbar-toggler-icon"></span>
     </button>
@@ -36,12 +42,14 @@
             <a class="dropdown-item" href="#">Trocas</a>
             <a class="dropdown-item" href="#">Devoluções</a>
           </div>
-          <li class="nav-item">
-            <a class="nav-link" href="/carrinho">Carrinho</a>
-          </li>
       </ul>
     </div>
       <ul class="nav justify-content-end">
+        <li class="nav-item">
+          <a href="/carrinho">
+            <span class="glyphicon glyphicon-shopping-cart"></span>
+          </a>
+        </li>
         <li class="nav-item">
           <a class="btn btn-success" href="/login" >Login / Cadastre-se</a>
         </li>
