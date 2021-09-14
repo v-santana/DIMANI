@@ -16,7 +16,7 @@
     </tr>
   </thead>
 
-  <!-- linhas de body é inserida pelo script javascript "carregar_tabela_carrinh()" -->
+  <!-- linhas de body é inserida pelo script javascript "carregar_tabela_carrinho()" -->
   <tbody id="tbody">
 
   </tbody>
@@ -33,7 +33,7 @@ function  carrega_tabela_carrinho(){
     for (item in itens_storage){
       //href para excluir item 
       tabela.appendChild(cria_tabela_carrinho(
-        [[itens_storage[item][0],itens_storage[item][1],itens_storage[item][2],itens_storage[item][5],itens_storage[item][4],formata_valor_com_cifrao(parseInt(itens_storage[item][3])),formata_valor_com_cifrao(itens_storage[item][3] * itens_storage[item][4]), 'X']]))
+        [[itens_storage[item][0],itens_storage[item][1],itens_storage[item][2],itens_storage[item][5],itens_storage[item][4],formata_valor_com_cifrao(parseInt(itens_storage[item][3])),formata_valor_com_cifrao(itens_storage[item][3] * itens_storage[item][4])]],item))
   }
 
 };
