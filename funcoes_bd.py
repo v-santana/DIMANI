@@ -6,6 +6,7 @@ import os
 import werkzeug
 import sys
 from datetime import datetime
+import abc
 
 
 ###############################################
@@ -240,52 +241,118 @@ def db_listar_funcionarios():
 
 
 
+
 ############################ TABELA MOVIMENTACAO ########################################## 
 
-def db_criar_mov(qtd_produto,horario,tipo_mov,cpf_funcionario):
-    with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("INSERT INTO TB_MOV (QTD_PRODUTO,HORARIO,TIPO_MOV,CPF_FUNCIONARIO) VALUES (?,?,?,?)", [qtd_produto,horario,tipo_mov,cpf_funcionario])
-        id_mov = cur.lastrowid
-        con.commit()
-        return {'id_mov':id_mov,'qtd_produto':qtd_produto,'horario':horario,'tipo_mov':tipo_mov,'cpf_funcionario':cpf_funcionario}
+##################### CLASSE ABSTRATA DE TIPO DE MOVIMENTACAO #####################
+class TipoMovimentacao(metaclass=abc.ABCMeta):
+    def __init__(self):
+        self.nome_movimentacao = None
+        self.id_mov = None
+
+    def get_id_mov(self):
+        return self.id_mov
+
+    def set_id_mov(self,id_mov):
+        self.id_mov = id_mov
+        return
+
+    def get_nome_mov(self):
+        return self.nome_movimentacao
+
+    def set_nome_mov(self,nome_mov):
+        self.nome_movimentacao = nome_mov
+        return
+    @abc.abstractmethod
+    def cria_mov_produto(self,tipo_mov,qtd_produto,cpf_funcionario,id_produto=None, nome_produto=None,descricao=None,valor=None):
+        pass
+
+##################### CLASSE MOVIMENTACAO #####################
+class Movimentacao(object):
+
+    def db_criar_mov(self,qtd_produto,horario,tipo_mov,cpf_funcionario,id_produto):
+            with closing(conectar()) as con, closing(con.cursor()) as cur:
+                cur.execute("INSERT INTO TB_MOV (QTD_PRODUTO,HORARIO,TIPO_MOV,CPF_FUNCIONARIO, ID_PRODUTO) VALUES (?,?,?,?,?)", [qtd_produto,horario,tipo_mov,cpf_funcionario,id_produto])
+                id_mov = cur.lastrowid
+                con.commit()
+                return {'id_mov':id_mov,'qtd_produto':qtd_produto,'horario':horario,'tipo_mov':tipo_mov,'cpf_funcionario':cpf_funcionario, 'id_produto':id_produto}
+
+    def db_listar_mov(self):
+        with closing(conectar()) as con, closing(con.cursor()) as cur:
+            cur.execute("SELECT * FROM TB_MOV")
+            return rows_to_dict(cur.description, cur.fetchall())
+
+    def db_atualiza_mov_id_produto(self,id_mov,id_produto):
+        with closing(conectar()) as con, closing(con.cursor()) as cur:
+            cur.execute("UPDATE TB_MOV SET ID_PRODUTO = (?) WHERE ID_MOV = (?) ", [id_produto,id_mov])
+            con.commit()
+            return {'id_produto': id_produto , 'id_mov':id_mov}
 
 
-def db_listar_mov():
-    with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("SELECT * FROM TB_MOV")
-        return rows_to_dict(cur.description, cur.fetchall())
+    def cria_movimentacao_produto(self, qtd_produto,cpf_funcionario, tipo_mov,id_produto=None, nome_produto=None,descricao=None,valor=None):
+            movimentacao = tipo_mov.cria_mov_produto(qtd_produto,cpf_funcionario,tipo_mov.get_nome_mov(),id_produto, nome_produto,descricao,valor)    
+            return movimentacao
 
 
-#Funão que cadastra ou alterar a quantidade do produto com base na movimentação
-def criar_mov_produto(qtd_produto,tipo_mov,cpf_funcionario,id_produto=None, nome_produto=None,descricao=None,valor=None):
-        ########### VERIFICA O TIPO DA MOVIMENTAÇÃO #################
-        if tipo_mov == 'ENTRADA':
-            ########### VERIFICA SE VAI RETORNAR VAZIO EM LOCALIZA PRODUTO #################
-            if not db_localiza_produto(id_produto):
-                #CRIA E RECEBE NAS VARIABVEIS A MOVIMENTAÇÃO E O PRODUTO
-                mov = db_criar_mov(qtd_produto,datetime.today(),tipo_mov,cpf_funcionario)
-                produto = db_criar_produto(nome_produto,descricao,qtd_produto,valor,cpf_funcionario,mov['id_mov'])
-                return #{'mov':mov,'produto':produto}
-            else:
+##################### CLASSE ENTRADA QUE HERDA A TIPO MOVIMENTACAO #####################
+class Entrada(TipoMovimentacao):
+    def __init__(self):
+        self.set_nome_mov("ENTRADA")
+
+    def cria_mov_produto(self, qtd_produto, cpf_funcionario,tipo_mov,id_produto=None, nome_produto=None,descricao=None,valor=None):
+        if not db_localiza_produto(id_produto):
+                movimentacao = Movimentacao()
+                mov = movimentacao.db_criar_mov(qtd_produto,datetime.today(),self.get_nome_mov(),cpf_funcionario,None)
+                self.set_id_mov(mov['id_mov'])
+                produto = db_criar_produto(nome_produto,descricao,qtd_produto,valor,cpf_funcionario,self.get_id_mov())
+                mov = movimentacao.db_atualiza_mov_id_produto(self.get_id_mov(),produto['id_produto'])
+                return (mov,produto)
+        else:
                 produto = db_localiza_produto(id_produto)[0]
-                mov = db_criar_mov(qtd_produto,datetime.today(),tipo_mov,cpf_funcionario)
+                movimentacao = Movimentacao()
+                mov = movimentacao.db_criar_mov(qtd_produto,datetime.today(),self.get_nome_mov(),cpf_funcionario,produto['ID_PRODUTO'])
+                self.set_id_mov(mov['id_mov'])
                 qtd_estoque_atual = mov['qtd_produto'] + produto['QTD_ESTOQUE']
-                produto_atual = db_atualizar_qtd_produto(id_produto,qtd_estoque_atual,mov['id_mov'],cpf_funcionario)
-                return {'mov':mov,'produto_atual':db_localiza_produto(id_produto)[0]}
-        elif tipo_mov == 'SAIDA' or tipo_mov == 'EXTRAVIO':
+                produto_atual = db_atualizar_qtd_produto(id_produto,qtd_estoque_atual,self.get_id_mov(),cpf_funcionario)
+                return (mov,produto)
+
+##################### CLASSE SAIDA QUE HERDA A TIPO MOVIMENTACAO #####################
+class Saida(TipoMovimentacao):
+    def __init__(self):
+        self.set_nome_mov("SAIDA")
+
+    def cria_mov_produto(self,qtd_produto,cpf_funcionario,tipo_mov,id_produto=None, nome_produto=None,descricao=None,valor=None):
             if not db_localiza_produto(id_produto):
                 return {'message':'PRODUTO NÃO EXISTE'}
             else:
                 produto = db_localiza_produto(id_produto)[0]
                 if produto['QTD_ESTOQUE'] > 0:
-                        mov = db_criar_mov(qtd_produto,datetime.today(),tipo_mov,cpf_funcionario)
+                        mov = movimentacao.db_criar_mov(qtd_produto,datetime.today(),self.get_nome_mov(),cpf_funcionario,produto['ID_PRODUTO'])
+                        self.set_id_mov(mov['id_mov'])
                         qtd_estoque_atual = produto['QTD_ESTOQUE'] - mov['qtd_produto']
-                        produto_atual = db_atualizar_qtd_produto(id_produto,qtd_estoque_atual,mov['id_mov'],cpf_funcionario)
-                        return {'mov':mov,'produto':db_localiza_produto(id_produto)[0]}
+                        produto_atual = db_atualizar_qtd_produto(id_produto,qtd_estoque_atual,self.get_id_mov(),cpf_funcionario)
+                        mov = movimentacao.db_atualiza_mov_id_produto(self.get_id_mov(),produto['ID_PRODUTO'])
+                        return (mov,produto)
                 else:
                     return {'message': f"QUANTIDADE DO PRODUTO NÃO PODE SER RETIRADA QTD: {produto['QTD_ESTOQUE']}"}
-        else:
-            return {'message': f'TIPO DE MOVIMENTACAO INVALIDA {tipo_mov}'}
+
+
+##################### CLASSE DEVOLUCAO QUE HERDA ENTRADA #####################
+class Devolucao(Entrada):
+    def __init__(self):
+        self.set_nome_mov('DEVOLUCAO')
+
+    def movimentacao_especifica(self):
+            devolucao = self.cria_mov_produto(get_nome_mov(),qtd_produto,cpf_funcionario,id_produto=None, nome_produto=None,descricao=None,valor=None)
+            return (devolucao)
+
+##################### CLASSE EXTRAVIOPERDA QUE HERDA SAIDA#####################
+class ExtravioPerda(Saida):
+    def __init__(self):
+        self.set_nome_mov('EXTRAVIO OU PERDA')
+    def movimentacao_especifica(self):
+            extravio_perda = self.cria_mov_produto(get_nome_mov(),qtd_produto,cpf_funcionario,id_produto=None, nome_produto=None,descricao=None,valor=None)
+            return (extravio_perda)
 
 
 
