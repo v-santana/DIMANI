@@ -413,12 +413,12 @@ def db_listar_cor_produtos():
 
 ############################ TABELA PEDIDO ########################################## 
 
-def db_criar_pedido(valor_total,id_conta):
+def db_criar_pedido(valor_total,id_conta, status):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("INSERT INTO TB_PEDIDO (VALOR_TOTAL, ID_CONTA) VALUES (?,?)", [valor_total,id_conta])
+        cur.execute("INSERT INTO TB_PEDIDO (VALOR_TOTAL, ID_CONTA, STATUS) VALUES (?,?,?)", [valor_total,id_conta,status])
         id_pedido = cur.lastrowid
         con.commit()
-        return {'id_pedido':id_pedido,'valor_total':valor_total, 'id_conta':id_conta}
+        return {'id_pedido':id_pedido,'valor_total':valor_total, 'id_conta':id_conta,'status':status}
 
 def db_listar_pedidos():
     with closing(conectar()) as con, closing(con.cursor()) as cur:
@@ -436,11 +436,17 @@ def db_listar_pedidos_cliente(id_conta):
         return rows_to_dict(cur.description, cur.fetchall())
 
 
-def db_atualizar_pedido(id_pedido,valor_total):
+def db_atualizar_valor_pedido(id_pedido,valor_total):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute("UPDATE TB_PEDIDO SET VALOR_TOTAL = (?) WHERE ID_PEDIDO=(?)", [valor_total, id_pedido])
         con.commit()
         return {'valor_total':valor_total, 'id_pedido':id_pedido}
+
+def db_atualizar_status_pedido(id_pedido,status):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute("UPDATE TB_PEDIDO SET STATUS = (?) WHERE ID_PEDIDO=(?)", [status, id_pedido])
+        con.commit()
+        return {'status':status, 'id_pedido':id_pedido}
 
 def db_detalhes_do_pedido(id_pedido):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
@@ -452,7 +458,8 @@ def db_detalhes_do_pedido(id_pedido):
                                 POSSUI.QTD_PRODUTO,
                                 POSSUI.PRECO,
                                 PEDIDO.VALOR_TOTAL,
-                                PEDIDO.ID_CONTA
+                                PEDIDO.ID_CONTA,
+                                PEDIDO.STATUS
                         FROM TB_POSSUI_PEDIDO_PRODUTO POSSUI  
                         INNER JOIN TB_PRODUTO PRODUTO  ON PRODUTO.ID_PRODUTO = POSSUI.ID_PRODUTO
                         INNER JOIN TB_PEDIDO PEDIDO ON  POSSUI.ID_PEDIDO = PEDIDO.ID_PEDIDO
@@ -519,5 +526,4 @@ def db_listar_telefone_funcionario():
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute("SELECT * FROM TB_TELEFONE_FUNCIONARIO")
         return rows_to_dict(cur.description, cur.fetchall())
-
 
