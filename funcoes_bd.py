@@ -459,7 +459,8 @@ def db_detalhes_do_pedido(id_pedido):
                                 POSSUI.PRECO,
                                 PEDIDO.VALOR_TOTAL,
                                 PEDIDO.ID_CONTA,
-                                PEDIDO.STATUS
+                                PEDIDO.STATUS,
+                                POSSUI.OBSERVACAO
                         FROM TB_POSSUI_PEDIDO_PRODUTO POSSUI  
                         INNER JOIN TB_PRODUTO PRODUTO  ON PRODUTO.ID_PRODUTO = POSSUI.ID_PRODUTO
                         INNER JOIN TB_PEDIDO PEDIDO ON  POSSUI.ID_PEDIDO = PEDIDO.ID_PEDIDO
@@ -473,16 +474,22 @@ def db_detalhes_do_pedido(id_pedido):
 
 ############################ TABELA POSSUI_PEDIDO_PRODUTO ########################################## 
 
-def db_criar_possui_pedido_produto(id_pedido,qtd_produto,preco,id_produto):
+def db_criar_possui_pedido_produto(id_pedido,qtd_produto,preco,id_produto,observacao):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("INSERT INTO TB_POSSUI_PEDIDO_PRODUTO (ID_PEDIDO,QTD_PRODUTO,PRECO,ID_PRODUTO) VALUES (?,?,?,?)", [id_pedido,qtd_produto,preco,id_produto])
+        cur.execute("INSERT INTO TB_POSSUI_PEDIDO_PRODUTO (ID_PEDIDO,QTD_PRODUTO,PRECO,ID_PRODUTO,OBSERVACAO) VALUES (?,?,?,?,?)", [id_pedido,qtd_produto,preco,id_produto,observacao])
         con.commit()
-        return {'id_pedido':id_pedido,'qtd_produto':qtd_produto,'preco':preco,'id_produto':id_produto}
+        return {'id_pedido':id_pedido,'qtd_produto':qtd_produto,'preco':preco,'id_produto':id_produto,'observacao':observacao}
 
 def db_listar_possui_pedido_produto():
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute("SELECT * FROM TB_POSSUI_PEDIDO_PRODUTO")
         return rows_to_dict(cur.description, cur.fetchall())
+
+def db_atualizar_observacao_pedido(id_pedido,id_produto,observacao):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute("UPDATE TB_POSSUI_PEDIDO_PRODUTO SET OBSERVACAO = (?) WHERE ID_PEDIDO=(?) and ID_PRODUTO=(?)", [observacao, id_pedido,id_produto])
+        con.commit()
+        return {'observacao':observacao, 'id_pedido':id_pedido,'id_produto':id_produto}
 
 
 

@@ -10,8 +10,9 @@
       <th scope="col">DESCRICAO</th>
       <th scope="col">QTD_PRODUTO</th>
       <th scope="col">VALOR UNITÁRIO</th>
-      <th scope="col">VALOR TOTAL</th>
+      <th scope="col">VALOR TOTAL PRODUTO</th>
       <th scope="col">ID CONTA</th>
+      <th scope="col">OBSERVACOES</th>
     </tr>
   </thead>
 
@@ -25,8 +26,9 @@
       <td>{{pedido['DESCRICAO']}}</td>
       <td>{{pedido['QTD_PRODUTO']}}</td>
       <td name="valor_produto_real">{{pedido['PRECO']}}</td>
-      <td name="valor_produto_real">{{pedido['VALOR_TOTAL']}}</td>
-	 <td>{{pedido['ID_CONTA']}}</td>
+      <td name="valor_produto_real">{{pedido['PRECO'] * pedido['QTD_PRODUTO']}}</td>
+	    <td>{{pedido['ID_CONTA']}}</td>
+      <td>{{pedido['OBSERVACAO']}}</td>
     </tr>
     {% endfor %}
   </tbody>
