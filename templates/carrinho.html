@@ -28,10 +28,15 @@
 <script type="text/javascript" charset="utf-8" async defer>
 function maiorQue(texto,quantidade) {
     var texto = texto;
-    if (texto.length >= quantidade){
-      texto = texto.slice(0,quantidade);
-      texto += "..."
-    } 
+    if (texto == null){
+    return ""
+    }else {
+      if (texto.length >= quantidade){
+        texto = texto.slice(0,quantidade);
+        texto += "..."
+      }
+    }
+
     console.log(texto)
     return texto;
 
