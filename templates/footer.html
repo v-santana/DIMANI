@@ -77,13 +77,14 @@ function getRadioValor(name){
 
 
 function adiciona_carrinho(){
-  var id_produto = document.getElementById("id_produto").value;
-  var nome_produto = document.getElementById("nome_produto").textContent;
-  var descricao_produto = document.getElementById("descricao_produto").textContent;
-  var valor_produto = document.getElementById("valor_produto").value;
-  var tamanho_produto = getRadioValor("options");
-  var qtd_produto = document.getElementById('customControlValidation1').value;
-  var produto =  [id_produto, nome_produto, descricao_produto,valor_produto,qtd_produto,tamanho_produto];
+  var id_produto = document.getElementById("id_produto").value.replace(",","");
+  var nome_produto = document.getElementById("nome_produto").textContent.replace(",","");
+  var descricao_produto = document.getElementById("descricao_produto").textContent.replace(",","");
+  var valor_produto = document.getElementById("valor_produto").value.replace(",","");
+  var tamanho_produto = getRadioValor("options").replace(",","");
+  var qtd_produto = document.getElementById('customControlValidation1').value.replace(",","");
+  var observacao = document.getElementById('observacao_produto').value.replace(","," ");
+  var produto =  [id_produto, nome_produto, descricao_produto,valor_produto,qtd_produto,tamanho_produto, observacao];
 
   localStorage.setItem("produto_"+id_produto+"_"+tamanho_produto, produto );
   return produto;
@@ -114,11 +115,10 @@ function cria_tabela_carrinho(conteudo,id_localStorage){
     var texto_button = document.createTextNode("Remover");
     button.appendChild(texto_button)
     button.className += "btn-primary"
-    button.dataset.id_produto = localStorage.key(id_localStorage);
 
     // Define o evento de click como função para remover o produto com base no id_produto em local storage (funcao a estudar para melhorar)
     button.onclick = function () {
-      var id_produto = button.getAttribute("data-id_produto");
+      var id_produto = id_localStorage;
       var confirmar = confirm("Deseja excluir o item do carrinho?")
       if (confirmar){
         localStorage.removeItem(id_produto);

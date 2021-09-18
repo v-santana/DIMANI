@@ -12,6 +12,7 @@
       <th scope="col">QUANTIDADE</th>
       <th scope="col">VALOR UNITÁRIO</th>
       <th scope="col">VALOR TOTAL</th>
+      <th scope="col">OBSERVACAO</th>
       <th scope="col">#</th>
     </tr>
   </thead>
@@ -25,7 +26,16 @@
 </div>
 {% include 'footer.html'%}
 <script type="text/javascript" charset="utf-8" async defer>
+function maiorQue(texto,quantidade) {
+    var texto = texto;
+    if (texto.length >= quantidade){
+      texto = texto.slice(0,quantidade);
+      texto += "..."
+    } 
+    console.log(texto)
+    return texto;
 
+}
 function  carrega_tabela_carrinho(){
 
   var itens_storage = retorna_itens_lStorage()
@@ -33,7 +43,7 @@ function  carrega_tabela_carrinho(){
     for (item in itens_storage){
       //href para excluir item 
       tabela.appendChild(cria_tabela_carrinho(
-        [[itens_storage[item][0],itens_storage[item][1],itens_storage[item][2],itens_storage[item][5],itens_storage[item][4],formata_valor_com_cifrao(parseInt(itens_storage[item][3])),formata_valor_com_cifrao(itens_storage[item][3] * itens_storage[item][4])]],item))
+        [[itens_storage[item][0],itens_storage[item][1],itens_storage[item][2],itens_storage[item][5],itens_storage[item][4],formata_valor_com_cifrao(parseInt(itens_storage[item][3])),formata_valor_com_cifrao(itens_storage[item][3] * itens_storage[item][4]),maiorQue(itens_storage[item][6],20)]],item))
   }
 
 };
