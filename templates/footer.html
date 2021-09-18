@@ -81,14 +81,23 @@ function adiciona_carrinho(){
   var nome_produto = document.getElementById("nome_produto").textContent.replace(",","");
   var descricao_produto = document.getElementById("descricao_produto").textContent.replace(",","");
   var valor_produto = document.getElementById("valor_produto").value.replace(",","");
-  var tamanho_produto = getRadioValor("options").replace(",","");
   var qtd_produto = document.getElementById('customControlValidation1').value.replace(",","");
   var observacao = document.getElementById('observacao_produto').value.replace(","," ");
+  var tamanho_produto = getRadioValor("options").replace(",","");
   var produto =  [id_produto, nome_produto, descricao_produto,valor_produto,qtd_produto,tamanho_produto, observacao];
 
   localStorage.setItem("produto_"+id_produto+"_"+tamanho_produto, produto );
   return produto;
 }
+
+function verifica_campo_nulo(){
+  if (getRadioValor("options") == null) {
+    alert("Por favor, escolha um tamaho para o produto")
+    location.reload()
+    return true
+  }
+}
+
 
 function retorna_itens_lStorage(){
   nome = {}
