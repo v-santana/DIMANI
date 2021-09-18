@@ -112,6 +112,10 @@ def login():
 def sobre():
     return render_template('sobre.html')
 
+@app.route("/cadastro", methods=['GET'])
+def cadastro():
+    return render_template('cadastro.html')
+
 def teste():
     if request.method == 'POST':
         estado_form =  request.form['estado']

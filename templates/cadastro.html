@@ -1,249 +1,150 @@
 {% include 'head.html'%}
 
-<form class="forms needs-validation" [formGroup]="form" (ngSubmit)="submit()" novalidate>
+
+<div class="form-group d-flex justify-content-center">
+    <img src="/static/images/BANNER_BRANCO_DIMANI.PNG" width="500px" alt="Fuzzy Cardigan">
+</div>
+
+<form class="forms needs-validation" novalidate>
 
     <!-- TÍTULO FORM -->
-    <h5 class="form-title">1. Dados de cadastro</h5>
+    <h5 class="form-title">Dados de cadastro</h5>
     <!-- /END TÍTULO FORM -->
 
     <!-- CPF -->
     <div class="form-group">
-        <input
-            type="text"
-            id="Cpf"
-            placeholder="*Qual é o seu CPF?"
-            autocomplete="on"
-            aria-required="true"
-            mask="000.000.000-00"
-            class="form-control"
-            [class.is-invalid]="form.get('cpf').touched"
-            >
-        <label for="Cpf">*CPF</label>
-
-        <!-- Ver a respeito do error block -->
-        <!-- /Ver a respeito do error block -->
-
+        <div class="col-md-6 offset-md-3">
+            <label for="validationCustom01">CPF</label>
+            <input type="email" class="form-control" id="validationCustom01" placeholder="Insira seu CPF"  required>
+            <div class="invalid-feedback">
+              Insira um CPF válido.
+            </div>
+        </div>
     </div>
     <!-- /END CPF -->
 
     <!-- NOME COMPLETO -->
     <div class="form-group">
-        <input
-            type="text"
-            id="Nome"
-            placeholder="*Qual é o seu nome completo?"
-            autocomplete="on"
-            maxlength="255"
-            aria-required="true"
-            class="form-control"
-            [class.is-invalid]="form.get('nome').touched"
-            >
-        <label for="Nome">*Nome Completo</label>
-
-        <!-- Ver a respeito do error block -->
-        <!-- /Ver a respeito do error block -->
-
+        <div class="col-md-6 offset-md-3">
+            <label for="validationCustom01">Nome Completo</label>
+            <input type="email" class="form-control" id="validationCustom01" placeholder="Insira seu Nome Completo"  required>
+            <div class="invalid-feedback">
+              Insira seu nome completo.
+            </div>
+        </div>
     </div>
     <!-- /END NOME COMPLETO -->
 
     <!-- DATA DE NASCIMENTO -->
-    <div class="form-group-inline">
-
-        <div class="form-group">
-            <input
-                type="text"
-                id="Dia"
-                placeholder="*Qual sua data de nascimento?"
-                maxlength="10"
-                aria-required="true"
-                mask="d0/M0/0000"
-                [leadZeroDateTime]="true"
-                [class.is-invalid]="form.get('nascimento').touched"
-                class="form-control"
-                >
-            <label for="Dia">*Data de Nascimento</label>
-
-            <!-- Ver a respeito do error block -->
-            <!-- /Ver a respeito do error block -->
-
+    <div class="form-group">
+        <div class="col-md-6 offset-md-3">
+            <label for="validationCustom01">Data de Nascimento</label>
+            <input type="date" class="form-control" id="validationCustom01" placeholder="Sua data de nascimento"  required>
+            <div class="invalid-feedback">
+              Insira uma data válida.
+            </div>
         </div>
     </div>
     <!-- /END DATA DE NASCIMENTO -->
 
     <!-- CELULAR -->
     <div class="form-group-inline">
-
-        <div class="form-group">
-            <input
-                type="text"
-                id="Celular"
-                class="form-control"
-                placeholder="E o seu celular com DDD?"
-                mask="(00) 00000-0000"
-                [class.is-invalid]="form.get('telefone2').touched"
-            >
-            <label for="Celular">(DDD) Celular</label>
-
-            <!-- Ver a respeito do error block -->
-            <!-- /Ver a respeito do error block -->
-
-        </div>
-
+        <div class="col-md-6 offset-md-3">
+            <label for="validationCustom01">Celular</label>
+            <input type="text" class="form-control" id="validationCustom01" placeholder="Insira seu celular"  required>
+            <div class="invalid-feedback">
+              Insira um número de celular válido.
+            </div>
+          </div>
     </div>
     <!-- /END CELULAR -->
 
     <!-- E-MAIL -->
-    <div class="form-group-inline">
-
-        <div class="form-group">
-            <input
-                type="email"
-                id="Email"
-                placeholder="*Qual o seu melhor e-mail?"
-                maxlength="250"
-                aria-required="true"
-                class="form-control"
-                [class.is-invalid]="form.get('email').touched"
-                >
-            <label for="Email">*E-mail</label>
-
-            <!-- Ver a respeito do error block -->
-            <!-- /Ver a respeito do error block -->
-
+    <div class="col-md-6 offset-md-3">
+        <label for="validationCustom01">E-mail</label>
+        <input type="email" class="form-control" id="validationCustom01" placeholder="Endereço de e-mail"  required>
+        <div class="invalid-feedback">
+          Insira um endereço de e-mail válido.
         </div>
     </div>
     <!-- /END E-MAIL -->
 
     <!-- CEP -->
     <div class="form-group">
-        <input
-            type="text"
-            id="Cep"
-            placeholder="*Qual o CEP do seu endereço?"
-            aria-required="true"
-            mask="00000-000"
-            class="form-control"
-            [class.is-invalid]="form.get('cep').touched"
-            >
-        <label for="Cep">*CEP</label>
-
-        <!-- Ver a respeito do error block -->
-        <!-- /Ver a respeito do error block -->
+        <div class="col-md-6 offset-md-3">
+            <label for="validationCustom01">CEP</label>
+            <input type="text" class="form-control" id="validationCustom01" placeholder="CEP"  required>
+            <div class="invalid-feedback">
+              Insira um CEP válido.
+            </div>
+        </div>
     </div>
     <!-- /END CEP -->
 
     <!-- ENDEREÇO -->
     <div class="form-group">
-        <input
-            type="text"
-            id="Endereco"
-            placeholder="*Endereço"
-            maxlength="255"
-            aria-required="true"
-            class="form-control"
-            [class.is-invalid]="form.get('endereco').touched"
-            >
-        <label for="Endereco">*Endereço</label>
-        <div class="icon-container" *ngIf="showCEP">
-            <i class="loader"></i>
+        <div class="col-md-6 offset-md-3">
+            <label for="validationCustom01">Endereço</label>
+            <input type="text" class="form-control" id="validationCustom01" placeholder="Endereço"  required>
+            <div class="invalid-feedback">
+              Insira um endereço válido.
+            </div>
         </div>
-
-        <!-- Ver a respeito do error block -->
-        <!-- /Ver a respeito do error block -->
     </div>
     <!-- /END ENDEREÇO -->
 
-
-    <div class="form-group-inline">
-
-        <!-- NÚMERO -->
-        <div class="form-group">
-            <input
-                type="text"
-                id="Numero"
-                name="Numero"
-                placeholder="*Número"
-                maxlength="50"
-                aria-required="true"
-                required
-                class="form-control"
-                [class.is-invalid]="form.get('numero').touched">
-            <label for="Numero">Número</label>
-
-            <!-- Ver a respeito do error block -->
-            <!-- /Ver a respeito do error block -->
-
+    <!-- NÚMERO -->
+    <div class="form-group">
+        <div class="col-md-6 offset-md-3">
+            <label for="validationCustom01">Número</label>
+            <input type="text" class="form-control" id="validationCustom01" placeholder="Número"  required>
+            <div class="invalid-feedback">
+              Insira um Número válido.
+            </div>
         </div>
-        <!-- /END NÚMERO -->
-
-        <!-- COMPLEMENTO -->
-        <div class="form-group">
-            <input
-                type="text"
-                id="Complemento"
-                name="Complemento"
-                class="form-control"
-                placeholder="Complemento"
-                maxlength="50"
-            >
-            <label for="Complemento">Complemento</label>
-            <div class="invalid-feedback">Mensagem de erro do campo</div>
-        </div>
-        <!-- /END COMPLEMENTO -->
     </div>
+    <!-- /END NÚMERO -->
+
+    <!-- COMPLEMENTO -->
+    <div class="form-group">
+        <div class="col-md-6 offset-md-3">
+            <label for="validationCustom01">Complemento</label>
+            <input type="text" class="form-control" id="validationCustom01" placeholder="Complemento de endereço">
+        </div>
+    </div>
+    <!-- /END COMPLEMENTO -->
 
     <!-- SENHA -->
     <div class="form-group">
-        <input
-            type="password"
-            id="Senha"
-            placeholder="*Senha"
-            maxlength="20"
-            minlength="6"
-            aria-required="true"
-            required
-            class="form-control"
-            [class.is-invalid]="form.get('senha').touched"
-        >
-        <label for="Senha">*Senha</label>
-
-            <!-- Ver a respeito do error block -->
-            <!-- /Ver a respeito do error block -->
+        <div class="col-md-6 offset-md-3">
+            <label for="validationCustom02">Senha</label>
+            <input type="password" class="form-control" id="validationCustom02" placeholder="Insira a senha" required>
+              <div class="invalid-feedback">
+                Digite uma senha.
+              </div>
+        </div>
     </div>
     <!-- /END SENHA -->
 
     <!-- SENHA CONFIRMAÇÃO -->
     <div class="form-group">
-        <input
-            type="password"
-            id="ConfirmeSenha"
-            placeholder="*Confirme a sua senha"
-            maxlength="20"
-            minlength="6"
-            required
-            aria-required="true"
-            class="form-control"
-            [class.is-invalid]="form.get('passwordRetype').touched"
-        >
-        <label for="SenhaConfirm">*Confirme a sua senha</label>
-
-        <!-- Ver a respeito do error block -->
-        <!-- /Ver a respeito do error block -->
+        <div class="col-md-6 offset-md-3">
+            <label for="validationCustom02">Confirmação senha</label>
+            <input type="password" class="form-control" id="validationCustom02" placeholder="Insira novamente a senha" required>
+              <div class="invalid-feedback">
+                As senhas não correspondem.
+              </div>
+        </div>
     </div>
     <!-- /END SENHA CONFIRMAÇÃO -->
 
     <!-- BOTÃO FINALIZAR -->
     <div class="form-group">
-        <button type="submit"
-            id="Finalizar"
-            name="Finalizar"
-            class="btn btn-primary btn-block form-btn"
-        >
-            <span>login</span>
-        </button>
+        <div class="col-md-6 offset-md-3" style="margin-top: 2rem;">
+            <button type="submit" class="btn btn-secondary btn-lg btn-block">Finalizar cadastro</button>
+        </div>
     </div>
     <!-- /END BOTÃO FINALIZAR -->
-
 </form>
 
 {% include 'footer.html'%}
