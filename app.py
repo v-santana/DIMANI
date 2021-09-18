@@ -1,7 +1,8 @@
 from funcoes_bd import *
 from localStoragePy import localStoragePy
 
-
+################ SENHA PARA CRIPTOGEAFIA DE SESSION ################
+app = Flask(__name__)
 
 
 
@@ -104,17 +105,61 @@ def detalhes_produto(id_produto):
 def carrinho():
     return render_template('carrinho.html')
 
-@app.route("/login", methods=['GET'])
+
+log_in = Blueprint("log_in",__name__)
+@app.route("/login", methods=['GET','POST'])
 def login():
+    if request.method == 'POST':
+        ########### Vai verificar se é cliente ou funcionário ########
+        cliente_form_email = request.form['email']
+        cliente_form_senha = request.form['senha']
+        cliente = db_localizar_cliente_email(cliente_form_email)[0]
+        if cliente['ID_CONTA'] != None:
+            if cliente['EMAIL'] == cliente_form_email:
+                if cliente['SENHA'] == cliente_form_senha:
+                    session['ID_CONTA'] = cliente["ID_CONTA"]
+                    session['CPF'] = cliente["CPF"]
+                    session['DT_NASC'] = cliente["DT_NASC"]
+                    session['EMAIL'] = cliente["EMAIL"]
+                    session['NOME'] = cliente["NOME"]
+                    print(session)
+                    redirect('/catalogo')
+
+        else:
+            funcionario = db_localizar_funcionario_email(request.form['email'])
     return render_template('login.html')
+
+@app.route('/logout', methods = ['POST','GET'])
+def logout():
+        session.clear()
+        return redirect('login')
 
 @app.route("/sobre", methods=['GET'])
 def sobre():
     return render_template('sobre.html')
 
-@app.route("/cadastro", methods=['GET'])
+@app.route("/cadastro", methods=['POST','GET'])
 def cadastro():
-    return render_template('cadastro.html')
+    if request.method == 'POST':
+        ############# Variáveis do form dados de cadastro ###############
+        cpf,nome_completo,dt_nasc,telefone = request.form['cpf'],request.form['nome_completo'],request.form['dt_nasc'],request.form['telefone'] 
+        email,senha,confirmacao_senha = request.form['email'],request.form['senha'],request.form['confirmacao_senha']
+        id_cidade,id_estado = request.form['cidade'],request.form['estado']
+        cep,rua,bairro,numero,complemento = request.form['cep'],request.form['rua'],request.form['bairro'],request.form['numero'],request.form['complemento']
+        ###### verificar se email já existe no banco de dados ########
+        #db_localizar_cliente_email(email)
+
+        ##############################################################
+        endereco = db_criar_endereco(rua,numero,bairro,complemento,id_cidade)
+        cliente = db_criar_cliente(cpf, nome_completo, dt_nasc, email,senha,endereco['id_endereco'],"123")
+        telefone_cliente = db_criar_telefone_cliente(cliente['id_conta'],telefone)
+        
+        ####### campos recolhidos pelo formulário #######
+        print(f"{cpf} | {nome_completo} | {dt_nasc} | {telefone} | {email} | {senha} | {confirmacao_senha} | {cep} | {endereco} | {numero} | {complemento}")
+        ###### Foi inserido no banco de dados #######
+        print(cliente)
+    return render_template('cadastro.html', cidades= db_listar_cidades_por_estado(26), estados=db_listar_estados())
+
 
 def teste():
     if request.method == 'POST':
@@ -129,4 +174,10 @@ def teste():
 
 
 if __name__ == "__main__":
+    app.secret_key = 'super secret key'
+    app.config['SESSION_TYPE'] = 'filesystem'
+
+    Session().init_app(app)
+
+    app.debug = True
     app.run(debug=True)

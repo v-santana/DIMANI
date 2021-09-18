@@ -1,4 +1,5 @@
-from flask import Flask, make_response, request, render_template, redirect, send_from_directory
+from flask import Flask, make_response, request, render_template, redirect, send_from_directory,session,Blueprint
+from flask_session import Session
 from wtforms import Form, BooleanField, StringField, PasswordField, validators,IntegerField,SubmitField,HiddenField
 from contextlib import closing
 import mariadb
@@ -185,6 +186,12 @@ def db_localizar_cliente(id_conta):
         ON  cl.ID_ENDERECO = en.ID_ENDERECO WHERE cl.ID_CONTA = (?)''' , [id_conta])
         return rows_to_dict(cur.description, cur.fetchall())
 
+def db_localizar_cliente_email(email):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute('''SELECT cl.ID_CONTA, cl.CPF, cl.NOME, cl.DT_NASC, cl.EMAIL, cl.SENHA, en.RUA, en.NUMERO FROM TB_CLIENTE cl  INNER JOIN TB_ENDERECO en 
+        ON  cl.ID_ENDERECO = en.ID_ENDERECO WHERE cl.EMAIL = (?)''' , [email])
+        return rows_to_dict(cur.description, cur.fetchall())
+
 
 def db_atualizar_cliente(id_conta, nome, dt_nasc, email,chave_pix):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
@@ -239,6 +246,11 @@ def db_listar_funcionarios():
         cur.execute("SELECT * FROM TB_FUNCIONARIO")
         return rows_to_dict(cur.description, cur.fetchall())
 
+def db_localizar_funcionario_email(email):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute('''SELECT fu.ID_CONTA, fu.CPF, fu.NOME, fu.DT_NASC, fu.EMAIL, fu.SENHA, en.RUA, en.NUMERO FROM TB_FUNCIONARIO fu  INNER JOIN TB_ENDERECO en 
+        ON  cl.ID_ENDERECO = en.ID_ENDERECO WHERE fu.EMAIL = (?)''' , [email])
+        return rows_to_dict(cur.description, cur.fetchall())
 
 
 

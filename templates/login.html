@@ -5,26 +5,32 @@
 <div class="form-group d-flex justify-content-center">
   <img src="/static/images/BANNER_BRANCO_DIMANI.PNG" width="500px" alt="Fuzzy Cardigan">
 </div>
-
-<form class="needs-validation" novalidate>
+<div class="container">
+<form class="needs-validation" method="POST" novalidate>
   <div class="form-row">
     <div class="col-md-6 offset-md-3">
       <label for="validationCustom01">E-mail</label>
-      <input type="email" class="form-control" id="validationCustom01" placeholder="Endereço de e-mail"  required>
+      <input type="email" name="email" class="form-control" id="validationCustom01" placeholder="Endereço de e-mail"  required>
       <div class="invalid-feedback">
         Insira um endereço de e-mail válido.
       </div>
     </div>
     <div class="col-md-6 offset-md-3">
       <label for="validationCustom02">Senha</label>
-      <input type="password" class="form-control" id="validationCustom02" placeholder="Insira a senha" required>
+      <input type="password" name="senha" class="form-control" id="validationCustom02" placeholder="Insira a senha" required>
         <div class="invalid-feedback">
           Digite uma senha.
         </div>
     </div>
-      <div class="col-md-6 offset-md-3 form-check" class="dropdown-divider"></div>
-        <a class="col-md-6 offset-md-3 form-check" href="#">Novo por aqui? Cadastre-se</a>
-        <a class="col-md-6 offset-md-3 form-check" href="#">Esqueceu sua senha?</a>
+      <div class="col-md-6 offset-md-3 form-check" style="margin-top: 2%; margin-bottom:2%;" class="dropdown-divider">
+      <div class="row" >
+        <div class="col-sm">
+          <a class="form-check" href="/cadastro">Novo por aqui? Cadastre-se</a>
+        </div>
+        <div class="col-sm">
+          <a class="form-check" href="#">Esqueceu sua senha?</a>
+        </div>
+        </div>
       </div>
       <p><div class="col-md-6 offset-md-3">
         <button type="submit" class="btn btn-secondary btn-lg btn-block">Acessar</button>
@@ -52,7 +58,7 @@
   }, false);
 })();
 </script>
-
+</div>
 
 
 {% include 'footer.html'%}
