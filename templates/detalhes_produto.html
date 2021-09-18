@@ -37,7 +37,7 @@
   </div>
   <!-- Coluna2 -->
     <div class="col">
-      <div class="col-md-4 offset-md-0">
+      <div >
             <div class="card-body">
               <input type="hidden" id="id_produto" name="id_produto" value="{{detalhes_produto['ID_PRODUTO']}}">
               <h2 class="title"  id="nome_produto">{{detalhes_produto['NOME_PRODUTO']}}</h2>
@@ -45,25 +45,32 @@
               <h4 class="card-text" name="valor_produto_real" >{{detalhes_produto['VALOR']}}</h4>
               <p class="card-text" id="descricao_produto">{{detalhes_produto['DESCRICAO']}}</small></p>
                 <p><div class="form-group">
-                  <label>TAMANHO </label>
+                  <label>TAMANHO </label><br>
                       <div class="btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-info">
                           <input type="radio" name="options" id="option1" value="PP" autocomplete="off" > PP
                         </label>
                         <label class="btn btn-info">
-                          <input type="radio" name="options" id="option1" value="P" autocomplete="off" > P
+                          <input type="radio" name="options" id="option2" value="P" autocomplete="off" > P
                         </label>
                         <label class="btn btn-info">
-                          <input type="radio" name="options" id="option2" value="M" autocomplete="off"> M
+                          <input type="radio" name="options" id="option3" value="M" autocomplete="off"> M
                         </label>
                         <label class="btn btn-info">
-                          <input type="radio" name="options" id="option3" value="G" autocomplete="off"> G
+                          <input type="radio" name="options" id="option4" value="G" autocomplete="off"> G
                         </label>
                         <label class="btn btn-info">
-                          <input type="radio" name="options" id="option3" value="GG" autocomplete="off"> GG
+                          <input type="radio" name="options" id="option5" value="GG" autocomplete="off"> GG
                       </div>
                   </label>
                 </div>
+
+                <div class="form-group">
+                  <label for="observacao_produto">Personalização</label>
+                  <textarea class="form-control" id="observacao_produto" 
+                  placeholder="Exemplo: Bordar iniciais na manga da blusa. (Máx: 200 caracteres) " maxlength="200"rows="3"></textarea>
+                </div>
+                
                 <form class="form-inline">
                   <label class="my-1 mr-2" for="customControlValidation1">QUANTIDADE</label>
                   <select class="custom-select my-1 mr-sm-2" id="customControlValidation1">
@@ -85,9 +92,9 @@
             </div>
           </div>
         </div>
-      </div></div>
+      </div>
+    </div>
 </div>
-
 
 
 
