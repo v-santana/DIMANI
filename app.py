@@ -39,6 +39,11 @@ from localStoragePy import localStoragePy
 #telefone_funcionarios= db_listar_telefone_funcionario()
 #print(f" ENDEREÇOS: {enderecos}\n CLIENTES: {clientes}\n FUNCIONARIOS: {funcionarios}\n MOVIMENTACOES: {movimentacoes}\n PRODUTOS: {produtos}\n TAMANHO: {tamanho_produtos}\n COR: {cor_produtos}\n PEDIDO: {pedidos}\n POSSUI_PEDIDO_PRODUTO: {possui_pedido_produtos}\n PAGAMENTOS: {pagamentos}\n DADOS_BANCARIOS: {dados_bancarios}\n telefone_clientes: {telefone_clientes}\n telefone_funcionarios: {telefone_funcionarios}")
 #criar = criar_mov_produto(5,'ENTRADA',46211111111,None,'MEIA','MEIA INFANTIL',20.00)
+#produto = db_criar_produto('MANTA',"MANTA INFANTIL",10,100.00,46211111111,1)
+#movimentacao = Movimentacao()
+#tipo_mov = Entrada()
+#Formato para Entrada de Produto como Criação do Produto
+#movimentacao.cria_movimentacao_produto(1,46211111111,tipo_mov,None,"Calça Legging","CAPA Calça",11.00)
 
 
 
