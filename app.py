@@ -1,4 +1,5 @@
 from funcoes_bd import *
+from flask import Flask
 from localStoragePy import localStoragePy
 
 ################ SENHA PARA CRIPTOGEAFIA DE SESSION ################
