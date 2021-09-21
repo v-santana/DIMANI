@@ -110,8 +110,10 @@ def carrinho():
 log_in = Blueprint("log_in",__name__)
 @app.route("/login", methods=['GET','POST'])
 def login():
+    print('EMAIL:::::',session.keys())
     if request.method == 'POST':
         ########### Vai verificar se é cliente ou funcionário ########
+
         cliente_form_email = request.form['email']
         cliente_form_senha = request.form['senha']
         cliente = db_localizar_cliente_email(cliente_form_email)[0]
