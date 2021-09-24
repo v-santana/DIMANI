@@ -2,189 +2,217 @@
 
 
 <div class="form-group d-flex justify-content-center">
-  <img src="/static/images/BANNER_BRANCO_DIMANI.PNG" alt="Fuzzy Cardigan" class="img-fluid" style="max-width: 500px; width:100%;">
+    <img src="/static/images/BANNER_BRANCO_DIMANI.PNG" alt="Fuzzy Cardigan" class="img-fluid" style="max-width: 500px; width:100%;">
 </div>
 <div class="container">
-<form class="forms needs-validation" method="POST" novalidate>
+    <form class="forms needs-validation" method="POST" novalidate>
 
-    <!-- TÍTULO FORM -->
-    <h2 class="form-title text-center">Dados de cadastro</h2>
-    <!-- /END TÍTULO FORM -->
+        <!-- TÍTULO FORM -->
+        <h2 class="form-title text-center">Dados de cadastro</h2>
+        <!-- /END TÍTULO FORM -->
 
-    <!-- CPF -->
-    <div class="form-group">
-        <div class="col-md-6 offset-md-3">
-            <label for="validationCustom01" >CPF</label>
-            <input type="text" name="cpf" class="form-control" id="validationCustom01" placeholder="Insira seu CPF" maxlength="11"
-            pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})"  required>
-            <div class="invalid-feedback">
-              Insira um CPF válido.
+        <!-- CPF -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">CPF</label>
+                <input type="text" name="cpf" class="form-control" id="validationCustom01" placeholder="Insira seu CPF" maxlength="11" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" required>
+                <div class="invalid-feedback">
+                    Insira um CPF válido.
+                </div>
             </div>
         </div>
-    </div>
-    <!-- /END CPF -->
+        <!-- /END CPF -->
 
-    <!-- NOME COMPLETO -->
-    <div class="form-group">
-        <div class="col-md-6 offset-md-3">
-            <label for="validationCustom01">Nome Completo</label>
-            <input type="text" name="nome_completo" class="form-control" id="validationCustom01" placeholder="Insira seu Nome Completo" maxlength="200"  required>
-            <div class="invalid-feedback">
-              Insira seu nome completo.
+        <!-- NOME COMPLETO -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Nome Completo</label>
+                <input type="text" name="nome_completo" class="form-control" id="validationCustom01" placeholder="Insira seu Nome Completo" maxlength="200" required>
+                <div class="invalid-feedback">
+                    Insira seu nome completo.
+                </div>
             </div>
         </div>
-    </div>
-    <!-- /END NOME COMPLETO -->
+        <!-- /END NOME COMPLETO -->
 
-    <!-- DATA DE NASCIMENTO -->
-    <div class="form-group">
-        <div class="col-md-6 offset-md-3">
-            <label for="validationCustom01">Data de Nascimento</label>
-            <input type="date" name="dt_nasc" class="form-control" id="validationCustom01" placeholder="Sua data de nascimento"  required>
-            <div class="invalid-feedback">
-              Insira uma data válida.
+        <!-- DATA DE NASCIMENTO -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Data de Nascimento</label>
+                <input type="date" name="dt_nasc" class="form-control" id="validationCustom01" placeholder="Sua data de nascimento" required>
+                <div class="invalid-feedback">
+                    Insira uma data válida.
+                </div>
             </div>
         </div>
-    </div>
-    <!-- /END DATA DE NASCIMENTO -->
+        <!-- /END DATA DE NASCIMENTO -->
 
-    <!-- CELULAR -->
-    <div class="form-group-inline">
-        <div class="col-md-6 offset-md-3">
-            <label for="validationCustom01">Telefone</label>
-            <input type="text" name="telefone" class="form-control" id="validationCustom01" placeholder="Insira seu telefone" maxlength="13"  required>
-            <div class="invalid-feedback">
-              Insira um número de telefone válido.
+        <!-- CELULAR -->
+        <div class="form-group-inline">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Telefone</label>
+                <input type="text" name="telefone" class="form-control" id="validationCustom01" placeholder="Insira seu telefone" maxlength="13" required>
+                <div class="invalid-feedback">
+                    Insira um número de telefone válido.
+                </div>
             </div>
-          </div>
-    </div>
-    <!-- /END CELULAR -->
-
-    <!-- E-MAIL -->
-    <div class="col-md-6 offset-md-3">
-        <label for="validationCustom01">E-mail</label>
-        <input type="email" name="email" class="form-control" id="validationCustom01" placeholder="Endereço de e-mail" maxlength="100" required>
-        <div class="invalid-feedback">
-          Insira um endereço de e-mail válido.
         </div>
-    </div>
-    <!-- /END E-MAIL -->
+        <!-- /END CELULAR -->
 
-    <!-- ENDERECO -->
-    <!-- ESTADO -->
-    <div class="form-group">
-      <div class="col-md-6 offset-md-3">
-          <label for="validationCustom01" class="custom-label">ESTADO</label>
-          <select class="custom-select" name="estado" id="validationCustom01" required>
-      <option selected disabled value="">Escolher...</option>
-      {% for estado in estados %}
-      <option value="{{estado['ID_ESTADO']}}">{{estado['NOME_ESTADO']}}</option>
-      {% endfor %}
-    </select>
-          <div class="invalid-feedback">
-              Escolha um estado válido
-          </div>
-      </div>
-  </div>
-  <!-- /END ESTADO -->
-
-  <!-- CIDADE -->
-  <div class="form-group">
-      <div class="col-md-6 offset-md-3">
-          <label for="validationCustom01" class="custom_label">Cidade</label>
-          <select class="custom-select" name="cidade" id="validationCustom01" required>
-  <option selected disabled value="">Escolher...</option>
-  {% for cidade in cidades %}
-  <option value="{{cidade['ID_CIDADE']}}">{{cidade['NOME_CIDADE']}}</option>
-  {% endfor %}
-</select>
-          <div class="invalid-feedback">
-              Escolha uma cidade
-          </div>
-      </div>
-  </div>
-  <!-- /END CIDADE -->
-
-  <!-- RUA -->
-  <div class="form-group">
-      <div class="col-md-6 offset-md-3">
-          <label for="validationCustom01">Endereço</label>
-          <input type="text" name="rua" class="form-control" id="validationCustom01" placeholder="Rua" required>
-          <div class="invalid-feedback">
-              Insira um endereço válido.
-          </div>
-      </div>
-  </div>
-  <!-- /END RUA -->
-
-  <!-- BAIRRO -->
-  <div class="form-group">
-      <div class="col-md-6 offset-md-3">
-          <label for="validationCustom01">Bairro</label>
-          <input type="text" name="bairro" class="form-control" id="validationCustom01" placeholder="Bairro" required>
-          <div class="invalid-feedback">
-              Insira um endereço válido.
-          </div>
-      </div>
-  </div>
-  <!-- /END BAIRRO -->
-
-  <!-- NÚMERO -->
-  <div class="form-group">
-      <div class="col-md-6 offset-md-3">
-          <label for="validationCustom01">Número</label>
-          <input type="text" name="numero" class="form-control" id="validationCustom01" placeholder="Número" required>
-          <div class="invalid-feedback">
-              Insira um Número válido.
-          </div>
-      </div>
-  </div>
-  <!-- /END NÚMERO -->
-
-  <!-- COMPLEMENTO -->
-  <div class="form-group">
-      <div class="col-md-6 offset-md-3">
-          <label for="validationCustom01">Complemento</label>
-          <input type="text" name="complemento" class="form-control" id="validationCustom01" placeholder="Complemento de endereço">
-      </div>
-  </div>
-  <!-- /END COMPLEMENTO -->
-
-    <!-- /END ENDERECO -->
-    
-    <!-- SENHA -->
-    <div class="form-group">
+        <!-- E-MAIL -->
         <div class="col-md-6 offset-md-3">
-            <label for="validationCustom02">Senha</label>
-            <input type="text" name="senha" class="form-control" id="validationCustom02" placeholder="Insira a senha" required>
-              <div class="invalid-feedback">
-                Digite uma senha.
-              </div>
+            <label for="validationCustom01">E-mail</label>
+            <input type="email" name="email" class="form-control" id="validationCustom01" placeholder="Endereço de e-mail" maxlength="100" required>
+            <div class="invalid-feedback">
+                Insira um endereço de e-mail válido.
+            </div>
         </div>
-    </div>
-    <!-- /END SENHA -->
+        <!-- /END E-MAIL -->
 
-    <!-- SENHA CONFIRMAÇÃO -->
-    <div class="form-group">
-        <div class="col-md-6 offset-md-3">
-            <label for="validationCustom02">Confirmação senha</label>
-            <input type="text" name="confirmacao_senha" class="form-control" id="validationCustom02" placeholder="Insira novamente a senha" required>
-              <div class="invalid-feedback">
-                As senhas não correspondem.
-              </div>
+        <!-- CEP -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">CEP</label>
+                <input type="text" name="cep" class="form-control" id="validationCustom01" placeholder="CEP" required>
+                <div class="invalid-feedback">
+                    Insira um CEP válido.
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- /END SENHA CONFIRMAÇÃO -->
+        <!-- /END CEP -->
 
-    <!-- BOTÃO FINALIZAR -->
-    <div class="form-group">
-        <div class="col-md-6 offset-md-3" style="margin-top: 2rem;">
-            <button type="submit" class="btn btn-secondary btn-lg btn-block">Finalizar cadastro</button>
+        <!-- ESTADO -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01" class="custom-label">ESTADO</label>
+                <select class="custom-select" name="estado" id="validationCustom01" required>
+            <option selected disabled value="">Escolher...</option>
+            {% for estado in estados %}
+            <option value="{{estado['ID_ESTADO']}}">{{estado['NOME_ESTADO']}}</option>
+            {% endfor %}
+          </select>
+                <div class="invalid-feedback">
+                    Escolha um estado válido
+                </div>
+            </div>
         </div>
-    </div>
-    <!-- /END BOTÃO FINALIZAR -->
-</form>
+        <!-- /END ESTADO -->
 
+        <!-- CIDADE -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01" class="custom_label">Cidade</label>
+                <select class="custom-select" name="cidade" id="validationCustom01" required>
+        <option selected disabled value="">Escolher...</option>
+        {% for cidade in cidades %}
+        <option value="{{cidade['ID_CIDADE']}}">{{cidade['NOME_CIDADE']}}</option>
+        {% endfor %}
+      </select>
+                <div class="invalid-feedback">
+                    Escolha uma cidade
+                </div>
+            </div>
+        </div>
+        <!-- /END CIDADE -->
+
+        <!-- RUA -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Endereço</label>
+                <input type="text" name="rua" class="form-control" id="validationCustom01" placeholder="Rua" required>
+                <div class="invalid-feedback">
+                    Insira um endereço válido.
+                </div>
+            </div>
+        </div>
+        <!-- /END RUA -->
+
+        <!-- BAIRRO -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Bairro</label>
+                <input type="text" name="bairro" class="form-control" id="validationCustom01" placeholder="Bairro" required>
+                <div class="invalid-feedback">
+                    Insira um endereço válido.
+                </div>
+            </div>
+        </div>
+        <!-- /END BAIRRO -->
+
+        <!-- NÚMERO -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Número</label>
+                <input type="text" name="numero" class="form-control" id="validationCustom01" placeholder="Número" required>
+                <div class="invalid-feedback">
+                    Insira um Número válido.
+                </div>
+            </div>
+        </div>
+        <!-- /END NÚMERO -->
+
+        <!-- COMPLEMENTO -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Complemento</label>
+                <input type="text" name="complemento" class="form-control" id="validationCustom01" placeholder="Complemento de endereço">
+            </div>
+        </div>
+        <!-- /END COMPLEMENTO -->
+
+        <!-- SENHA -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom02">Senha</label>
+                <input type="password" name="senha" class="form-control" id="validationCustom02" placeholder="Insira a senha" required>
+                <div class="invalid-feedback">
+                    Digite uma senha.
+                </div>
+            </div>
+        </div>
+        <!-- /END SENHA -->
+
+        <!-- SENHA CONFIRMAÇÃO -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom02">Confirmação senha</label>
+                <input type="password" name="confirmacao_senha" class="form-control" id="validationCustom02" placeholder="Insira novamente a senha" required>
+                <div class="invalid-feedback">
+                    As senhas não correspondem.
+                </div>
+            </div>
+        </div>
+        <!-- /END SENHA CONFIRMAÇÃO -->
+
+        <!-- BOTÃO FINALIZAR -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3" style="margin-top: 2rem;">
+                <button type="submit" class="btn btn-secondary btn-lg btn-block">Finalizar cadastro</button>
+            </div>
+        </div>
+        <!-- /END BOTÃO FINALIZAR -->
+    </form>
 </div>
+
+<script>
+    // Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+            var forms = document.getElementsByClassName('needs-validation');
+            // Faz um loop neles e evita o envio
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
 
 {% include 'footer.html'%}
