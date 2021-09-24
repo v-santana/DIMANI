@@ -51,7 +51,7 @@
               <span class="glyphicon glyphicon-shopping-cart"></span> Carrinho
           </a>
         </li>
-        {% if session['EMAIL'] == None %}
+        {% if 'NOME' not in session %}
         <li class="nav-item">
           <a class="btn btn-success" href="/login" >Login / Cadastre-se</a>
         </li>
@@ -59,7 +59,7 @@
             <li class="nav-item">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle" href="#" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Bem vindo, {{session['EMAIL']}}
+                  Bem vindo, {{session['NOME']}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                   <a class="dropdown-item" href="/logout">Sair</a>

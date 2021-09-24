@@ -70,89 +70,88 @@
     </div>
     <!-- /END E-MAIL -->
 
-    <!-- CEP -->
-    <div class="form-group">
-        <div class="col-md-6 offset-md-3">
-            <label for="validationCustom01">CEP</label>
-            <input type="text" name="cep" class="form-control" id="validationCustom01" placeholder="CEP"  required>
-            <div class="invalid-feedback">
-              Insira um CEP válido.
-            </div>
-        </div>
-    </div>
-    <!-- /END CEP -->
+    <!-- ENDERECO -->
     <!-- ESTADO -->
-        <div class="form-group">
-          <div class="col-md-6 offset-md-3">
-            <label for="validationCustom01">ESTADO</label>
-          <select class="custom-select" name = "estado" id="inputGroupSelect01">
-            <option selected>Escolher...</option>
-            {% for estado in estados %}
-            <option value="{{estado['ID_ESTADO']}}">{{estado['NOME_ESTADO']}}</option>
-            {% endfor %}
-          </select>
-          </div>
-        </div>
-    <!-- /END CIDADE -->
-
-    <!-- CIDADE -->
     <div class="form-group">
       <div class="col-md-6 offset-md-3">
-        <label for="validationCustom01">Cidade</label>
-      <select class="custom-select" name="cidade" id="inputGroupSelect01">
-        <option selected>Escolher...</option>
-        {% for cidade in cidades %}
-        <option value="{{cidade['ID_CIDADE']}}">{{cidade['NOME_CIDADE']}}</option>
-        {% endfor %}
-      </select>
-      </div>
-    </div>
-    <!-- /END CIDADE -->
-    <!-- RUA -->
-    <div class="form-group">
-        <div class="col-md-6 offset-md-3">
-            <label for="validationCustom01">Endereço</label>
-            <input type="text" name="rua" class="form-control" id="validationCustom01" placeholder="Rua"  required>
-            <div class="invalid-feedback">
-              Insira um endereço válido.
-            </div>
-        </div>
-    </div>
-    <!-- /END RUA -->
-
-    <!-- BAIRRO -->
-        <div class="form-group">
-          <div class="col-md-6 offset-md-3">
-              <label for="validationCustom01">Bairro</label>
-              <input type="text" name="bairro" class="form-control" id="validationCustom01" placeholder="Bairro"  required>
-              <div class="invalid-feedback">
-                Insira um endereço válido.
-              </div>
+          <label for="validationCustom01" class="custom-label">ESTADO</label>
+          <select class="custom-select" name="estado" id="validationCustom01" required>
+      <option selected disabled value="">Escolher...</option>
+      {% for estado in estados %}
+      <option value="{{estado['ID_ESTADO']}}">{{estado['NOME_ESTADO']}}</option>
+      {% endfor %}
+    </select>
+          <div class="invalid-feedback">
+              Escolha um estado válido
           </div>
       </div>
-      <!-- /END BAIRRO -->
+  </div>
+  <!-- /END ESTADO -->
 
-    <!-- NÚMERO -->
-    <div class="form-group">
-        <div class="col-md-6 offset-md-3">
-            <label for="validationCustom01">Número</label>
-            <input type="text" name="numero" class="form-control" id="validationCustom01" placeholder="Número"  required>
-            <div class="invalid-feedback">
+  <!-- CIDADE -->
+  <div class="form-group">
+      <div class="col-md-6 offset-md-3">
+          <label for="validationCustom01" class="custom_label">Cidade</label>
+          <select class="custom-select" name="cidade" id="validationCustom01" required>
+  <option selected disabled value="">Escolher...</option>
+  {% for cidade in cidades %}
+  <option value="{{cidade['ID_CIDADE']}}">{{cidade['NOME_CIDADE']}}</option>
+  {% endfor %}
+</select>
+          <div class="invalid-feedback">
+              Escolha uma cidade
+          </div>
+      </div>
+  </div>
+  <!-- /END CIDADE -->
+
+  <!-- RUA -->
+  <div class="form-group">
+      <div class="col-md-6 offset-md-3">
+          <label for="validationCustom01">Endereço</label>
+          <input type="text" name="rua" class="form-control" id="validationCustom01" placeholder="Rua" required>
+          <div class="invalid-feedback">
+              Insira um endereço válido.
+          </div>
+      </div>
+  </div>
+  <!-- /END RUA -->
+
+  <!-- BAIRRO -->
+  <div class="form-group">
+      <div class="col-md-6 offset-md-3">
+          <label for="validationCustom01">Bairro</label>
+          <input type="text" name="bairro" class="form-control" id="validationCustom01" placeholder="Bairro" required>
+          <div class="invalid-feedback">
+              Insira um endereço válido.
+          </div>
+      </div>
+  </div>
+  <!-- /END BAIRRO -->
+
+  <!-- NÚMERO -->
+  <div class="form-group">
+      <div class="col-md-6 offset-md-3">
+          <label for="validationCustom01">Número</label>
+          <input type="text" name="numero" class="form-control" id="validationCustom01" placeholder="Número" required>
+          <div class="invalid-feedback">
               Insira um Número válido.
-            </div>
-        </div>
-    </div>
-    <!-- /END NÚMERO -->
+          </div>
+      </div>
+  </div>
+  <!-- /END NÚMERO -->
 
-    <!-- COMPLEMENTO -->
-    <div class="form-group">
-        <div class="col-md-6 offset-md-3">
-            <label for="validationCustom01">Complemento</label>
-            <input type="text" name="complemento" class="form-control" id="validationCustom01" placeholder="Complemento de endereço">
-        </div>
-    </div>
-    <!-- /END COMPLEMENTO -->
+  <!-- COMPLEMENTO -->
+  <div class="form-group">
+      <div class="col-md-6 offset-md-3">
+          <label for="validationCustom01">Complemento</label>
+          <input type="text" name="complemento" class="form-control" id="validationCustom01" placeholder="Complemento de endereço">
+      </div>
+  </div>
+  <!-- /END COMPLEMENTO -->
 
+    <!-- /END ENDERECO -->
+    
     <!-- SENHA -->
     <div class="form-group">
         <div class="col-md-6 offset-md-3">

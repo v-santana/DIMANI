@@ -44,7 +44,7 @@
 </script>
 
 <!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
-<script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo="crossorigin="anonymous"></script>
 <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
 <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
 
@@ -164,8 +164,70 @@ function valores_em_real(){
   }
 }
 
-
+// Verifica se tem valores na página com a classe "valor_produto_real" e converte visualmente em real R$00,00
 valores_em_real();
+
+
+// Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+(function() {
+  'use strict';
+  window.addEventListener('load', function() {
+    // Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+    var forms = document.getElementsByClassName('needs-validation');
+    // Faz um loop neles e evita o envio
+    var validation = Array.prototype.filter.call(forms, function(form) {
+      form.addEventListener('submit', function(event) {
+        if (form.checkValidity() === false) {
+          event.preventDefault();
+          event.stopPropagation();
+        }
+        form.classList.add('was-validated');
+      }, false);
+    });
+  }, false);
+})();
+
+
+// CONSULTA API DE CEP DO CORREIO E PREENCHE AUTOMÁTICAMENTE OS CAMPOS. 
+
+  // Registra o evento blur do campo "cep", ou seja, a pesquisa será feita
+  // quando o usuário sair do campo "cep"
+  $("#cep").blur(function(){
+    // Remove tudo o que não é número para fazer a pesquisa
+    var cep = this.value.replace(/[^0-9]/, "");
+    
+    // Validação do CEP; caso o CEP não possua 8 números, então cancela
+    // a consulta
+    if(cep.length != 8){
+      return false;
+    }
+
+    
+    // A url de pesquisa consiste no endereço do webservice + o cep que
+    // o usuário informou + o tipo de retorno desejado (entre "json",
+    // "jsonp", "xml", "piped" ou "querty")
+    var url = "https://viacep.com.br/ws/"+cep+"/json/";
+    
+    // Faz a pesquisa do CEP, tratando o retorno com try/catch para que
+    // caso ocorra algum erro (o cep pode não existir, por exemplo) a
+    // usabilidade não seja afetada, assim o usuário pode continuar//
+    // preenchendo os campos normalmente
+    $.getJSON(url, function(dadosRetorno){
+      try{
+        // Preenche os campos de acordo com o retorno da pesquisa
+        $("#rua").val(dadosRetorno.logradouro);
+        $("#bairro").val(dadosRetorno.bairro);
+        $("#cidade").val(dadosRetorno.localidade);
+
+        // Transforma UF em números em ordem alfabética (não é código da UF)
+        var uf = {'AC':1,'AL':2,'AM':3,'AP':4,'BA':5,'CE':6,'DF':7,'ES':8,'GO':9,'MA':10,
+                  'MG':11,'MS':12,'MT':13,'PA':14,'PB':15,'PE':16,'PI':17,'PR':18,'RJ':19,
+                  'RN':20,'RO':21,'RR':22,'RS':23,'SC':24,'SE':25,'SP':26,'TO':27,                
+                 }
+        $("#estado").val(uf[dadosRetorno.uf]);
+      }catch(ex){}
+    });
+  });
 </script>
 
 {% endblock %}
