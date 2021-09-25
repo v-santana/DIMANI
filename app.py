@@ -46,7 +46,9 @@ app = Flask(__name__)
 #tipo_mov = Entrada()
 #Formato para Entrada de Produto como Criação do Produto
 #movimentacao.cria_movimentacao_produto(1,46211111111,tipo_mov,None,"Calça Legging","CAPA Calça",11.00)
-
+#criar_pedido = db_criar_pedido(1000.00,2,'EM ANALISE')
+#db_criar_possui_pedido_produto(2,2,200.00,6,"Cachecol Amarelo")
+#db_criar_possui_pedido_produto(2,2,800.00,9,"Toalha azul")
 
 
 def adiciona_carrinho(id_produto,nome_produto,descricao_produto,valor_produto):
@@ -78,9 +80,15 @@ def index_redirect():
 
 #PEDIDOS NA VISÃO CLIENTE - Podemos fazer uma verificação para validar se está logado ou não, ou se é funcionário
 @app.route("/pedidos", methods=['GET', 'POST'])
-def pedidos_cliente():
-    #lista os pedidos do cliente
-    pedidos = db_listar_pedidos_cliente(1)
+def pedidos():
+    #lista os pedidos do cliente logado
+    if 'NOME' in session:
+        if db_localizar_cliente_email(session['EMAIL']):
+            pedidos = db_listar_pedidos_cliente(session['ID_CONTA'])
+        elif db_localizar_funcionario_email(session['EMAIL']):
+            pedidos = db_listar_pedidos()
+    else:
+        pedidos = []
     return render_template('pedidos_cliente.html', pedidos=pedidos)
 
 #DESCRIÇÃO DO PEDIDO COM BASE NO ID DO PEDIDO
@@ -112,25 +120,38 @@ log_in = Blueprint("log_in",__name__)
 def login():
     print('EMAIL:::::',session.keys())
     if request.method == 'POST':
-        ########### Vai verificar se é cliente ou funcionário ########
 
-        cliente_form_email = request.form['email']
-        cliente_form_senha = request.form['senha']
-        cliente = db_localizar_cliente_email(cliente_form_email)[0]
-        if cliente['ID_CONTA'] != None:
-            if cliente['EMAIL'] == cliente_form_email:
-                if cliente['SENHA'] == cliente_form_senha:
+        ########### Vai verificar se é cliente ou funcionário ########
+        form_email = request.form['email']
+        form_senha = request.form['senha']
+        cliente = db_localizar_cliente_email(form_email)
+        if cliente:
+            cliente = cliente[0]
+            if cliente['EMAIL'] == form_email:
+                if cliente['SENHA'] == form_senha:
                     session['ID_CONTA'] = cliente["ID_CONTA"]
                     session['CPF'] = cliente["CPF"]
                     session['DT_NASC'] = cliente["DT_NASC"]
                     session['EMAIL'] = cliente["EMAIL"]
                     session['NOME'] = cliente["NOME"]
-                    print(session)
-                    redirect('/catalogo')
+                    return redirect('/catalogo')
 
         else:
-            funcionario = db_localizar_funcionario_email(request.form['email'])
-    return render_template('login.html')
+            funcionario = db_localizar_funcionario_email(form_email)
+            if funcionario:
+                funcionario = funcionario[0]
+                if funcionario['EMAIL'] == form_email:
+                    if funcionario['SENHA'] == form_senha:
+                        session['CPF'] = funcionario["CPF"]
+                        session['EMAIL'] = funcionario["EMAIL"]
+                        session['ID_ENDERECO'] = funcionario["ID_ENDERECO"]
+                        session['SALARIO'] = funcionario["SALARIO"]
+                        session['NOME'] = funcionario["NOME"]
+                        return redirect('/catalogo')
+            else:
+                return render_template('login.html', message="E-mail ou senha invalidos")
+
+    return render_template('login.html', message="")
 
 @app.route('/logout', methods = ['POST','GET'])
 def logout():

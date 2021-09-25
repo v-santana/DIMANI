@@ -1,5 +1,8 @@
 {% include 'head.html'%}
-      
-    {% include 'form_endereco.html'%}
+    {% if 'NOME'  in session %}
+        {% include 'form_endereco.html'%}
+    {% else %}
+        <p>Não está logado</p>
+    {% endif %}
 
 {% include 'footer.html'%}

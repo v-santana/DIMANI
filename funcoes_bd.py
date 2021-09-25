@@ -246,10 +246,11 @@ def db_listar_funcionarios():
         cur.execute("SELECT * FROM TB_FUNCIONARIO")
         return rows_to_dict(cur.description, cur.fetchall())
 
+
 def db_localizar_funcionario_email(email):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute('''SELECT fu.ID_CONTA, fu.CPF, fu.NOME, fu.DT_NASC, fu.EMAIL, fu.SENHA, en.RUA, en.NUMERO FROM TB_FUNCIONARIO fu  INNER JOIN TB_ENDERECO en 
-        ON  cl.ID_ENDERECO = en.ID_ENDERECO WHERE fu.EMAIL = (?)''' , [email])
+        cur.execute('''SELECT fu.CPF, fu.NOME, fu.EMAIL, fu.SENHA,fu.SALARIO,en.ID_ENDERECO, en.RUA, en.NUMERO FROM TB_FUNCIONARIO fu  INNER JOIN TB_ENDERECO en 
+        ON  fu.ID_ENDERECO = en.ID_ENDERECO WHERE fu.EMAIL = (?)''' , [email])
         return rows_to_dict(cur.description, cur.fetchall())
 
 

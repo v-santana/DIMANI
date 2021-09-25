@@ -9,6 +9,7 @@
       <th scope="col">Nº PEDIDO</th>
       <th scope="col">VALOR TOTAL</th>
       <th scope="col">ID CONTA</th>
+      <th scope="col"> STATUS</th>
     </tr>
   </thead>
   <tbody>
@@ -21,7 +22,7 @@
       </th>
       <td name="valor_produto_real">{{pedido['VALOR_TOTAL']}}</td>
       <td>{{pedido['ID_CONTA']}}</td>
-
+      <td>{{pedido['STATUS']}}</td>
     </tr>
     {% endfor %}
   </tbody>
