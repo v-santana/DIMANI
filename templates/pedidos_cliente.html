@@ -1,8 +1,12 @@
 {% include 'head.html'%}
 
 <div class="container" style="margin-top:1%">
-<table class="table border">
-
+  <!-- SE NOME NÃO ESTIVER NA SESSÃO DE LOGIN -->
+  {% if 'NOME' not in session %}
+  Realize o login para visualizar pedidos.
+  <!-- SE FOR CLIENTE (TIVER NOME NA SESSION E TIVER ID_CONTA) -->
+  {% elif 'ID_CONTA' in session %}
+  <table class="table border">
   <!-- CABEÇALHO DA TABELA -->
   <thead>
     <tr>
@@ -27,6 +31,88 @@
     {% endfor %}
   </tbody>
 </table>
+  <!-- SE FOR FUNCIONARIO (TIVER NOME NA SESSION DE LOGIN MAS NÃO TIVER ID_CONTA) -->
+  {% else %}
+  <table class="table border">
+  <!-- CABEÇALHO DA TABELA -->
+  <thead>
+    <tr>
+      <th scope="col">Nº PEDIDO</th>
+      <th scope="col">VALOR TOTAL</th>
+      <th scope="col">ID CONTA</th>
+      <th scope="col"> STATUS</th>
+      <th>#</th>
+    </tr>
+  </thead>
+  <tbody>
+  	
+  	<!-- LOOP PARA ACESSAR PEDIDO -->
+  	{% for pedido in pedidos %}
+    <tr>
+      <th scope="row">
+        <a href="pedidos/{{pedido['ID_PEDIDO']}}">{{pedido['ID_PEDIDO']}}</a>
+      </th>
+      <td name="valor_produto_real">{{pedido['VALOR_TOTAL']}}</td>
+      <td>{{pedido['ID_CONTA']}}</td>
+      <td>{{pedido['STATUS']}}</td>
+      <td><button class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="{{pedido['ID_PEDIDO']}}" >EDITAR</button></td>
+    </tr>
+    {% endfor %}
+  </tbody>
+</table>
 
+
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">ALTERAR STATUS</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        <form method="POST" class="needs-validation forms">
+          <div class="form-group">
+            <label for="recipient-name" class="col-form-label">Nº PEDIDO:</label>
+            <input type="text" class="form-control" name="id_pedido"  id="recipient-name" readonly>
+          </div>
+          <div class="form-group">
+            <label for="message-text" class="col-form-label">STATUS:</label>
+              <select class="custom-select form-control needs-validation" name ="status_pedido" id="validationCustom01" required>
+                <option value="" selected>Escolha...</option>
+                <option value="EM ANALISE">Em análise</option>
+                <option value="PAGAMENTO APROVADO">Pagamento aprovado</option>
+                <option value="EM PRODUCAO">Em produção</option>
+                <option value="PRONTO ENTREGA">Pronto para entrega</option>
+                <option value="EM TRAJETO">Em trajeto</option>
+                <option value="ENTREGUE">Entregue</option>
+                <option value="FINALIZADO">Finalizado</option>
+                <option value="CANCELADO">Cancelado</option>
+              </select>
+          </div>
+          <div class="invalid-feedback">
+            Insira um CEP válido.
+          </div>
+      </div>
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Alterar</button>
+      </form>
+      </div>
+    </div>
+  </div>
+</div>
+<!-- SCRIPT PARA PASSAR INFORMAÇÕES DA TABELA EXIBIDA EM PEDIDOS PARA O MODAL DE ALTERACAO DE STATUS -->
+<script type="text/javascript" charset="utf-8" async defer>
+  $('#exampleModal').on('show.bs.modal', function (event) {
+  var button = $(event.relatedTarget) // EVENTO DE APERTAR O BOTAO
+  var recipient = button.data('whatever') // EXTRAI ATRIBUTOS DE DATA
+  var modal = $(this)
+  modal.find('.modal-title').text('ALTERAR STATUS DO PEDIDO Nº ' + recipient)
+  modal.find('.modal-body input').val(recipient)
+})
+</script>
+  {% endif %}
 </div>
 {% include 'footer.html'%}

@@ -78,15 +78,23 @@ def index_redirect():
     return redirect ("home")
 
 
-#PEDIDOS NA VISÃO CLIENTE - Podemos fazer uma verificação para validar se está logado ou não, ou se é funcionário
+#PEDIDOS NA VISÃO FUNCIONARIO - Podemos fazer uma verificação para validar se está logado ou não, ou se é funcionário
 @app.route("/pedidos", methods=['GET', 'POST'])
 def pedidos():
     #lista os pedidos do cliente logado
     if 'NOME' in session:
+        #PEDIDOS NA VISÃO CLIENTE
         if db_localizar_cliente_email(session['EMAIL']):
             pedidos = db_listar_pedidos_cliente(session['ID_CONTA'])
+        
+        #PEDIDOS NA VISÃO FUNCIONARIO
         elif db_localizar_funcionario_email(session['EMAIL']):
             pedidos = db_listar_pedidos()
+            if request.method == 'POST':
+                id_pedido_form, status_form = int(request.form['id_pedido']), request.form['status_pedido']
+                db_atualizar_status_pedido(id_pedido_form,status_form)
+                return redirect('/pedidos')       
+    # SE NÃO ESTIVER LOGADO
     else:
         pedidos = []
     return render_template('pedidos_cliente.html', pedidos=pedidos)
@@ -94,8 +102,13 @@ def pedidos():
 #DESCRIÇÃO DO PEDIDO COM BASE NO ID DO PEDIDO
 @app.route("/pedidos/<id_pedido>", methods=['GET', 'POST'])
 def detalhes_pedido(id_pedido):
-    pedido = db_detalhes_do_pedido(id_pedido)
-    return render_template('detalhes_pedido.html',detalhes_pedido = pedido)
+    pedidos = db_detalhes_do_pedido(id_pedido)
+    id_cliente = ""
+    for pedido in pedidos:
+        if 'ID_CONTA' in pedido:
+            id_cliente = pedido['ID_CONTA']
+        break
+    return render_template('detalhes_pedido.html',detalhes_pedido = pedidos, id_cliente = id_cliente)
 
 
 @app.route("/catalogo", methods=['GET'])
