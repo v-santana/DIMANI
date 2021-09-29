@@ -127,6 +127,10 @@ def detalhes_produto(id_produto):
 def carrinho():
     return render_template('carrinho.html')
 
+@app.route("/fechar_pedido", methods=['GET'])
+def fechar_pedido():
+    return render_template('fechar_pedido.html')
+
 
 log_in = Blueprint("log_in",__name__)
 @app.route("/login", methods=['GET','POST'])
