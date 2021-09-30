@@ -83,15 +83,13 @@ def carrinho():
     return render_template('tela_carrinho.html')
 
 @app.route("/fechar_pedido", methods=['GET'])
-def fechar_pedido():
+def fechar_pedido():        
     return render_template('fechar_pedido.html')
 
 @app.route('/itens_carrinho', methods = ['POST','GET'])
 def itens_carrinho():
     itens = request.get_json()
-    print(itens)
-
-
+    concluir_pedido(itens,session['ID_CONTA'])
     return jsonify({'status':'success'})
 
 log_in = Blueprint("log_in",__name__)

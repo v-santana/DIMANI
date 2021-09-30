@@ -486,13 +486,33 @@ def db_detalhes_do_pedido(id_pedido):
 
 
 def calcula_valor_total(qtd,valor_unitario):
-    return
+    valor_total = qtd * valor_unitario
+    return valor_total
 
-def db_mescla_info_carrinho_pedido():
-    return
+def db_mescla_info_carrinho_pedido(produtos):
+    itens = []
+    for produto in produtos:
+        item = db_localiza_produto(produto['ID_PRODUTO'])
+        item[0]['TAMANHO'] = produto['TAMANHO']
+        item[0]['QUANTIDADE'] = produto['QUANTIDADE']
+        item[0]['OBSERVACAO'] = produto['OBSERVACAO']
+        item[0]['VALOR_TOTAL'] = item[0]['QUANTIDADE'] * item[0]['VALOR']
+        itens.append(item)
+    return itens
 
-def concluir_pedido():
-    return
+def calcula_valor_total_pedido(produtos):
+    valor_total = 0
+    for produto in produtos:
+        valor_total += calcula_valor_total(produto[0]['QUANTIDADE'], produto[0]['VALOR'])
+    return valor_total
+
+def concluir_pedido(produtos,id_conta):
+    produtos_db_carrinho = db_mescla_info_carrinho_pedido(produtos)
+    valor_total = calcula_valor_total_pedido(produtos_db_carrinho)
+    pedido = db_criar_pedido(valor_total,id_conta,'EM ANALISE')
+    for produto in produtos_db_carrinho:
+        db_criar_possui_pedido_produto(pedido['id_pedido'],produto[0]['QUANTIDADE'],produto[0]['VALOR'],produto[0]['ID_PRODUTO'],produto[0]['OBSERVACAO'])
+    return {'message':'PEDIDO ENVIADO', 'id_pedido':pedido['id_pedido']}
 
 
 ############################ TABELA POSSUI_PEDIDO_PRODUTO ########################################## 

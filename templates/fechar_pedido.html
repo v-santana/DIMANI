@@ -26,7 +26,7 @@
 <div class="container">
     <div class="row">
       <div class="col-sm">
-        <a href="#">
+        <a href="pedidos">
           <button type="button" id="concluir_pedido" class="btn btn-primary btn-md btn-block">CONCLUIR PEDIDO</button>
         </a>
   
@@ -74,28 +74,32 @@ valores_em_real();
 
 document.getElementById('concluir_pedido').onclick = function concluir_pedido() {
     let array_carrinho = []
-    for (item in localStorage){
-        if (localStorage.getItem(item) !== null){
-            val = localStorage.getItem(item)
-            item = val.split(",")
-            console.log(item)
-            let item_pronto = {}
-            item_pronto['ID_PRODUTO']= parseInt(item[0])
-            item_pronto['TAMANHO'] = item[5]
-            item_pronto['QUANTIDADE'] = parseInt(item[4])
-            item_pronto['OBSERVACAO'] = item[6]
-            array_carrinho.push(item_pronto)
+    let confirmacao = confirm("Deseja prosseguir com a conclusão do Pedido?")
+    if (confirmacao){
+        for (item in localStorage){
+            if (localStorage.getItem(item) !== null){
+                val = localStorage.getItem(item)
+                item = val.split(",")
+                console.log(item)
+                let item_pronto = {}
+                item_pronto['ID_PRODUTO']= parseInt(item[0])
+                item_pronto['TAMANHO'] = item[5]
+                item_pronto['QUANTIDADE'] = parseInt(item[4])
+                item_pronto['OBSERVACAO'] = item[6]
+                array_carrinho.push(item_pronto)
+            }
         }
-    }
-    $.ajax({
-        type: 'POST',
-        contentType: 'application/json',
-        data: JSON.stringify(array_carrinho),
-        dataType: 'json',
-        url: '/itens_carrinho',
-        success: function () {
-            
-        }});
+        $.ajax({
+            type: 'POST',
+            contentType: 'application/json',
+            data: JSON.stringify(array_carrinho),
+            dataType: 'json',
+            url: '/itens_carrinho',
+            success: function () {
+                
+            }});
+        localStorage.clear()
+      }
 
 }
 </script>
