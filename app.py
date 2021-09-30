@@ -1,54 +1,9 @@
 from funcoes_bd import *
-from flask import Flask
-from localStoragePy import localStoragePy
 
 ################ SENHA PARA CRIPTOGEAFIA DE SESSION ################
 app = Flask(__name__)
 
 
-
-#estado = db_criar_estado('São Paulo')
-#cidade = db_criar_cidade('São Paulo',1)
-#endereco = db_criar_endereco('Rua mauá',333,'Vila Conde','',9321)
-#cliente = db_criar_cliente('49311111111','GABRIEL','2020-12-01','gabriel123@gmail.com','GABRIEL123',1,'gabriel123@gmail.com')
-#funcionario = db_criar_funcionario(46211111111,'LUCAS','lucas123@gmail.com','SENHA123',500.00,1,46211111111)
-#movimentacao = db_criar_mov(10,'2021-09-01 12:10:10','ENTRADA DE MATERIAL',46211111111) 
-#produto = db_criar_produto('MANTA',"MANTA INFANTIL",10,100.00,46211111111,1)
-#tamanho_produto= db_criar_tamanho_produto('GG',1)
-#cor_produto=db_criar_cor_produto('Amarelo',1)
-#pedido = db_criar_pedido('500.00',1)
-#possui_pedido_produto = db_criar_possui_pedido_produto(1,10,10.00,1)
-#pagamento = db_criar_pagamento('PIX','2021-08-31 13:44:58', 1,1)
-#dados_bancarios = db_criar_dados_bancarios(121314,'ITAU',7774,1)
-#telefone_cliente=db_criar_telefone_cliente(1,11991677866)
-#telefone_funcionario=db_criar_telefone_funcionario(46211111111,1145183646)
-
-
-#estados = db_listar_estados()
-#cidades= db_listar_cidades()
-#enderecos = db_listar_enderecos()
-#clientes = db_listar_clientes()
-#funcionarios= db_listar_funcionarios()
-#movimentacoes = db_listar_mov()
-#produtos = db_listar_produtos()
-#tamanho_produtos = db_listar_tamanho_produtos()
-#cor_produtos= db_listar_cor_produtos()
-#pedidos = db_listar_pedidos()
-#possui_pedido_produtos = db_listar_possui_pedido_produto()
-#pagamentos = db_listar_pagamentos()
-#dados_bancarios = db_listar_dados_bancarios()
-#telefone_clientes= db_listar_telefone_cliente()
-#telefone_funcionarios= db_listar_telefone_funcionario()
-#print(f" ENDEREÇOS: {enderecos}\n CLIENTES: {clientes}\n FUNCIONARIOS: {funcionarios}\n MOVIMENTACOES: {movimentacoes}\n PRODUTOS: {produtos}\n TAMANHO: {tamanho_produtos}\n COR: {cor_produtos}\n PEDIDO: {pedidos}\n POSSUI_PEDIDO_PRODUTO: {possui_pedido_produtos}\n PAGAMENTOS: {pagamentos}\n DADOS_BANCARIOS: {dados_bancarios}\n telefone_clientes: {telefone_clientes}\n telefone_funcionarios: {telefone_funcionarios}")
-#criar = criar_mov_produto(5,'ENTRADA',46211111111,None,'MEIA','MEIA INFANTIL',20.00)
-#produto = db_criar_produto('MANTA',"MANTA INFANTIL",10,100.00,46211111111,1)
-#movimentacao = Movimentacao()
-#tipo_mov = Entrada()
-#Formato para Entrada de Produto como Criação do Produto
-#movimentacao.cria_movimentacao_produto(1,46211111111,tipo_mov,None,"Calça Legging","CAPA Calça",11.00)
-#criar_pedido = db_criar_pedido(1000.00,2,'EM ANALISE')
-#db_criar_possui_pedido_produto(2,2,200.00,6,"Cachecol Amarelo")
-#db_criar_possui_pedido_produto(2,2,800.00,9,"Toalha azul")
 
 
 def adiciona_carrinho(id_produto,nome_produto,descricao_produto,valor_produto):
@@ -125,12 +80,19 @@ def detalhes_produto(id_produto):
 
 @app.route("/carrinho", methods=['GET'])
 def carrinho():
-    return render_template('carrinho.html')
+    return render_template('tela_carrinho.html')
 
 @app.route("/fechar_pedido", methods=['GET'])
 def fechar_pedido():
     return render_template('fechar_pedido.html')
 
+@app.route('/itens_carrinho', methods = ['POST','GET'])
+def itens_carrinho():
+    itens = request.get_json()
+    print(itens)
+
+
+    return jsonify({'status':'success'})
 
 log_in = Blueprint("log_in",__name__)
 @app.route("/login", methods=['GET','POST'])

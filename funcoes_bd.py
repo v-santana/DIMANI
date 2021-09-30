@@ -1,5 +1,6 @@
-from flask import Flask, make_response, request, render_template, redirect, send_from_directory,session,Blueprint
+from flask import Flask, make_response, request, render_template, redirect, send_from_directory,session,Blueprint,jsonify
 from flask_session import Session
+from localStoragePy import localStoragePy
 from wtforms import Form, BooleanField, StringField, PasswordField, validators,IntegerField,SubmitField,HiddenField
 from contextlib import closing
 import mariadb
@@ -481,8 +482,17 @@ def db_detalhes_do_pedido(id_pedido):
                     ''' , [id_pedido])
         return rows_to_dict(cur.description, cur.fetchall())
 
+############################ CLIENTE FECHAR PEDIDO ########################################## 
 
 
+def calcula_valor_total(qtd,valor_unitario):
+    return
+
+def db_mescla_info_carrinho_pedido():
+    return
+
+def concluir_pedido():
+    return
 
 
 ############################ TABELA POSSUI_PEDIDO_PRODUTO ########################################## 
