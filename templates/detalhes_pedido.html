@@ -24,14 +24,14 @@
         <!-- LOOP PARA ACESSAR PEDIDO -->
         {% for pedido in detalhes_pedido %}
         <tr>
-          <th scope="row"><a href="{{pedido['ID_PEDIDO']}}">{{pedido['ID_PEDIDO']}}</a></th>
-          <td>{{pedido['NOME_PRODUTO']}}</td>
-          <td>{{pedido['DESCRICAO']}}</td>
-          <td>{{pedido['QTD_PRODUTO']}}</td>
-          <td name="valor_produto_real">{{pedido['PRECO']}}</td>
-          <td name="valor_produto_real">{{pedido['PRECO'] * pedido['QTD_PRODUTO']}}</td>
-          <td>{{pedido['ID_CONTA']}}</td>
-          <td>{{pedido['OBSERVACAO']}}</td>
+          <td scope="row"  data-label="ID PEDIDO"><strong><a href="{{pedido['ID_PEDIDO']}}">{{pedido['ID_PEDIDO']}}</a></strong></td>
+          <td data-label="NOME PRODUTO">{{pedido['NOME_PRODUTO']}}</td>
+          <td data-label="DESCRIÇÃO">{{pedido['DESCRICAO']}}</td>
+          <td data-label="QUANTIDADE PRODUTO">{{pedido['QTD_PRODUTO']}}</td>
+          <td data-label="PREÇO" name="valor_produto_real">{{pedido['PRECO']}}</td>
+          <td data-label="VALOR TOTAL PRODUTO" name="valor_produto_real">{{pedido['PRECO'] * pedido['QTD_PRODUTO']}}</td>
+          <td data-label="ID CONTA">{{pedido['ID_CONTA']}}</td>
+          <td data-label="OBSERVAÇÃO">{{pedido['OBSERVACAO']}}</td>
         </tr>
         {% endfor %}
       </tbody>

@@ -21,12 +21,12 @@
   	<!-- LOOP PARA ACESSAR PEDIDO -->
   	{% for pedido in pedidos %}
     <tr>
-      <th scope="row">
-        <a href="pedidos/{{pedido['ID_PEDIDO']}}">{{pedido['ID_PEDIDO']}}</a>
-      </th>
-      <td name="valor_produto_real">{{pedido['VALOR_TOTAL']}}</td>
-      <td>{{pedido['ID_CONTA']}}</td>
-      <td>{{pedido['STATUS']}}</td>
+      <td scope="row" data-label="ID PEDIDO">
+        <strong><a href="pedidos/{{pedido['ID_PEDIDO']}}" >{{pedido['ID_PEDIDO']}}</a></strong> 
+      </td>
+      <td name="valor_produto_real"  data-label="VALOR TOTAL" >{{pedido['VALOR_TOTAL']}}</td>
+      <td data-label="ID CONTA" >{{pedido['ID_CONTA']}}</td>
+      <td  data-label="STATUS">{{pedido['STATUS']}}</td>
     </tr>
     {% endfor %}
   </tbody>

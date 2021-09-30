@@ -68,10 +68,28 @@ function  carrega_tabela_carrinho(){
 
 };
 
+function carrega_tabela_carrinho_responsiva(){
+  function range(start, end) {
+    return Array.from({ length: end - start + 1 }, (_, i) => i)
+  }
+  let tr = document.getElementsByTagName('tbody')[0].rows 
+  for(n in range(1,tr.length)) {
+    tr[n].cells[0].setAttribute('data-label','ID PRODUTO')
+    tr[n].cells[1].setAttribute('data-label','PRODUTO')
+    tr[n].cells[2].setAttribute('data-label','DESCRIÇÃO')
+    tr[n].cells[3].setAttribute('data-label','TAMANHO')
+    tr[n].cells[4].setAttribute('data-label','QUANTIDADE')
+    tr[n].cells[5].setAttribute('data-label','VALOR UNITÁRIO')
+    tr[n].cells[6].setAttribute('data-label','VALOR TOTAL')
+    tr[n].cells[7].setAttribute('data-label','OBSERVAÇÃO')
+    
+
+  }
+}
 
 carrega_tabela_carrinho();
+carrega_tabela_carrinho_responsiva()
 valores_em_real();
-
 document.getElementById('concluir_pedido').onclick = function concluir_pedido() {
     let array_carrinho = []
     let confirmacao = confirm("Deseja prosseguir com a conclusão do Pedido?")
