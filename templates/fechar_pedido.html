@@ -1,7 +1,12 @@
 {% extends "carrinho.html" %}
 {% block carrinho %}
 <div class="container" style="margin-top:1%">
-
+  <div class="col-sm">
+    <a href="carrinho">
+      <button type="button" class="btn btn-danger btn-md">
+        <span class="glyphicon glyphicon-chevron-left"></span>VOLTAR PARA O CARRINHO</button>
+    </a>
+  </div>
   <table class="table border" id="tabela">
 	<!-- CABEÇALHO DA TABELA -->
   <thead id="thead">
@@ -30,11 +35,6 @@
           <button type="button" id="concluir_pedido" class="btn btn-primary btn-md btn-block">CONCLUIR PEDIDO</button>
         </a>
   
-      </div>
-      <div class="col-sm">
-        <a href="carrinho">
-          <button type="button" class="btn btn-danger btn-md btn-block">VOLTAR PARA O CARRINHO</button>
-        </a>
       </div>
     </div>
   </div>

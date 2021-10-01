@@ -1,6 +1,42 @@
 {% extends "carrinho.html" %}
 {% block carrinho %}
+<style> 
+  .button {
+    border: none;
+    color: white;
+    padding: 10px 15px;
+    text-align: center;
+    text-decoration: auto;
+    display: inline-block;
+    font-size: 16px;
+    margin: 5px 2px;
+    cursor: pointer;
+    transition-duration: 0.4s;
+    border-radius: 4px
+}
+
+.button-limpar:hover {
+  background-color: #FF6961; /* Green */
+  color: white;
+}
+
+.button-limpar {
+  background-color: white;
+  color: black;
+  border: 2px solid #FF6961;
+}
+
+.button-fechar {
+  background-color: #438759;
+}
+
+</style>
 <div class="container" style="margin-top:1%">
+  <div class="col-sm">
+      <button type="button" class="button button-limpar btn-block">
+        <span class="glyphicon glyphicon-trash"></span> LIMPAR CARRINHO
+      </button>
+  </div>
 
   <table class="table border" id="tabela">
 	<!-- CABEÇALHO DA TABELA -->
@@ -23,20 +59,11 @@
 
   </tbody>
 </table>
-<div class="container">
-  <div class="row">
-    <div class="col-sm">
-      <a href="fechar_pedido">
-        <button type="button" class="btn btn-primary btn-md btn-block">FECHAR PEDIDO</button>
-      </a>
-
-    </div>
-    <div class="col-sm">
-      <a>
-        <button type="button" class="btn btn-danger btn-md btn-block">LIMPAR CARRINHO</button>
-      </a>
-    </div>
-  </div>
+  <div class="col-sm">
+    <a href="fechar_pedido">
+      <button type="button" class="button button-fechar btn-block">
+        FECHAR PEDIDO</button>
+    </a>
 </div>
 
 
