@@ -1,36 +1,6 @@
 {% extends "carrinho.html" %}
 {% block carrinho %}
-<style> 
-  .button {
-    border: none;
-    color: white;
-    padding: 10px 15px;
-    text-align: center;
-    text-decoration: auto;
-    display: inline-block;
-    font-size: 16px;
-    margin: 5px 2px;
-    cursor: pointer;
-    transition-duration: 0.4s;
-    border-radius: 4px
-}
 
-.button-limpar:hover {
-  background-color: #FF6961; /* Green */
-  color: white;
-}
-
-.button-limpar {
-  background-color: white;
-  color: black;
-  border: 2px solid #FF6961;
-}
-
-.button-fechar {
-  background-color: #438759;
-}
-
-</style>
 <div class="container" style="margin-top:1%">
   <div class="col-sm">
       <button type="button" class="button button-limpar btn-block">
@@ -38,7 +8,7 @@
       </button>
   </div>
 
-  <table class="table border" id="tabela">
+  <table class="table border" id="tabela" style="justify-items: center;">
 	<!-- CABEÇALHO DA TABELA -->
   <thead id="thead">
     <tr>
