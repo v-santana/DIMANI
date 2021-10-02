@@ -98,6 +98,14 @@ function verifica_campo_nulo(){
   }
 }
 
+function limpa_carrinho(){
+  var confirmar = confirm("Deseja excluir o item do carrinho?")
+      if (confirmar) {
+        localStorage.clear()
+        location.reload()
+      }
+}
+
 
 function retorna_itens_lStorage(){
   nome = {}
