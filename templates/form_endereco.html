@@ -1,6 +1,4 @@
 {% block form_endereco %}
-<div class="container">
-<form class="forms needs-validation" method="POST" novalidate>
 <!-- CEP -->
 {% if cidades != None %}
 <div class="form-group">
@@ -164,14 +162,5 @@
 </div>
 <!-- /END COMPLEMENTO -->
 {% endif %}
-    <!-- BOTÃO FINALIZAR -->
-    <div class="form-group">
-      <div class="col-md-6 offset-md-3" style="margin-top: 2rem;">
-          <button type="submit" class="btn btn-secondary btn-lg btn-block">Finalizar cadastro</button>
-      </div>
-  </div>
-  <!-- /END BOTÃO FINALIZAR -->
-</form>
 
-</div>
 {% endblock%}

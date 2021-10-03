@@ -145,39 +145,43 @@ def cadastro():
         ############# Variáveis do form dados de cadastro ###############
         cpf,nome_completo,dt_nasc,telefone = request.form['cpf'],request.form['nome_completo'],request.form['dt_nasc'],request.form['telefone'] 
         email,senha,confirmacao_senha = request.form['email'],request.form['senha'],request.form['confirmacao_senha']
+        ###### ENDEREÇO #######
         id_estado = request.form['estado']
-        id_cidade = db_localizar_cidade_de_estado_por_nome(id_estado,request.form['cidade'])
-        cep,rua,bairro,numero,complemento = request.form['cep'],request.form['rua'],request.form['bairro'],request.form['numero'],request.form['complemento']
-        ###### verificar se email já existe no banco de dados ########
-        #db_localizar_cliente_email(email)
-
-        ##############################################################
-        endereco = db_criar_endereco(rua,numero,bairro,complemento,id_cidade)
-        cliente = db_criar_cliente(cpf, nome_completo, dt_nasc, email,senha,endereco['id_endereco'],"123")
-        telefone_cliente = db_criar_telefone_cliente(cliente['id_conta'],telefone)
-        
-        ####### campos recolhidos pelo formulário #######
-        print(f"{cpf} | {nome_completo} | {dt_nasc} | {telefone} | {email} | {senha} | {confirmacao_senha} | {cep} | {endereco} | {numero} | {complemento}")
-        ###### Foi inserido no banco de dados #######
-        print(cliente)
-    return render_template('cadastro.html', estados=db_listar_estados())
-
-@app.route("/teste", methods=['POST','GET'])
-def teste():
-    if request.method == 'POST':
-        id_estado = request.form['estado']
-        cidade= request.form['cidade']
+        cidade = request.form['cidade']
         id_cidade = db_localizar_cidade_de_estado_por_nome(id_estado,request.form['cidade'])
         cep = request.form['cep']
         bairro=request.form['bairro']
         rua, numero, complemento = request.form['rua'],request.form['numero'], request.form['complemento']
-        if len(id_cidade) > 1:
-            return render_template("teste.html", mensagem = "Escolha novamente a Cidade", estados=db_listar_estados(), cidades =  id_cidade, id_estado = int(id_estado),bairro=bairro, rua = rua, complemento = complemento, numero=numero,cep=cep)
-        else:
-            print("Cidade escolhida!")
-            cidade=request.form['cidade']
-        print(f"Endereço cadastrado: Estado: {id_estado},Cidade: {cidade},Bairro:{bairro},Rua: {rua},Numero: {numero},Complemento: {complemento},CEP: {cep}")
-    return render_template("teste.html", mensagem = "", estados=db_listar_estados(), cidades=None)
+        ##### ##########################
+
+        ###### verificar se email já existe no banco de dados ########
+        #db_localizar_cliente_email(email)
+
+        ##############################################################
+        endereco = cadastrar_endereco(id_cidade,id_estado,cidade,bairro,rua,numero,complemento,cep)
+        #cliente = db_criar_cliente(cpf, nome_completo, dt_nasc, email,senha,endereco['id_endereco'],"123")
+        #telefone_cliente = db_criar_telefone_cliente(cliente['id_conta'],telefone)
+        print(endereco)
+        ####### campos recolhidos pelo formulário #######
+        print(f"{cpf} | {nome_completo} | {dt_nasc} | {telefone} | {email} | {senha} | {confirmacao_senha} | {cep} | {rua} | {numero} | {complemento}")
+        ###### Foi inserido no banco de dados #######
+        #print(cliente)
+    return render_template('cadastro.html', estados=db_listar_estados(), cidades=None)
+
+def cadastrar_endereco(nome_cidade,id_estado,cidade,bairro,rua,numero,complemento,cep):
+    id_estado = int(id_estado)
+    id_cidade = db_localizar_cidade_de_estado_por_nome(id_estado,nome_cidade)
+    if len(id_cidade) > 1:
+        endereco = {}
+        endereco["mensagem"] ="Escolha novamente a Cidade"
+        endereco["estados"], endereco["cidades"], endereco["id_estado"]= db_listar_estados(), id_cidade, id_estado
+        endereco["bairro"], endereco["rua"], endereco["complemento"]
+        endereco["numero"], endereco["cep"] = numero, rua    
+        return endereco
+    else:
+        print("Cidade escolhida!")
+        cidade=request.form['cidade']
+        print(f"Endereço cadastrado: Estado: {id_estado},Cidade: {id_cidade},Bairro:{bairro},Rua: {rua},Numero: {numero},Complemento: {complemento},CEP: {cep}")
 
 
 

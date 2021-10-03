@@ -72,7 +72,7 @@
         </button>
       </div>
       <div class="modal-body">
-        <form method="POST" class="needs-validation forms">
+        <form method="POST" class="needs-validation forms" id="form_status" onsubmit="return confirma_status()">
           <div class="form-group">
             <label for="recipient-name" class="col-form-label">Nº PEDIDO:</label>
             <input type="text" class="form-control" name="id_pedido"  id="recipient-name" readonly>
@@ -97,7 +97,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
-        <button type="submit" class="btn btn-primary">Alterar</button>
+        <button type="submit" class="btn btn-primary" id="alterar_status">Alterar</button>
       </form>
       </div>
     </div>
