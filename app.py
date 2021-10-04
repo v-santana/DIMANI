@@ -6,11 +6,6 @@ app = Flask(__name__)
 
 
 
-def adiciona_carrinho(id_produto,nome_produto,descricao_produto,valor_produto):
-    localStorage = localStoragePy('/DIMANI/app.py', 'text')
-    lista = [id_produto, nome_produto, descricao_produto, valor_produto]
-    localStorage.setItem(f"produto_{id_produto}", lista)
-    return 
 
 ############################
 #### Definições da API. ####
@@ -36,6 +31,7 @@ def index_redirect():
 #PEDIDOS NA VISÃO FUNCIONARIO - Podemos fazer uma verificação para validar se está logado ou não, ou se é funcionário
 @app.route("/pedidos", methods=['GET', 'POST'])
 def pedidos():
+    pedidos = []
     #lista os pedidos do cliente logado
     if 'NOME' in session:
         #PEDIDOS NA VISÃO CLIENTE
@@ -50,8 +46,7 @@ def pedidos():
                 db_atualizar_status_pedido(id_pedido_form,status_form)
                 return redirect('/pedidos')       
     # SE NÃO ESTIVER LOGADO
-    else:
-        pedidos = []
+
     return render_template('pedidos_cliente.html', pedidos=pedidos)
 
 #DESCRIÇÃO DO PEDIDO COM BASE NO ID DO PEDIDO
@@ -95,9 +90,7 @@ def itens_carrinho():
 log_in = Blueprint("log_in",__name__)
 @app.route("/login", methods=['GET','POST'])
 def login():
-    print('EMAIL:::::',session.keys())
     if request.method == 'POST':
-
         ########### Vai verificar se é cliente ou funcionário ########
         form_email = request.form['email']
         form_senha = request.form['senha']
@@ -106,24 +99,15 @@ def login():
             cliente = cliente[0]
             if cliente['EMAIL'] == form_email:
                 if cliente['SENHA'] == form_senha:
-                    session['ID_CONTA'] = cliente["ID_CONTA"]
-                    session['CPF'] = cliente["CPF"]
-                    session['DT_NASC'] = cliente["DT_NASC"]
-                    session['EMAIL'] = cliente["EMAIL"]
-                    session['NOME'] = cliente["NOME"]
+                    efetua_login_cliente(cliente['ID_CONTA'],cliente['CPF'],cliente['DT_NASC'],cliente['EMAIL'],cliente['NOME'])
                     return redirect('/catalogo')
-
         else:
             funcionario = db_localizar_funcionario_email(form_email)
             if funcionario:
                 funcionario = funcionario[0]
                 if funcionario['EMAIL'] == form_email:
                     if funcionario['SENHA'] == form_senha:
-                        session['CPF'] = funcionario["CPF"]
-                        session['EMAIL'] = funcionario["EMAIL"]
-                        session['ID_ENDERECO'] = funcionario["ID_ENDERECO"]
-                        session['SALARIO'] = funcionario["SALARIO"]
-                        session['NOME'] = funcionario["NOME"]
+                        efetua_login_funcionario(funcionario['CPF'],funcionario['SALARIO'],funcionario['EMAIL'],funcionario['NOME'])
                         return redirect('/catalogo')
             else:
                 return render_template('login.html', message="E-mail ou senha invalidos")
@@ -142,47 +126,44 @@ def sobre():
 @app.route("/cadastro", methods=['POST','GET'])
 def cadastro():
     if request.method == 'POST':
-        ############# Variáveis do form dados de cadastro ###############
+        ############# Variáveis do formulário dados de cadastro ###############
         cpf,nome_completo,dt_nasc,telefone = request.form['cpf'],request.form['nome_completo'],request.form['dt_nasc'],request.form['telefone'] 
         email,senha,confirmacao_senha = request.form['email'],request.form['senha'],request.form['confirmacao_senha']
-        ###### ENDEREÇO #######
+        
+        #verifica se selecionou chave pix
+        if 'inlineRadioOptions' not in request.form: pix = "NAO_INFORMOU" 
+        elif request.form['inlineRadioOptions'] != "nao_informou": pix = request.form[request.form['inlineRadioOptions']]
+        else: pix = "NAO_INFORMOU"
+
+        ###### Verifica se email e CPF já existe no banco de dados ########
+        if db_localizar_cliente_cpf(cpf):
+            return render_template('cadastro.html', estados=db_listar_estados(), cidades=None,mensagem="CPF já utilizado, verifique se já tem uma conta.") 
+        elif db_localizar_cliente_email(email) or db_localizar_funcionario_email(email):
+            return render_template('cadastro.html', estados=db_listar_estados(), cidades=None,mensagem="E-mail já utilizado, por favor escolha outro e-mail ou verifique se já tem uma conta.") 
+        else:
+            session['NOME'],session['CPF'],session['DT_NASC'],session['EMAIL']  = nome_completo,cpf,dt_nasc,email
+            session['SENHA'],session['TELEFONE'],session['PIX'] = senha,telefone, pix
+            return redirect('/cadastro/endereco')
+    return render_template('cadastro.html', estados=db_listar_estados(), cidades=None, mensagem="")
+
+@app.route("/cadastro/endereco", methods=['POST','GET'])
+def cadastro_endereco():
+    if request.method == 'POST':
         id_estado = request.form['estado']
-        cidade = request.form['cidade']
+        cidade= request.form['cidade']
         id_cidade = db_localizar_cidade_de_estado_por_nome(id_estado,request.form['cidade'])
         cep = request.form['cep']
         bairro=request.form['bairro']
         rua, numero, complemento = request.form['rua'],request.form['numero'], request.form['complemento']
-        ##### ##########################
-
-        ###### verificar se email já existe no banco de dados ########
-        #db_localizar_cliente_email(email)
-
-        ##############################################################
-        endereco = cadastrar_endereco(id_cidade,id_estado,cidade,bairro,rua,numero,complemento,cep)
-        #cliente = db_criar_cliente(cpf, nome_completo, dt_nasc, email,senha,endereco['id_endereco'],"123")
-        #telefone_cliente = db_criar_telefone_cliente(cliente['id_conta'],telefone)
-        print(endereco)
-        ####### campos recolhidos pelo formulário #######
-        print(f"{cpf} | {nome_completo} | {dt_nasc} | {telefone} | {email} | {senha} | {confirmacao_senha} | {cep} | {rua} | {numero} | {complemento}")
-        ###### Foi inserido no banco de dados #######
-        #print(cliente)
-    return render_template('cadastro.html', estados=db_listar_estados(), cidades=None)
-
-def cadastrar_endereco(nome_cidade,id_estado,cidade,bairro,rua,numero,complemento,cep):
-    id_estado = int(id_estado)
-    id_cidade = db_localizar_cidade_de_estado_por_nome(id_estado,nome_cidade)
-    if len(id_cidade) > 1:
-        endereco = {}
-        endereco["mensagem"] ="Escolha novamente a Cidade"
-        endereco["estados"], endereco["cidades"], endereco["id_estado"]= db_listar_estados(), id_cidade, id_estado
-        endereco["bairro"], endereco["rua"], endereco["complemento"]
-        endereco["numero"], endereco["cep"] = numero, rua    
-        return endereco
-    else:
-        print("Cidade escolhida!")
-        cidade=request.form['cidade']
-        print(f"Endereço cadastrado: Estado: {id_estado},Cidade: {id_cidade},Bairro:{bairro},Rua: {rua},Numero: {numero},Complemento: {complemento},CEP: {cep}")
-
+        #Se a quantidade de cidades na consulta for maior que 1
+        if len(id_cidade) > 1:
+            return render_template("cadastro_endereco.html", mensagem = "Escolha novamente a Cidade", estados=db_listar_estados(), cidades =  id_cidade, id_estado = int(id_estado),bairro=bairro, rua = rua, complemento = complemento, numero=numero,cep=cep)
+        else:
+            cidade=request.form['cidade']
+            endereco = db_criar_endereco(rua,numero,bairro,complemento,cidade)
+            cliente = db_criar_cliente(session['CPF'],session['NOME'],session['DT_NASC'],session['EMAIL'],session['SENHA'],endereco['id_endereco'],session['EMAIL'])
+            return redirect('/catalogo')
+    return render_template("cadastro_endereco.html", mensagem = "", estados=db_listar_estados(), cidades=None)
 
 
 

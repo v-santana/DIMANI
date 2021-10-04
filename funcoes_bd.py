@@ -193,6 +193,11 @@ def db_localizar_cliente_email(email):
         ON  cl.ID_ENDERECO = en.ID_ENDERECO WHERE cl.EMAIL = (?)''' , [email])
         return rows_to_dict(cur.description, cur.fetchall())
 
+def db_localizar_cliente_cpf(cpf):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute('''SELECT cl.ID_CONTA, cl.CPF, cl.NOME, cl.DT_NASC, cl.EMAIL, cl.SENHA, en.RUA, en.NUMERO FROM TB_CLIENTE cl  INNER JOIN TB_ENDERECO en 
+        ON  cl.ID_ENDERECO = en.ID_ENDERECO WHERE cl.CPF = (?)''' , [cpf])
+        return rows_to_dict(cur.description, cur.fetchall())
 
 def db_atualizar_cliente(id_conta, nome, dt_nasc, email,chave_pix):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
@@ -464,3 +469,26 @@ def db_listar_telefone_funcionario():
         cur.execute("SELECT * FROM TB_TELEFONE_FUNCIONARIO")
         return rows_to_dict(cur.description, cur.fetchall())
 
+
+############################ DEMAIS FUNCOES #########################################
+
+def efetua_login_cliente(id_conta,cpf,dt_nasc,email,nome):
+    session['ID_CONTA'] = id_conta 
+    session['CPF'] = cpf
+    session['DT_NASC'] = dt_nasc
+    session['EMAIL'] = email
+    session['NOME'] = nome
+    return {'message':'Login efetuado'}
+
+def efetua_login_funcionario(cpf,salario,email,nome):
+    session['CPF'] = cpf
+    session['EMAIL'] = email
+    session['SALARIO'] = salario
+    session['NOME'] = nome
+    return {'message':'Login efetuado'}
+
+def adiciona_carrinho(id_produto,nome_produto,descricao_produto,valor_produto):
+    localStorage = localStoragePy('/DIMANI/app.py', 'text')
+    lista = [id_produto, nome_produto, descricao_produto, valor_produto]
+    localStorage.setItem(f"produto_{id_produto}", lista)
+    return 

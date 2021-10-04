@@ -1,4 +1,6 @@
 {% block form_endereco %}
+<div class="container">
+<form method="POST" class="form cadastro_endereco">
 <!-- CEP -->
 {% if cidades != None %}
 <div class="form-group">
@@ -162,5 +164,13 @@
 </div>
 <!-- /END COMPLEMENTO -->
 {% endif %}
-
+ <!-- BOTÃO CONFIRMAR -->
+ <div class="form-group">
+  <div class="col-md-6 offset-md-3" style="margin-top: 2rem;">
+      <button type="submit" class="btn btn-secondary btn-lg btn-block">Finalizar</button>
+  </div>
+</div>
+<!-- /END BOTÃO CONFIRMAR -->
+</form>
+</div>
 {% endblock%}
