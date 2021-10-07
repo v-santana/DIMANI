@@ -153,6 +153,10 @@ def logout():
 def sobre():
     return render_template('sobre.html')
 
+@app.route("/dados", methods=['POST','GET'])
+def dados():
+    return render_template('dados.html')
+
 @app.route("/cadastro", methods=['POST','GET'])
 def cadastro():
     if request.method == 'POST':

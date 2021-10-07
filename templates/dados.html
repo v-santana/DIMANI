@@ -1,0 +1,156 @@
+{% include 'head.html'%}
+
+
+<div class="form-group d-flex justify-content-center">
+    <img src="/static/images/BANNER_BRANCO_DIMANI.PNG" alt="Fuzzy Cardigan" class="img-fluid" style="max-width: 500px; width:100%;">
+</div>
+<div class="container">
+    <form class="forms needs-validation" method="POST" novalidate>
+
+        <!-- TÍTULO FORM -->
+        <h2 class="form-title text-center">Meus Dados</h2>
+        <!-- /END TÍTULO FORM -->
+
+        <!-- DISCLAIMER -->
+        <p class="subtitle text-center"><strong>
+            Abaixo você pode ver suas informações cadastrais e também atualizar seus dados caso deseje.<br>
+            Para atualizar seus dados cadastrais, preencha os locais desejados e clique em Atualizar.
+        </strong></p>
+        <!-- /END DISCLAIMER -->
+
+        <!-- CPF -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">CPF</label>
+                <input type="text" name="cpf" class="form-control" id="validationCustom01" placeholder="Insira seu CPF" maxlength="11" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" required>
+                <div class="invalid-feedback">
+                    Insira um CPF válido.
+                </div>
+            </div>
+        </div>
+        <!-- /END CPF -->
+
+        <!-- NOME COMPLETO -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Nome Completo</label>
+                <input type="text" name="nome_completo" class="form-control" id="validationCustom01" placeholder="Insira seu Nome Completo" maxlength="200" required>
+                <div class="invalid-feedback">
+                    Insira seu nome completo.
+                </div>
+            </div>
+        </div>
+        <!-- /END NOME COMPLETO -->
+
+        <!-- DATA DE NASCIMENTO -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Data de Nascimento</label>
+                <input type="date" name="dt_nasc" class="form-control" id="validationCustom01" placeholder="Sua data de nascimento" required>
+                <div class="invalid-feedback">
+                    Insira uma data válida.
+                </div>
+            </div>
+        </div>
+        <!-- /END DATA DE NASCIMENTO -->
+
+        <!-- CELULAR -->
+        <div class="form-group-inline">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Telefone</label>
+                <input type="text" name="telefone" class="form-control" id="validationCustom01" placeholder="Insira seu telefone" maxlength="13" required>
+                <div class="invalid-feedback">
+                    Insira um número de telefone válido.
+                </div>
+            </div>
+        </div>
+        <!-- /END CELULAR -->
+
+        <!-- E-MAIL -->
+        <div class="col-md-6 offset-md-3">
+            <label for="validationCustom01">E-mail</label>
+            <input type="email" name="email" class="form-control" id="validationCustom01" placeholder="Endereço de e-mail" maxlength="100" required>
+            
+            <div class="invalid-feedback">
+                Insira um endereço de e-mail válido.
+            </div>
+        </div>
+        <!-- /END E-MAIL -->
+
+        <!-- SENHA -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom02">Senha</label>
+                <input type="password" name="senha" class="form-control" id="validationCustom02" placeholder="Insira a senha" required>
+                <div class="invalid-feedback">
+                    Digite uma senha.
+                </div>
+            </div>
+        </div>
+        <!-- /END SENHA -->
+
+        <!-- SENHA CONFIRMAÇÃO -->
+        <div class="form-group" >
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom02">Confirmação senha</label>
+                <input style="margin-bottom: 2%;"type="password" name="confirmacao_senha" class="form-control" id="validationCustom02" placeholder="Insira novamente a senha" required>
+                <div class="invalid-feedback">
+                    As senhas não correspondem.
+                </div>
+            </div>
+        </div>
+        <!-- /END SENHA CONFIRMAÇÃO -->
+        <div class="form-group" >
+        <div class="col-md-6 offset-md-3">
+            <label >Chave pix (não obrigatório): </label><br>
+                <div class="form-check form-check-inline">
+                    <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio1" value="email" />
+                    <label class="form-check-label" for="inlineRadio1">E-mail</label>
+                </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio2" value="telefone"/>
+                <label class="form-check-label" for="inlineRadio2">Telefone</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio3" value="cpf"/>
+                <label class="form-check-label" for="inlineRadio3">CPF</label>
+              </div>
+              <div class="form-check form-check-inline">
+                <input class="form-check-input" type="radio" name="inlineRadioOptions" id="inlineRadio4" value="nao_informou"/>
+                <label class="form-check-label" for="inlineRadio4">Não desejo informar</label>
+              </div>
+              <small id="emailHelp" class="form-text text-muted">Somente para casos de estorno do valor.</small>
+        </div>
+        </div>
+        <!-- BOTÃO PROSSEGUIR -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3" style="margin-top: 2rem;">
+                <button type="submit" class="btn btn-secondary btn-lg btn-block">Atualizar</button>
+            </div>
+        </div>
+        <!-- /END BOTÃO PROSSEGUOR -->
+    </form>
+</div>
+
+<script>
+    // Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+            var forms = document.getElementsByClassName('needs-validation');
+            // Faz um loop neles e evita o envio
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+</script>
+
+{% include 'footer.html'%}
