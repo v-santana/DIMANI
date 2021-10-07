@@ -1,7 +1,31 @@
 from funcoes_bd import *
 
-################ SENHA PARA CRIPTOGEAFIA DE SESSION ################
+################ CONFIGURANDO APP PARA UPLOAD DE IMAGENS ################
+UPLOAD_FOLDER = 'static/images/produtos'
+ALLOWED_EXTENSIONS = set(['jpg','jpeg','png'])
+    
+def allowed_file(filename):
+    return '.' in filename and \
+           filename.rsplit('.', 1)[1] in ALLOWED_EXTENSIONS
+
+def upload_file(name_file,nome_arquivo):
+        if name_file not in request.files:
+            flash('No file part')
+            print('primeira verificacao')
+            return redirect('catalogo')
+        file = request.files[name_file]
+        # if user does not select file, browser also
+        # submit a empty part without filename
+        if file.filename == '':
+            print('segunda verificacao')
+            flash('No selected file')
+            return redirect('catalogo')
+        if file and allowed_file(file.filename):
+            file.save(os.path.join(app.config['UPLOAD_FOLDER'], nome_arquivo))
+
+# Cria o objeto principal do Flask.
 app = Flask(__name__)
+app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
 
@@ -15,8 +39,7 @@ app = Flask(__name__)
 
 
 
-# Cria o objeto principal do Flask.
-app = Flask(__name__)
+
 
 @app.route("/home", methods=['GET', 'POST'])
 def index():
@@ -61,11 +84,18 @@ def detalhes_pedido(id_pedido):
     return render_template('detalhes_pedido.html',detalhes_pedido = pedidos, id_cliente = id_cliente)
 
 
-@app.route("/catalogo", methods=['GET'])
+@app.route("/catalogo", methods=['GET','POST'])
 def catalogo():
     #lista o catálogo de produtos
     catalogo_produtos = db_listar_produtos()
-    return render_template('catalogo.html', catalogo=catalogo_produtos)
+    if request.method == "POST":
+        if db_localizar_funcionario_email(session['EMAIL']): #verifica se é funcionario
+            #cria o produto
+            produto = db_criar_produto(request.form['nome_produto'],request.form['descricao_produto'],request.form['qtd_produto'],request.form['valor_produto'],session['CPF'])
+            id_produto = produto['id_produto']
+            upload_file('imagem_produto',f"produto_{id_produto}.jpg") #sobe imagem do produto no sistema /static/images/produtos
+            return redirect('/catalogo')
+    return render_template('catalogo.html', catalogo=catalogo_produtos, eh_funcionario=db_localizar_funcionario_email)
 
 @app.route("/detalhes_produto/<id_produto>", methods=['GET'])
 def detalhes_produto(id_produto):

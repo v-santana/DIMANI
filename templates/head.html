@@ -34,9 +34,11 @@
         <li class="nav-item">
           <a class="nav-link" href="/catalogo"><h4>CATÁLOGO</h4></a>
         </li>
+        {% if 'NOME' in session %}
         <li class="nav-item">
             <a class="nav-link" href="/pedidos"><h4>PEDIDOS</h4></a>
         </li>
+        {% endif%}
       </ul>
     </div>
       <ul class="nav justify-content-right">

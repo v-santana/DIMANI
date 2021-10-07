@@ -1,4 +1,5 @@
-from flask import Flask, make_response, request, render_template, redirect, send_from_directory,session,Blueprint,jsonify
+from flask import Flask, make_response, request, render_template, redirect, send_from_directory,session,Blueprint,jsonify, flash
+from werkzeug.utils import secure_filename
 from flask_session import Session
 from localStoragePy import localStoragePy
 from wtforms import Form, BooleanField, StringField, PasswordField, validators,IntegerField,SubmitField,HiddenField
@@ -9,6 +10,7 @@ import werkzeug
 import sys
 from datetime import datetime
 import abc
+
 
 
 ###############################################
@@ -264,12 +266,12 @@ def db_localizar_funcionario_email(email):
 
 ############################ TABELA PRODUTO ########################################## 
 
-def db_criar_produto(nome_produto,descricao,qtd_estoque,valor,cpf_funcionario,id_mov):
+def db_criar_produto(nome_produto,descricao,qtd_estoque,valor,cpf_funcionario,):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("INSERT INTO TB_PRODUTO (NOME_PRODUTO,DESCRICAO, QTD_ESTOQUE,VALOR,CPF_FUNCIONARIO,ID_MOV) VALUES (?,?,?,?,?,?)", [nome_produto,descricao,qtd_estoque,valor,cpf_funcionario,id_mov])
+        cur.execute("INSERT INTO TB_PRODUTO (NOME_PRODUTO,DESCRICAO, QTD_ESTOQUE,VALOR,CPF_FUNCIONARIO) VALUES (?,?,?,?,?)", [nome_produto,descricao,qtd_estoque,valor,cpf_funcionario])
         id_produto = cur.lastrowid
         con.commit()
-        return {'id_produto':id_produto,'nome_produto':nome_produto,'descricao':descricao,'qtd_estoque':qtd_estoque,'valor':valor,'cpf_funcionario':cpf_funcionario,'id_mov':id_mov}
+        return {'id_produto':id_produto,'nome_produto':nome_produto,'descricao':descricao,'qtd_estoque':qtd_estoque,'valor':valor,'cpf_funcionario':cpf_funcionario}
 
 def db_listar_produtos():
     with closing(conectar()) as con, closing(con.cursor()) as cur:
@@ -281,11 +283,11 @@ def db_localiza_produto(id_produto):
         cur.execute("SELECT * FROM TB_PRODUTO WHERE ID_PRODUTO = (?)", [id_produto])
         return rows_to_dict(cur.description, cur.fetchall())
 
-def db_atualizar_qtd_produto(id_produto, qtd_estoque,id_mov,cpf_funcionario):
+def db_atualizar_qtd_produto(id_produto, qtd_estoque,cpf_funcionario):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("UPDATE TB_PRODUTO SET QTD_ESTOQUE = (?), ID_MOV = (?), CPF_FUNCIONARIO = (?) WHERE ID_PRODUTO = (?) ", [qtd_estoque,id_mov,cpf_funcionario,id_produto])
+        cur.execute("UPDATE TB_PRODUTO SET QTD_ESTOQUE = (?), CPF_FUNCIONARIO = (?) WHERE ID_PRODUTO = (?) ", [qtd_estoque,cpf_funcionario,id_produto])
         con.commit()
-        return {'id_produto':id_produto,'qtd_estoque':qtd_estoque,'cpf_funcionario':cpf_funcionario,'id_mov':id_mov}
+        return {'id_produto':id_produto,'qtd_estoque':qtd_estoque,'cpf_funcionario':cpf_funcionario,}
 
 
 ############################ TABELA TB_TAMANHO_PRODUTO ########################################## 
