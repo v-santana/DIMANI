@@ -30,6 +30,10 @@
 .card button:hover {
   opacity: 0.7;
 }
+.imagem-produto {
+  height: 100px;
+  width: 100px;
+}
 </style>
 {%if 'EMAIL' in session %}
   {% if eh_funcionario(session['EMAIL'])%}
@@ -41,7 +45,7 @@
 {% for produto in catalogo %}
 
     <div class="card">
-        <img src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" alt="Card image cap" style="height: 288px; width: auto;">
+        <img id="imagem-produto" src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" alt="Card image cap">
         <h2>{{produto['NOME_PRODUTO']}}</h2>
         <p name="valor_produto_real" class="price">{{produto['VALOR']}}</p>
         <p>{{produto['DESCRICAO']}}</p>
@@ -63,7 +67,7 @@
   {% for produto in catalogo %}
   
       <div class="card">
-          <img src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" alt="Card image cap" style="height: 288px; width: auto;">
+          <img id="imagem-produto" src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" alt="Card image cap">
           <h2>{{produto['NOME_PRODUTO']}}</h2>
           <p name="valor_produto_real" class="price">{{produto['VALOR']}}</p>
           <p>{{produto['DESCRICAO']}}</p>
@@ -83,7 +87,7 @@
     {% for produto in catalogo %}
     
         <div class="card">
-            <img src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" alt="Card image cap" style="height: 288px; width: auto;">
+            <img id="imagem-produto" src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" alt="Card image cap">
             <h2>{{produto['NOME_PRODUTO']}}</h2>
             <p name="valor_produto_real" class="price">{{produto['VALOR']}}</p>
             <p>{{produto['DESCRICAO']}}</p>
