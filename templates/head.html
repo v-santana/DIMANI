@@ -15,6 +15,16 @@
     <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script>
+        $(function(){
+            $('a').each(function(){
+                if ($(this).prop('href') == window.location.href) {
+                    $(this).addClass('active'); $(this).parents('li').addClass('active');
+                }
+            });
+        });
+    </script>
 
     <style>
 
@@ -71,6 +81,13 @@
       .menu:hover .menu__link:not(:hover){
         --rLinkColor: var(--menuLinkColorUnactive, rgba(22, 22, 22, .35));
       }
+
+      #nav_bar .active {
+    background-color: #F6A5B8;
+    border-radius: 25px;
+    color: white;
+}
+
       
       /*
       =====
@@ -88,6 +105,9 @@
         border-radius: 5px;
         cursor: pointer !important;
         transition-duration: 0.4s !important;
+        position:absolute;right:11px;
+        position:absolute;top:16px;
+        padding: 5px 8px !important;
       }
       
       .login:hover{
@@ -97,15 +117,19 @@
       
       .carrinho{
         color: #438759;
-        border-radius: 50%;
+        border-radius: 50% !important;
+        border-color: #438759 !important;
         cursor: pointer !important;
         transition-duration: 0.4s !important;
-        padding: 15px 15px !important;
+        padding: 7px 7px !important;
+        position:absolute;right:100px;
+        position:absolute;top:13px
       }
       
       .carrinho:hover{
         color: #438759;
         background: white !important;
+        outline-color: #438759;
       }
       .menu__list{
         display: flex;  
@@ -113,12 +137,6 @@
       
       .menu__link{
         padding: var(--menuLinkPadding, 1.5rem 3.5rem);
-        font-weight: 400;
-        text-transform: uppercase;
-      }
-
-      .button__link{
-        padding: var(--menuLinkPadding, 1.5rem 1.5rem);
         font-weight: 400;
         text-transform: uppercase;
       }
@@ -207,17 +225,15 @@
       }
       
       </style>
-      
-      <nav class="navbar sticky-top navbar-expand-lg navbar-light shadow" style="background-color: #f1b8c6;">
-        <div>
-          <nav class="page__menu page__custom-settings menu">
+      <div id="nav_bar">
+      <nav class="navbar sticky-top navbar-light navbar-collapse shadow page__menu page__custom-settings menu"" style="background-color: #f1b8c6;">
             <ul class="menu__list r-list">
-              <li class="menu__group"><a href="/" class="menu__link r-link text-underlined">HOME</a></li>
+              <li class="menu__group"><a href="/home" class="menu__link r-link text-underlined">HOME</a></li>
               <li class="menu__group"><a href="/sobre" class="menu__link r-link text-underlined">SOBRE</a></li>
               <li class="menu__group"><a href="/catalogo" class="menu__link r-link text-underlined">CATÁLOGO</a></li>
               <li class="menu__group"><a href="/pedidos" class="menu__link r-link text-underlined">PEDIDOS</a></li>
-              <li class="menu__group"><a href="/carrinho" class="carrinho menu__link"><i style="font-size:18px" class="fa">&#xf07a;</i></a></li>  
-              <li class="menu__group"><a href="/login" class="login menu__link"><i style="font-size:18px" class="fa">&#xf2bd;</i> LOGIN / CADASTRO</a></li>
+              <li class="menu__group"><a href="/carrinho" class="carrinho menu__link"><i style="font-size:25px" class="fa">&#xf07a;</i></a></li>  
+              <li class="menu__group"><a href="/login" class="login menu__link"><i style="font-size:px" class="fa">&#xf2bd;</i> LOGIN </a></li>
             </ul>
           </nav>
         </div>
