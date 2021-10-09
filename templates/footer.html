@@ -186,7 +186,7 @@ function cria_tabela_carrinho(conteudo,id_localStorage){
 function valores_em_real(){
   var valor_real = document.getElementsByName("valor_produto_real")
   for(var i = 0; i < valor_real.length; i++){
-     valor_real[i].textContent = formata_valor_com_cifrao(parseInt(valor_real[i].textContent))
+     valor_real[i].textContent = formata_valor_com_cifrao(parseFloat(valor_real[i].textContent))
   }
 }
 
