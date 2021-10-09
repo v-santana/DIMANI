@@ -117,6 +117,10 @@ def itens_carrinho():
     concluir_pedido(itens,session['ID_CONTA'])
     return jsonify({'status':'success'})
 
+@app.route('/navbar', methods=['GET'])
+def navbar():
+    return render_template('navbar.html')
+
 log_in = Blueprint("log_in",__name__)
 @app.route("/login", methods=['GET','POST'])
 def login():
