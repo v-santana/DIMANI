@@ -157,9 +157,15 @@ def logout():
 def sobre():
     return render_template('sobre.html')
 
-@app.route("/dados_cliente", methods=['POST','GET'])
+@app.route("/dados_cadastro", methods=['POST','GET'])
 def dados():
-    return render_template('dados_cliente.html')
+    cliente = db_localizar_cliente(session['ID_CONTA'])
+    telefone_cliente = db_localizar_telefone_cliente(cliente[0]['ID_CONTA'])
+    if request.method == 'POST':
+        print('FORA DA SENHA')
+        if 'atualizar_senha' in request.form:
+            print('SENHA ATUALIZADA')
+    return render_template('dados_cliente.html', cliente=cliente, telefone_cliente= telefone_cliente)
 
 @app.route("/cadastro", methods=['POST','GET'])
 def cadastro():
@@ -180,7 +186,7 @@ def cadastro():
             return render_template('cadastro.html', estados=db_listar_estados(), cidades=None,mensagem="E-mail já utilizado, por favor escolha outro e-mail ou verifique se já tem uma conta.") 
         else:
             session['NOME'],session['CPF'],session['DT_NASC'],session['EMAIL']  = nome_completo,cpf,dt_nasc,email
-            session['SENHA'],session['TELEFONE'],session['PIX'] = senha,telefone, pix
+            session['SENHA'],session['TELEFONE'],session['PIX'],session['TELEFONE'] = senha,telefone, pix, telefone
             return redirect('/cadastro/endereco')
     return render_template('cadastro.html', estados=db_listar_estados(), cidades=None, mensagem="")
 
@@ -200,6 +206,7 @@ def cadastro_endereco():
             cidade=request.form['cidade']
             endereco = db_criar_endereco(rua,numero,bairro,complemento,cidade)
             cliente = db_criar_cliente(session['CPF'],session['NOME'],session['DT_NASC'],session['EMAIL'],session['SENHA'],endereco['id_endereco'],session['EMAIL'])
+            telefone_cliente = db_criar_telefone_cliente(cliente['id_conta'],session['TELEFONE'])
             return redirect('/catalogo')
     return render_template("cadastro_endereco.html", mensagem = "", estados=db_listar_estados(), cidades=None)
 

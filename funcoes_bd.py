@@ -185,7 +185,7 @@ def db_listar_clientes():
 
 def db_localizar_cliente(id_conta):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute('''SELECT cl.ID_CONTA, cl.CPF, cl.NOME, cl.DT_NASC, cl.EMAIL, cl.SENHA, en.RUA, en.NUMERO FROM TB_CLIENTE cl  INNER JOIN TB_ENDERECO en 
+        cur.execute('''SELECT cl.ID_CONTA, cl.CPF, cl.NOME, cl.DT_NASC, cl.EMAIL, cl.SENHA, cl.CHAVE_PIX, en.RUA, en.NUMERO FROM TB_CLIENTE cl  INNER JOIN TB_ENDERECO en 
         ON  cl.ID_ENDERECO = en.ID_ENDERECO WHERE cl.ID_CONTA = (?)''' , [id_conta])
         return rows_to_dict(cur.description, cur.fetchall())
 
@@ -456,6 +456,11 @@ def db_criar_telefone_cliente(id_conta,telefone):
 def db_listar_telefone_cliente():
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute("SELECT * FROM TB_TELEFONE_CLIENTE")
+        return rows_to_dict(cur.description, cur.fetchall())
+
+def db_localizar_telefone_cliente(id_conta):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute('''SELECT * FROM TB_TELEFONE_CLIENTE WHERE ID_CONTA = (?)''' , [id_conta])
         return rows_to_dict(cur.description, cur.fetchall())
 
 ############################ TABELA TB_TELEFONE_FUNCIONARIO ########################################## 
