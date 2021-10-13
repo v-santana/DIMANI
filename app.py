@@ -159,12 +159,17 @@ def sobre():
 
 @app.route("/dados_cadastro", methods=['POST','GET'])
 def dados():
-    cliente = db_localizar_cliente(session['ID_CONTA'])
-    telefone_cliente = db_localizar_telefone_cliente(cliente[0]['ID_CONTA'])
-    if request.method == 'POST':
-        print('FORA DA SENHA')
-        if 'atualizar_senha' in request.form:
-            print('SENHA ATUALIZADA')
+    if 'ID_CONTA' in session:
+        cliente = db_localizar_cliente(session['ID_CONTA'])
+        telefone_cliente = db_localizar_telefones_cliente(cliente[0]['ID_CONTA'])
+        print(telefone_cliente)
+        if request.method == 'POST':
+            atualiza_dados_cadastrais(session['ID_CONTA'],request.form['cpf'],request.form['nome_completo'],
+                request.form['dt_nasc'],request.form['telefone'],request.form['email'],request.form['chave_pix'])
+            return redirect('/dados_cadastro')
+    else:
+        cliente = [""]
+        telefone_cliente=[""]
     return render_template('dados_cliente.html', cliente=cliente, telefone_cliente= telefone_cliente)
 
 @app.route("/cadastro", methods=['POST','GET'])

@@ -231,9 +231,15 @@
               <li class="menu__group"><a href="/home" class="menu__link r-link text-underlined">HOME</a></li>
               <li class="menu__group"><a href="/sobre" class="menu__link r-link text-underlined">SOBRE</a></li>
               <li class="menu__group"><a href="/catalogo" class="menu__link r-link text-underlined">CATÁLOGO</a></li>
-              <li class="menu__group"><a href="/pedidos" class="menu__link r-link text-underlined">PEDIDOS</a></li>
-              <li class="menu__group"><a href="/carrinho" class="carrinho menu__link"><i style="font-size:25px" class="fa">&#xf07a;</i></a></li>  
-              <li class="menu__group"><a href="/login" class="login menu__link"><i style="font-size:px" class="fa">&#xf2bd;</i> LOGIN </a></li>
+              {% if 'NOME' in session %}
+                <li class="menu__group"><a href="/pedidos" class="menu__link r-link text-underlined">PEDIDOS</a></li>
+              {% endif %}
+                <li class="menu__group"><a href="/carrinho" class="carrinho menu__link"><i style="font-size:25px" class="fa">&#xf07a;</i></a></li>  
+              {% if 'NOME' not in session %}
+                <li class="menu__group"><a href="/login" class="login menu__link"><i style="font-size:px" class="fa">&#xf2bd;</i> LOGIN </a></li>
+              {% else %}
+              <li class="menu__group"><a href="/#" class="login menu__link" id="navbarDropdown" role="button" data-toggle="dropdown"><i style="font-size:px" class="fa">&#xf2bd;</i> {{session['NOME'].split(" ")[0]}} </a></li>
+              {% endif %}
             </ul>
           </nav>
         </div>

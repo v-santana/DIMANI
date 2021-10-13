@@ -58,7 +58,7 @@
         <div class="form-group-inline">
             <div class="col-md-6 offset-md-3">
                 <label for="validationCustom04">Telefone</label>
-                <input type="text" name="telefone" class="form-control" id="validationCustom04" value="{{telefone_cliente[0]['TELEFONE']}}" placeholder="Insira seu telefone" maxlength="13" required>
+                <input type="text" name="telefone" class="form-control" id="validationCustom04" value="{% for telefone in telefone_cliente%}{{telefone['TELEFONE']}};{% endfor %}" placeholder="Insira seu telefone" maxlength="13" readonly>
                 <div class="invalid-feedback">
                     Insira um número de telefone válido.
                 </div>
@@ -78,13 +78,6 @@
         <!-- /END E-MAIL -->
 
         <!-- SENHA -->
-        <div class="form-group">
-            <div class="col-md-6 offset-md-3" style="margin-bottom: 2% ; margin-top:2%">
-                <label >Senha e autenticação: </label>
-                <button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">Alterar senha</button>
-                {% include 'alterar_senha.html'%}
-            </div>
-        </div>
         <!-- /END SENHA CONFIRMAÇÃO -->
         <div class="form-group" >
         <div class="col-md-6 offset-md-3">

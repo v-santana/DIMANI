@@ -453,15 +453,16 @@ def db_criar_telefone_cliente(id_conta,telefone):
         con.commit()
         return {'id_conta':id_conta,'telefone':telefone}
 
-def db_listar_telefone_cliente():
+def db_listar_telefone_clientes():
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute("SELECT * FROM TB_TELEFONE_CLIENTE")
         return rows_to_dict(cur.description, cur.fetchall())
 
-def db_localizar_telefone_cliente(id_conta):
+def db_localizar_telefones_cliente(id_conta):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute('''SELECT * FROM TB_TELEFONE_CLIENTE WHERE ID_CONTA = (?)''' , [id_conta])
         return rows_to_dict(cur.description, cur.fetchall())
+
 
 ############################ TABELA TB_TELEFONE_FUNCIONARIO ########################################## 
 
@@ -499,3 +500,9 @@ def adiciona_carrinho(id_produto,nome_produto,descricao_produto,valor_produto):
     lista = [id_produto, nome_produto, descricao_produto, valor_produto]
     localStorage.setItem(f"produto_{id_produto}", lista)
     return 
+
+def atualiza_dados_cadastrais(id_conta,cpf,nome_completo,dt_nasc,telefone,email,chave_pix):
+    db_atualizar_cliente(id_conta,nome_completo,dt_nasc,email,chave_pix)
+    db_atualizar_cpf_cliente(id_conta,cpf)
+    
+    return {'message': 'dados atualizados'}
