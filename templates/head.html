@@ -26,7 +26,7 @@
         });
     </script>
 
-    <style>
+    <!-- <style>
 
       /*
       =====
@@ -83,9 +83,7 @@
       }
 
       #nav_bar .active {
-    background-color: #F6A5B8;
-    border-radius: 25px;
-    color: white;
+        border-bottom: 1px solid  rgb(48, 43, 43)
 }
 
       
@@ -136,8 +134,8 @@
       }
       
       .menu__link{
-        padding: var(--menuLinkPadding, 1.5rem 3.5rem);
-        font-weight: 400;
+        padding: var(--menuLinkPadding, 1.5rem 4rem);
+        font-weight: 600;
         text-transform: uppercase;
       }
       
@@ -193,9 +191,10 @@
       
       .page__custom-settings{
         --menuBackgroundColor: #f1b8c6;
-        --menuLinkColor: #fff;
-        --menuLinkColorUnactive: #272631;
+        --menuLinkColor: rgb(48, 43, 43);
+        --menuLinkColorUnactive: white;
         --menuLinkOutlineOffset: -.5rem; 
+        font-size: 16px;
       }
       
       /*
@@ -234,7 +233,7 @@
               {% if 'NOME' in session %}
                 <li class="menu__group"><a href="/pedidos" class="menu__link r-link text-underlined">PEDIDOS</a></li>
               {% endif %}
-                <li class="menu__group"><a href="/carrinho" class="carrinho menu__link"><i style="font-size:25px" class="fa">&#xf07a;</i></a></li>  
+                <li class="menu__group"><a href="/carrinho" class="carrinho menu__link"><i style="font-size:25px" class="fa">&#xf07a;</i></a></li> 
               {% if 'NOME' not in session %}
                 <li class="menu__group"><a href="/login" class="login menu__link"><i style="font-size:px" class="fa">&#xf2bd;</i> LOGIN </a></li>
               {% else %}
@@ -242,9 +241,9 @@
               {% endif %}
             </ul>
           </nav>
-        </div>
+        </div> -->
 
-    <!-- Bootstrap CSS
+    <!-- Bootstrap CSS -->
 
   <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #F6A5B8;">
     <a class="navbar-left" href="/home">
@@ -275,12 +274,12 @@
         <li class="nav-item">
           <a href="/carrinho">
             <span class="btn btn-light btn-sm">
-              <span class="glyphicon glyphicon-shopping-cart"></span> Carrinho
+              <span class="glyphicon glyphicon-shopping-cart"></span>
           </a>
         </li>
         {% if 'NOME' not in session %}
         <li class="nav-item">
-          <a class="btn" style="background-color: #438759; color: white;" href="/login" >Login / Cadastre-se</a>
+          <a class="btn" style="background-color: #438759; color: white;" href="/login" >Login</a>
         </li>
         {% else %}
             <li class="nav-item">
@@ -295,7 +294,7 @@
 
             </li>
         {% endif %}
-      </ul>-->
+      </ul>
   </nav>
     <title>DIMANI ATELIER</title>
   </head>
