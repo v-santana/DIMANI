@@ -97,6 +97,13 @@ def catalogo():
             return redirect('/catalogo')
     return render_template('catalogo.html', catalogo=catalogo_produtos, eh_funcionario=db_localizar_funcionario_email)
 
+@app.route("/editar_produto/<id_produto>", methods=['GET'])
+def editar_produto(id_produto):
+
+    #expande detalhes do produto selecionado no catálogo
+    produto = db_localiza_produto(id_produto)[0]
+    return render_template('editar_produto.html', detalhes_produto=produto)
+
 @app.route("/detalhes_produto/<id_produto>", methods=['GET'])
 def detalhes_produto(id_produto):
     #expande detalhes do produto selecionado no catálogo
@@ -162,7 +169,6 @@ def dados():
     if 'ID_CONTA' in session:
         cliente = db_localizar_cliente(session['ID_CONTA'])
         telefone_cliente = db_localizar_telefones_cliente(cliente[0]['ID_CONTA'])
-        print(telefone_cliente)
         if request.method == 'POST':
             atualiza_dados_cadastrais(session['ID_CONTA'],request.form['cpf'],request.form['nome_completo'],
                 request.form['dt_nasc'],request.form['telefone'],request.form['email'],request.form['chave_pix'])
@@ -170,7 +176,22 @@ def dados():
     else:
         cliente = [""]
         telefone_cliente=[""]
-    return render_template('dados_cliente.html', cliente=cliente, telefone_cliente= telefone_cliente)
+    return render_template('dados_cliente.html', cliente=cliente)
+
+@app.route("/dados_cadastro/editar_telefones", methods=['POST','GET'])
+def editar_telefones():
+    if 'ID_CONTA' in session:
+        cliente = db_localizar_cliente(session['ID_CONTA'])
+        telefone_cliente = db_localizar_telefones_cliente(cliente[0]['ID_CONTA'])
+        print(db_localizar_telefones_cliente(session['ID_CONTA']))
+        if request.method == 'POST':
+            resposta = db_criar_telefone_cliente(session['ID_CONTA'],request.form['adicionar_telefone'])
+            return render_template('editar_telefone.html',telefone_cliente=telefone_cliente,message=resposta['message'])
+    else:
+        cliente = [""]
+        telefone_cliente=[""]
+
+    return render_template('editar_telefone.html',telefone_cliente= telefone_cliente,message="")
 
 @app.route("/cadastro", methods=['POST','GET'])
 def cadastro():
