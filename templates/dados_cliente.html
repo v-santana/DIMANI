@@ -8,7 +8,7 @@
     <form class="forms needs-validation" name="form_cadastro" method="POST" novalidate>
 
         <!-- TÍTULO FORM -->
-        <h2 class="form-title text-center">Meus Dados</h2>
+        <h2 class="form-title text-center">Meus Dados<hr></h2>
         <!-- /END TÍTULO FORM -->
 
         <!-- DISCLAIMER -->
@@ -56,14 +56,19 @@
 
         <!-- CELULAR -->
         <div class="form-group-inline">
-            <div class="col-md-6 offset-md-3">
+            <div class="col-md-6 offset-md-3" style="margin-top:2vmin;margin-right:2vmin">
+                <hr>
                 <label for="validationCustom04">Telefone</label>
-                <input type="text" name="telefone" class="form-control" id="validationCustom04" value="{% for telefone in telefone_cliente%}{{telefone['TELEFONE']}};{% endfor %}" placeholder="Insira seu telefone" maxlength="13" readonly>
-                <div class="invalid-feedback">
-                    Insira um número de telefone válido.
-                </div>
+                <a href="/dados_cadastro/editar_telefones" class="btn btn-success " role="button">Editar telefones</a>
+                <hr>
             </div>
         </div>
+<!-- 
+        <input type="text" name="telefone" class="form-control" id="validationCustom04" value="{% for telefone in telefone_cliente%}{{telefone['TELEFONE']}};{% endfor %}" placeholder="Insira seu telefone" maxlength="13" readonly>
+                <button>Adicionar Telefones</button>
+                <div class="invalid-feedback">
+                    Insira um número de telefone válido.
+                </div> -->
         <!-- /END CELULAR -->
 
         <!-- E-MAIL -->

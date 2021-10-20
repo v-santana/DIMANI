@@ -1,0 +1,63 @@
+{% include 'head.html'%}
+
+<div class="form-group d-flex justify-content-center">
+    <img src="/static/images/BANNER_BRANCO_DIMANI.PNG" alt="Fuzzy Cardigan" class="img-fluid" style="max-width: 500px; width:100%;">
+</div>
+<div class="container">
+    <!-- BOTÃO VOLTAR -->
+    <div class="col-sm">
+        <a href="/dados_cadastro">
+          <button type="button" class="button btn-danger btn-md">
+            <span class="glyphicon glyphicon-chevron-left"></span>VOLTAR</button>
+        </a>
+      </div>
+    <!--/END BOTÃO VOLTAR -->
+
+    <!-- TÍTULO FORM -->
+    <h2 class="form-title text-center">Editar Telefones<hr></h2>
+    <!-- /END TÍTULO FORM -->  
+    <form class="forms needs-validation" name="form_telefone" method="POST" novalidate>
+
+        <!-- ADICIONAR TELEFONE -->
+        <div class="form-group-inline">
+            <h4 class="form-title text-info text-center" > {{message}}</h4>
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Adicionar Telefone</label>
+                <input type="text" name="adicionar_telefone" class="form-control" id="validationCustom01" placeholder="Insira um novo telefone" maxlength="13" required>
+                <div class="invalid-feedback">
+                    Insira um número de telefone válido.
+                </div>
+            </div>
+        </div>
+        <div class="form-group-inline">
+            <div class="col-md-6 offset-md-3">
+            <label for="validationCustom01">Remover Telefone</label>
+            <select class="form-control" name="remover_telefone" id="validationCustom01">
+                <option selected>Escolher...</option>
+                {% for telefone in telefone_cliente%}
+                <option value="{{telefone['TELEFONE']}}">{{telefone['TELEFONE']}}</option>
+                {% endfor %}"
+            </select>
+          </div>
+          </div>
+        <div class="form-group-inline">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">Telefones cadastrados</label>
+                <input type="text" name="telefone" class="form-control" id="validationCustom04" value="{% for telefone in telefone_cliente%}{{telefone['TELEFONE']}};{% endfor %}" placeholder="Insira seu telefone" maxlength="13" readonly>
+                <div class="invalid-feedback">
+                    Insira um número de telefone válido.
+                </div>
+            </div>
+        </div>
+        <!-- BOTÃO PROSSEGUIR -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3" style="margin-top: 2rem;">
+                <button type="submit" class="btn btn-secondary btn-lg btn-block">Confirmar</button>
+            </div>
+        </div>
+        <!-- /END BOTÃO PROSSEGUOR -->
+    </form>
+</div>
+
+
+{% include 'footer.html'%}

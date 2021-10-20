@@ -448,10 +448,13 @@ def db_listar_pagamentos():
 ############################ TABELA TB_TELEFONE_CLIENTE ########################################## 
 
 def db_criar_telefone_cliente(id_conta,telefone):
+    for lista in db_localizar_telefones_cliente(id_conta): 
+        if lista['TELEFONE'] == telefone:
+            return {'message':'Telefone ja cadastrado para este cliente'}
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute("INSERT INTO TB_TELEFONE_CLIENTE (ID_CONTA, TELEFONE) VALUES (?,?)", [id_conta,telefone])
         con.commit()
-        return {'id_conta':id_conta,'telefone':telefone}
+        return {'id_conta':id_conta,'telefone':telefone,'message':'Telefone cadastrado'}
 
 def db_listar_telefone_clientes():
     with closing(conectar()) as con, closing(con.cursor()) as cur:
@@ -462,6 +465,7 @@ def db_localizar_telefones_cliente(id_conta):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute('''SELECT * FROM TB_TELEFONE_CLIENTE WHERE ID_CONTA = (?)''' , [id_conta])
         return rows_to_dict(cur.description, cur.fetchall())
+
 
 
 ############################ TABELA TB_TELEFONE_FUNCIONARIO ########################################## 
@@ -506,3 +510,4 @@ def atualiza_dados_cadastrais(id_conta,cpf,nome_completo,dt_nasc,telefone,email,
     db_atualizar_cpf_cliente(id_conta,cpf)
     
     return {'message': 'dados atualizados'}
+

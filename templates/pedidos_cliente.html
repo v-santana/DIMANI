@@ -103,6 +103,11 @@
     </div>
   </div>
 </div>
+
+  {% endif %}
+</div>
+{% include 'footer.html'%}
+
 <!-- SCRIPT PARA PASSAR INFORMAÇÕES DA TABELA EXIBIDA EM PEDIDOS PARA O MODAL DE ALTERACAO DE STATUS -->
 <script type="text/javascript" charset="utf-8" async defer>
   $('#exampleModal').on('show.bs.modal', function (event) {
@@ -112,7 +117,4 @@
   modal.find('.modal-title').text('ALTERAR STATUS DO PEDIDO Nº ' + recipient)
   modal.find('.modal-body input').val(recipient)
 })
-</script>
-  {% endif %}
-</div>
-{% include 'footer.html'%}
+</script> 
