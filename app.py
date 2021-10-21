@@ -97,11 +97,19 @@ def catalogo():
             return redirect('/catalogo')
     return render_template('catalogo.html', catalogo=catalogo_produtos, eh_funcionario=db_localizar_funcionario_email)
 
-@app.route("/editar_produto/<id_produto>", methods=['GET'])
+@app.route("/editar_produto/<id_produto>", methods=['GET','POST'])
 def editar_produto(id_produto):
 
     #expande detalhes do produto selecionado no catálogo
     produto = db_localiza_produto(id_produto)[0]
+
+    #se o formulário for enviado
+    if request.method == "POST":
+        id,nome_produto = request.form['id_produto'],request.form['nome_produto']
+        valor_produto,descricao_produto = request.form['valor_produto'],request.form['descricao_produto']
+        print(db_editar_produto(id,nome_produto,float(valor_produto.replace(',','.')),descricao_produto))
+        print(upload_file('imagem_nova_produto',f"produto_{id}.jpg")) #sobe imagem do produto no sistema /static/images/produtos
+        return redirect(url_for(f"catalogo"))
     return render_template('editar_produto.html', detalhes_produto=produto)
 
 @app.route("/detalhes_produto/<id_produto>", methods=['GET'])

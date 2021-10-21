@@ -1,4 +1,4 @@
-from flask import Flask, make_response, request, render_template, redirect, send_from_directory,session,Blueprint,jsonify, flash
+from flask import Flask, url_for, make_response, request, render_template, redirect, send_from_directory,session,Blueprint,jsonify, flash
 from werkzeug.utils import secure_filename
 from flask_session import Session
 from localStoragePy import localStoragePy
@@ -282,6 +282,13 @@ def db_localiza_produto(id_produto):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute("SELECT * FROM TB_PRODUTO WHERE ID_PRODUTO = (?)", [id_produto])
         return rows_to_dict(cur.description, cur.fetchall())
+
+def db_editar_produto(id_produto,nome_produto,valor_produto,descricao_produto):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute("UPDATE TB_PRODUTO SET NOME_PRODUTO = (?), VALOR = (?), DESCRICAO = (?) WHERE ID_PRODUTO = (?) ", [nome_produto,valor_produto,descricao_produto,id_produto])
+        con.commit()
+        return {'id_produto':id_produto,'nome_produto':nome_produto,'valor_produto':valor_produto,'descricao_produto':descricao_produto}
+
 
 def db_atualizar_qtd_produto(id_produto, qtd_estoque,cpf_funcionario):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
