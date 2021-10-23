@@ -252,6 +252,6 @@ if __name__ == "__main__":
     app.config['SESSION_TYPE'] = 'filesystem'
 
     Session().init_app(app)
-
+    print('HOMOLOGAÇÃO')
     app.debug = True
     app.run(debug=True)
