@@ -34,10 +34,20 @@
   height: 100px;
   width: 100px;
 }
+
+.btn-incluir {
+  background-color: #438759 !important;
+  color: white;
+  font-size: 20px;
+}
+
+.container {
+  width:1200px !important;
+}
 </style>
 {%if 'EMAIL' in session %}
   {% if eh_funcionario(session['EMAIL'])%}
-<div class="container content-left" style="margin-bottom: 1%;"><button type="button" class="btn btn-success" data-toggle="modal" data-target="#exampleModal">+ INCLUIR PRODUTO</button></div>
+<div class="container" style="margin-bottom: 2%;"><button type="button" class="btn btn-incluir btn-block" data-toggle="modal" data-target="#exampleModal">+ INCLUIR PRODUTO</button></div>
 
 
 {% include 'incluir_produto.html'%}

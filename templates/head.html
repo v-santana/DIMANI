@@ -271,12 +271,24 @@
       </ul>
     </div>
       <ul class="nav justify-content-right">
+        {%if 'EMAIL' in session%}
+        {% if not eh_funcionario(session['EMAIL'])%}
         <li class="nav-item">
           <a href="/carrinho">
             <span class="btn btn-light btn-sm">
               <span class="glyphicon glyphicon-shopping-cart"></span>
           </a>
         </li>
+        {%endif%}
+        {%endif%}
+        {%if 'EMAIL' not in session%}
+        <li class="nav-item">
+          <a href="/carrinho">
+            <span class="btn btn-light btn-sm">
+              <span class="glyphicon glyphicon-shopping-cart"></span>
+          </a>
+        </li>
+        {%endif%}
         {% if 'NOME' not in session %}
         <li class="nav-item">
           <a class="btn" style="background-color: #438759; color: white;" href="/login" >Login</a>
