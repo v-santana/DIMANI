@@ -15,8 +15,9 @@
                         <li><a type="button" class="btn btn-link" href="/sobre">Sobre</a></li>
                         <li><a type="button" class="btn btn-link" href="/catalogo">Catálogo</a></li>
                         {%if 'NOME' in session %}
-                        <li><a type="button" class="btn btn-link" href="/logout" onclick="localStorage.clear()">Logout</a></li>
                         <li><a type="button" class="btn btn-link" href="/dados_cadastro">Dados Cadastrais</a></li>
+                        <li><a type="button" class="btn btn-link" href="/logout" onclick="localStorage.clear()">Logout</a></li>
+                       
                         {% endif %}
                       </ul>
                   </div>

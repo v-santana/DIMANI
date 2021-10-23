@@ -26,223 +26,6 @@
         });
     </script>
 
-    <!-- <style>
-
-      /*
-      =====
-      DEPENDENCES
-      =====
-      */
-      
-      .r-link{
-        display: var(--rLinkDisplay, inline-flex) !important;
-      }
-      
-      .r-link[href]{
-        color: var(--rLinkColor) !important;
-        text-decoration: var(--rLinkTextDecoration, none) !important;
-      }
-      
-      .r-list{
-        padding-left: var(--rListPaddingLeft, 0) !important;
-        margin-top: var(--rListMarginTop, 0) !important;
-        margin-bottom: var(--rListMarginBottom, 0) !important;
-        list-style: var(--rListListStyle, none) !important;
-      }
-      
-      
-      /*
-      =====
-      CORE STYLES
-      =====
-      */
-      
-      .menu{
-        --rLinkColor: var(--menuLinkColor, currentColor);
-      }
-      
-      .menu__link{
-        display: var(--menuLinkDisplay, block);
-      }
-      
-      /* 
-      focus state 
-      */
-      
-      .menu__link:focus{
-        outline: var(--menuLinkOutlineWidth, 2px) solid var(--menuLinkOutlineColor, currentColor);
-        outline-offset: var(--menuLinkOutlineOffset);
-      }
-      
-      /* 
-      fading siblings
-      */
-      
-      .menu:hover .menu__link:not(:hover){
-        --rLinkColor: var(--menuLinkColorUnactive, rgba(22, 22, 22, .35));
-      }
-
-      #nav_bar .active {
-        border-bottom: 1px solid  rgb(48, 43, 43)
-}
-
-      
-      /*
-      =====
-      PRESENTATION STYLES
-      =====
-      */
-      
-      .menu{
-        background-color: var(--menuBackgroundColor, #f0f0f0);
-      }
-
-      .login{
-        color: white;
-        background: #438759 !important;
-        border-radius: 5px;
-        cursor: pointer !important;
-        transition-duration: 0.4s !important;
-        position:absolute;right:11px;
-        position:absolute;top:16px;
-        padding: 5px 8px !important;
-      }
-      
-      .login:hover{
-        color: #438759;
-        background: white !important;
-      }
-      
-      .carrinho{
-        color: #438759;
-        border-radius: 50% !important;
-        border-color: #438759 !important;
-        cursor: pointer !important;
-        transition-duration: 0.4s !important;
-        padding: 7px 7px !important;
-        position:absolute;right:100px;
-        position:absolute;top:13px
-      }
-      
-      .carrinho:hover{
-        color: #438759;
-        background: white !important;
-        outline-color: #438759;
-      }
-      .menu__list{
-        display: flex;  
-      }
-      
-      .menu__link{
-        padding: var(--menuLinkPadding, 1.5rem 4rem);
-        font-weight: 600;
-        text-transform: uppercase;
-      }
-      
-      /* 
-      =====
-      TEXT UNDERLINED
-      =====
-      */
-      
-      .text-underlined{
-        position: relative;
-        overflow: hidden;
-      
-        will-change: color;
-        transition: color .25s ease-out;  
-      }
-      
-      .text-underlined::before, 
-      .text-underlined::after{
-        content: "";
-        width: 0;
-        height: 3px;
-        background-color: var(--textUnderlinedLineColor, currentColor);
-      
-        will-change: width;
-        transition: width .1s ease-out;
-      
-        position: absolute;
-        bottom: 0;
-      }
-      
-      .text-underlined::before{
-        left: 50%;
-        transform: translateX(-50%); 
-      }
-      
-      .text-underlined::after{
-        right: 50%;
-        transform: translateX(50%); 
-      }
-      
-      .text-underlined:hover::before, 
-      .text-underlined:hover::after{
-        width: 100%;
-        transition-duration: .2s;
-      }
-      
-      /*
-      =====
-      SETTINGS
-      =====
-      */
-      
-      .page__custom-settings{
-        --menuBackgroundColor: #f1b8c6;
-        --menuLinkColor: rgb(48, 43, 43);
-        --menuLinkColorUnactive: white;
-        --menuLinkOutlineOffset: -.5rem; 
-        font-size: 16px;
-      }
-      
-      /*
-      =====
-      DEMO
-      =====
-      */
-      
-      body{
-        font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Open Sans, Ubuntu, Fira Sans, Helvetica Neue, sans-serif;
-        margin: 0;
-        min-height: 100vh;
-        display: flex;  
-        flex-direction: column;
-      }
-      
-      .page{
-        box-sizing: border-box;
-        max-width: 640px;
-        padding-left: .75rem;
-        padding-right: .75rem;
-        margin: auto;
-      }
-      
-      .page__menu:nth-child(n+2){
-        margin-top: 3rem;
-      }
-      
-      </style>
-      <div id="nav_bar">
-      <nav class="navbar sticky-top navbar-light navbar-collapse shadow page__menu page__custom-settings menu"" style="background-color: #f1b8c6;">
-            <ul class="menu__list r-list">
-              <li class="menu__group"><a href="/home" class="menu__link r-link text-underlined">HOME</a></li>
-              <li class="menu__group"><a href="/sobre" class="menu__link r-link text-underlined">SOBRE</a></li>
-              <li class="menu__group"><a href="/catalogo" class="menu__link r-link text-underlined">CATÁLOGO</a></li>
-              {% if 'NOME' in session %}
-                <li class="menu__group"><a href="/pedidos" class="menu__link r-link text-underlined">PEDIDOS</a></li>
-              {% endif %}
-                <li class="menu__group"><a href="/carrinho" class="carrinho menu__link"><i style="font-size:25px" class="fa">&#xf07a;</i></a></li> 
-              {% if 'NOME' not in session %}
-                <li class="menu__group"><a href="/login" class="login menu__link"><i style="font-size:px" class="fa">&#xf2bd;</i> LOGIN </a></li>
-              {% else %}
-              <li class="menu__group"><a href="/#" class="login menu__link" id="navbarDropdown" role="button" data-toggle="dropdown"><i style="font-size:px" class="fa">&#xf2bd;</i> {{session['NOME'].split(" ")[0]}} </a></li>
-              {% endif %}
-            </ul>
-          </nav>
-        </div> -->
-
     <!-- Bootstrap CSS -->
   <style>
 
@@ -269,14 +52,40 @@
   color: white;
 }
 
+.nav-item-menu {
+  margin-left: 4vmin;
+  margin-right: 4vmin;
+
+}
+
+.nav-item {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Open Sans, Ubuntu, Fira Sans, Helvetica Neue, sans-serif;
+}
+
+      .carrinho{
+        color: #438759;
+        border-color: #438759 !important;
+        cursor: pointer !important;
+        transition-duration: 0.4s !important;
+      }
+      
+      .carrinho:hover{
+        color: #438759;
+        background: white !important;
+        outline-color: #438759;
+      }
+
+@media (min-width: 992px) { 
 .navbar .navbar-nav {
   display: inline-block;
   float: none;
   vertical-align: top;
+  margin-left: 12.5vmin;
 }
 
 .navbar .navbar-collapse {
   text-align: center;
+}
 }
   </style>
   <nav class="navbar sticky-top navbar-expand-lg navbar-light shadow" style="background-color: #f3c4cf;">
@@ -288,17 +97,17 @@
     </button>
     <div class="collapse navbar-collapse " id="navbarNav">
       <ul class="navbar-nav "> 
-        <li class="nav-item">
+        <li class="nav-item nav-item-menu">
           <a class="nav-link" href="/"><h4>HOME</h4><span class="sr-only">(Página atual)</span></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item nav-item-menu">
           <a class="nav-link" href="/sobre"><h4>SOBRE</h4></a>
         </li>
-        <li class="nav-item">
+        <li class="nav-item nav-item-menu">
           <a class="nav-link" href="/catalogo"><h4>CATÁLOGO</h4></a>
         </li>
         {% if 'NOME' in session %}
-        <li class="nav-item">
+        <li class="nav-item nav-item-menu">
             <a class="nav-link" href="/pedidos"><h4>PEDIDOS</h4></a>
         </li>
         {% endif%}
@@ -308,7 +117,7 @@
         {%if 'EMAIL' in session%}
         {% if not eh_funcionario(session['EMAIL'])%}
         <li class="nav-item">
-          <a href="/carrinho" class="notification">
+          <a href="/carrinho" class="notification carrinho">
             <span class="btn btn-light btn-sm">
               <i style="font-size:20px" class="fa">&#xf07a;</i>
               <span id="notif" class="badge"></span>
@@ -332,11 +141,11 @@
         {% else %}
             <li class="nav-item">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text" style="margin-top: 3%; font-size:19px ;" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle text" style="margin-top: 5%; font-size:16px ;" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Olá, {{session['NOME'].split(" ")[0]}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
-
+                    <a type="button" class="nav-link dropdown-item" href="/dados_cadastro">Dados Cadastrais</a>
                     <a class=" nav-link dropdown-item" onclick="localStorage.clear();" href="/logout">Sair</a>
                   </div>
 
