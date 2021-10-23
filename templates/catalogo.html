@@ -45,14 +45,20 @@
 {% for produto in catalogo %}
 
     <div class="card">
+      
         <img id="imagem-produto" src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" alt="Card image cap">
+        
         <h2>{{produto['NOME_PRODUTO']}}</h2>
         <p name="valor_produto_real" class="price">{{produto['VALOR']}}</p>
         <p>{{produto['DESCRICAO']}}</p>
         
         <a href="editar_produto/{{produto['ID_PRODUTO']}}">
           <button>EDITAR</button>
-      </a>
+        </a>
+        
+        <button type="button" style="margin:0px !important;" class="button-limpar btn-block">
+          <span aria-hidden="true">REMOVER</span>
+        </button>
     </div>
 
 
