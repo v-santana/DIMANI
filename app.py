@@ -116,15 +116,15 @@ def editar_produto(id_produto):
 def detalhes_produto(id_produto):
     #expande detalhes do produto selecionado no catálogo
     produto = db_localiza_produto(id_produto) [0]
-    return render_template('detalhes_produto.html', detalhes_produto=produto)
+    return render_template('detalhes_produto.html', detalhes_produto=produto, eh_funcionario=db_localizar_funcionario_email)
 
 @app.route("/carrinho", methods=['GET'])
 def carrinho():
-    return render_template('tela_carrinho.html')
+    return render_template('tela_carrinho.html', eh_funcionario=db_localizar_funcionario_email)
 
 @app.route("/fechar_pedido", methods=['GET'])
 def fechar_pedido():        
-    return render_template('fechar_pedido.html')
+    return render_template('fechar_pedido.html', eh_funcionario=db_localizar_funcionario_email)
 
 @app.route('/itens_carrinho', methods = ['POST','GET'])
 def itens_carrinho():
@@ -134,7 +134,7 @@ def itens_carrinho():
 
 @app.route('/navbar', methods=['GET'])
 def navbar():
-    return render_template('navbar.html')
+    return render_template('navbar.html', eh_funcionario=db_localizar_funcionario_email)
 
 log_in = Blueprint("log_in",__name__)
 @app.route("/login", methods=['GET','POST'])
@@ -159,9 +159,9 @@ def login():
                         efetua_login_funcionario(funcionario['CPF'],funcionario['SALARIO'],funcionario['EMAIL'],funcionario['NOME'])
                         return redirect('/catalogo')
             else:
-                return render_template('login.html', message="E-mail ou senha invalidos")
+                return render_template('login.html', message="E-mail ou senha invalidos", eh_funcionario=db_localizar_funcionario_email)
 
-    return render_template('login.html', message="")
+    return render_template('login.html', message="", eh_funcionario=db_localizar_funcionario_email)
 
 @app.route('/logout', methods = ['POST','GET'])
 def logout():
@@ -170,7 +170,7 @@ def logout():
 
 @app.route("/sobre", methods=['GET'])
 def sobre():
-    return render_template('sobre.html')
+    return render_template('sobre.html', eh_funcionario=db_localizar_funcionario_email)
 
 @app.route("/dados_cadastro", methods=['POST','GET'])
 def dados():
@@ -184,7 +184,7 @@ def dados():
     else:
         cliente = [""]
         telefone_cliente=[""]
-    return render_template('dados_cliente.html', cliente=cliente)
+    return render_template('dados_cliente.html', cliente=cliente, eh_funcionario=db_localizar_funcionario_email)
 
 @app.route("/dados_cadastro/editar_telefones", methods=['POST','GET'])
 def editar_telefones():
@@ -194,12 +194,12 @@ def editar_telefones():
         print(db_localizar_telefones_cliente(session['ID_CONTA']))
         if request.method == 'POST':
             resposta = db_criar_telefone_cliente(session['ID_CONTA'],request.form['adicionar_telefone'])
-            return render_template('editar_telefone.html',telefone_cliente=telefone_cliente,message=resposta['message'])
+            return render_template('editar_telefone.html',telefone_cliente=telefone_cliente,message=resposta['message'], eh_funcionario=db_localizar_funcionario_email)
     else:
         cliente = [""]
         telefone_cliente=[""]
 
-    return render_template('editar_telefone.html',telefone_cliente= telefone_cliente,message="")
+    return render_template('editar_telefone.html',telefone_cliente= telefone_cliente,message="", eh_funcionario=db_localizar_funcionario_email)
 
 @app.route("/cadastro", methods=['POST','GET'])
 def cadastro():
@@ -222,7 +222,7 @@ def cadastro():
             session['NOME'],session['CPF'],session['DT_NASC'],session['EMAIL']  = nome_completo,cpf,dt_nasc,email
             session['SENHA'],session['TELEFONE'],session['PIX'],session['TELEFONE'] = senha,telefone, pix, telefone
             return redirect('/cadastro/endereco')
-    return render_template('cadastro.html', estados=db_listar_estados(), cidades=None, mensagem="")
+    return render_template('cadastro.html', estados=db_listar_estados(), cidades=None, mensagem="", eh_funcionario=db_localizar_funcionario_email)
 
 @app.route("/cadastro/endereco", methods=['POST','GET'])
 def cadastro_endereco():
@@ -242,7 +242,7 @@ def cadastro_endereco():
             cliente = db_criar_cliente(session['CPF'],session['NOME'],session['DT_NASC'],session['EMAIL'],session['SENHA'],endereco['id_endereco'],session['EMAIL'])
             telefone_cliente = db_criar_telefone_cliente(cliente['id_conta'],session['TELEFONE'])
             return redirect('/catalogo')
-    return render_template("cadastro_endereco.html", mensagem = "", estados=db_listar_estados(), cidades=None)
+    return render_template("cadastro_endereco.html", mensagem = "", estados=db_listar_estados(), cidades=None, eh_funcionario=db_localizar_funcionario_email)
 
 
 
