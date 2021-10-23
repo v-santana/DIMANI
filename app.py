@@ -45,7 +45,7 @@ app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 @app.route("/home", methods=['GET', 'POST'])
 def index():
-    return render_template("home.html", erro = "")
+    return render_template("home.html", erro = "",eh_funcionario=db_localizar_funcionario_email)
 
 
 @app.route("/", methods=['GET', 'POST'])
@@ -72,7 +72,7 @@ def pedidos():
                 return redirect('/pedidos')       
     # SE NÃO ESTIVER LOGADO
 
-    return render_template('pedidos_cliente.html', pedidos=pedidos)
+    return render_template('pedidos_cliente.html', pedidos=pedidos,eh_funcionario=db_localizar_funcionario_email)
 
 #DESCRIÇÃO DO PEDIDO COM BASE NO ID DO PEDIDO
 @app.route("/pedidos/<id_pedido>", methods=['GET', 'POST'])
@@ -83,7 +83,7 @@ def detalhes_pedido(id_pedido):
         if 'ID_CONTA' in pedido:
             id_cliente = pedido['ID_CONTA']
         break
-    return render_template('detalhes_pedido.html',detalhes_pedido = pedidos, id_cliente = id_cliente)
+    return render_template('detalhes_pedido.html',detalhes_pedido = pedidos, id_cliente = id_cliente,eh_funcionario=db_localizar_funcionario_email)
 
 
 @app.route("/catalogo", methods=['GET','POST'])
@@ -110,7 +110,7 @@ def editar_produto(id_produto):
         db_editar_produto(id,nome_produto,string_para_float(valor_produto),descricao_produto)
         upload_file('imagem_nova_produto',f"produto_{id}.jpg") #sobe imagem do produto no sistema /static/images/produtos
         return redirect("/catalogo")
-    return render_template('editar_produto.html', detalhes_produto=produto)
+    return render_template('editar_produto.html', detalhes_produto=produto,eh_funcionario=db_localizar_funcionario_email)
 
 @app.route("/detalhes_produto/<id_produto>", methods=['GET'])
 def detalhes_produto(id_produto):
@@ -252,6 +252,5 @@ if __name__ == "__main__":
     app.config['SESSION_TYPE'] = 'filesystem'
 
     Session().init_app(app)
-    print('HOMOLOGAÇÃO')
     app.debug = True
     app.run(debug=True)

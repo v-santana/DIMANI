@@ -268,16 +268,26 @@
   background: red;
   color: white;
 }
+
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
   </style>
-  <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #F6A5B8;">
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light shadow" style="background-color: #f3c4cf;">
     <a class="navbar-left" href="/home">
-      <img src="/static/images/LOGO_NAVBAR.PNG" alt="logo da navbar dimani" style="width:50px;">
+      <img src="static/images/LOGO_NAVBAR.png" alt="logo da navbar dimani" style="max-width: 9vmin;">
     </a>
     <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alterna navegação">
       <span class="navbar-toggler-icon"></span>
     </button>
-    <div class="collapse navbar-collapse" id="navbarNav">
-      <ul class="navbar-nav"> 
+    <div class="collapse navbar-collapse " id="navbarNav">
+      <ul class="navbar-nav "> 
         <li class="nav-item">
           <a class="nav-link" href="/"><h4>HOME</h4><span class="sr-only">(Página atual)</span></a>
         </li>
