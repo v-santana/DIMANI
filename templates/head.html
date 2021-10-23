@@ -244,7 +244,31 @@
         </div> -->
 
     <!-- Bootstrap CSS -->
+  <style>
 
+  .notification {
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.notification:hover {
+  background: red;
+}
+
+.notification .badge {
+  position: absolute;
+  top: -1px;
+  right: 45px;
+  padding: 3px 6px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+  </style>
   <nav class="navbar sticky-top navbar-expand-lg navbar-light" style="background-color: #F6A5B8;">
     <a class="navbar-left" href="/home">
       <img src="/static/images/LOGO_NAVBAR.PNG" alt="logo da navbar dimani" style="width:50px;">
@@ -283,15 +307,16 @@
         {%endif%}
         {%if 'EMAIL' not in session%}
         <li class="nav-item">
-          <a href="/carrinho">
+          <a href="/carrinho" class="notification">
             <span class="btn btn-light btn-sm">
-              <span class="glyphicon glyphicon-shopping-cart"></span>
+              <i style="font-size:20px" class="fa">&#xf07a;</i>
+              <span id="notif" class="badge"></span>
           </a>
         </li>
         {%endif%}
         {% if 'NOME' not in session %}
         <li class="nav-item">
-          <a class="btn" style="background-color: #438759; color: white;" href="/login" >Login</a>
+          <a class="btn" style="background-color: #438759; color: white; margin-top: 10%;" href="/login" >Login</a>
         </li>
         {% else %}
             <li class="nav-item">
