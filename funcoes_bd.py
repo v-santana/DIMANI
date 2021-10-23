@@ -518,3 +518,9 @@ def atualiza_dados_cadastrais(id_conta,cpf,nome_completo,dt_nasc,telefone,email,
     
     return {'message': 'dados atualizados'}
 
+def string_para_float(string):
+    valor = string
+    valor = valor.replace('.','')
+    valor = valor.replace(',','.')
+    valor = float(valor)
+    return valor

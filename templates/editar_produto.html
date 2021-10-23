@@ -1,6 +1,6 @@
 {% include 'head.html'%}
 
-<form class="form-inline needs-validation" method="POST" novalidate>
+<form class="form-inline form needs-validation" method="POST" enctype="multipart/form-data" novalidate>
 <!-- Container com grid 1x2 1 linha 2 colunas-->
 <div class="container shadow-lg ">
     <!-- Linha 1 -->
@@ -25,7 +25,7 @@
                 <!-- NOME  -->
                 <div class="form-group">
                     <h3 class="card-text" >NOME</h3>
-                    <input type="text" class="form-control" id="validationCustom01" name="nome_produto" value="{{detalhes_produto['NOME_PRODUTO']}}" required>
+                    <input type="text" class="form-control" id="validationCustom01" name="nome_produto" value="{{detalhes_produto['NOME_PRODUTO']}}" maxlength="99" required>
                     <div class="invalid-feedback">
                         Insira um nome válido ou mantenha o nome atual para prosseguir.
                     </div>  
@@ -34,7 +34,7 @@
                 <!-- VALOR  -->
                 <div class="form-group">
                         <h3 class="card-text" >VALOR (R$)</h3>
-                        <input type="text" class="form-control" onkeyup="formataValor(this)" id="moeda validationCustom01" name="valor_produto"  placeholder="Valor atual: {{detalhes_produto['VALOR']}}" required>
+                        <input type="text" class="form-control" onkeyup="formataValor(this)" id="moeda validationCustom01" name="valor_produto" maxlength="23"  placeholder="Valor atual: {{'%0.2f'| format(detalhes_produto['VALOR']|float)}}" required>
                         <div class="invalid-feedback">
                             Insira um valor válido ou insira o valor atual para prosseguir.
                         </div>  
@@ -43,7 +43,7 @@
                 <!-- DESCRIÇÃO  -->
                 <br><div class="form-group">
                     <h3 class="card-text" >DESCRIÇÃO</h3>
-                    <input type="text" class="form-control" id="validationCustom01" name="descricao_produto" value="{{detalhes_produto['DESCRICAO']}}" required>
+                    <input type="text" class="form-control" id="validationCustom01" name="descricao_produto" value="{{detalhes_produto['DESCRICAO']}}" maxlength="299" required>
                     <div class="invalid-feedback">
                         Insira uma descrição válida ou insira a descrição atual para prosseguir.
                     </div>  

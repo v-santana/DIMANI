@@ -11,16 +11,18 @@ def allowed_file(filename):
 def upload_file(name_file,nome_arquivo):
         if name_file not in request.files:
             flash('No file part')
-            print('primeira verificacao')
+            print("sem arquivo anexado")
             return redirect('catalogo')
         file = request.files[name_file]
+        
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
-            print('segunda verificacao')
+            print('nenhuma imagem selecionada')
             flash('No selected file')
             return redirect('catalogo')
         if file and allowed_file(file.filename):
+            print('imagem salva')
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], nome_arquivo))
 
 # Cria o objeto principal do Flask.
@@ -99,17 +101,15 @@ def catalogo():
 
 @app.route("/editar_produto/<id_produto>", methods=['GET','POST'])
 def editar_produto(id_produto):
-
     #expande detalhes do produto selecionado no catálogo
     produto = db_localiza_produto(id_produto)[0]
-
     #se o formulário for enviado
     if request.method == "POST":
         id,nome_produto = request.form['id_produto'],request.form['nome_produto']
         valor_produto,descricao_produto = request.form['valor_produto'],request.form['descricao_produto']
-        print(db_editar_produto(id,nome_produto,float(valor_produto.replace(',','.')),descricao_produto))
-        print(upload_file('imagem_nova_produto',f"produto_{id}.jpg")) #sobe imagem do produto no sistema /static/images/produtos
-        return redirect(url_for(f"catalogo"))
+        db_editar_produto(id,nome_produto,string_para_float(valor_produto),descricao_produto)
+        upload_file('imagem_nova_produto',f"produto_{id}.jpg") #sobe imagem do produto no sistema /static/images/produtos
+        return redirect("/catalogo")
     return render_template('editar_produto.html', detalhes_produto=produto)
 
 @app.route("/detalhes_produto/<id_produto>", methods=['GET'])
