@@ -195,8 +195,14 @@
         color: #438759;
         background: white !important;
         outline-color: #438759;
+        background-color: #f3ccd5 !important;
+      }
+
+      .nav-ola:focus, .nav-ola:hover{
         background-color: #f3c4cf !important;
       }
+
+
 
 
       
@@ -267,7 +273,7 @@
         {% else %}
             <li class="nav-item">
               <li class="nav-item dropdown">
-                <a class="nav-link dropdown-toggle text" style="margin-top: 5%; font-size:16px ;" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                <a class="nav-link dropdown-toggle text nav-ola" style="margin-top: 5%; font-size:16px ;" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
                   Olá, {{session['NOME'].split(" ")[0]}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
