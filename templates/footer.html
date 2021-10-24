@@ -13,12 +13,12 @@ background: linear-gradient(0deg, rgba(244,221,227,1) 0%, rgba(244,221,227,1) 11
                   <div class="col-xl-2 col-md-4 col-sm-4 col-12">
                     <h6 class="mb-3 mb-lg-4 bold-text "><b>MENU</b></h6>
                     <ul class="list-unstyled">
-                      <li><a type="button" style="margin-bottom: 1vmin; color:rgba(0, 0, 0, 0.808)" class="btn-link" href="/home">Home</a></li>
-                      <li><a type="button" style="margin-bottom: 1vmin; color:rgba(0, 0, 0, 0.808)" class="btn-link" href="/sobre">Sobre</a></li>
-                      <li><a type="button" style="margin-bottom: 1vmin; color:rgba(0, 0, 0, 0.808)" class="btn-link" href="/catalogo">Catálogo</a></li>
+                      <li><a type="button" style="margin-bottom: 1vmin;" class="btn-link" href="/home">Home</a></li>
+                      <li><a type="button" style="margin-bottom: 1vmin;" class="btn-link" href="/sobre">Sobre</a></li>
+                      <li><a type="button" style="margin-bottom: 1vmin;" class="btn-link" href="/catalogo">Catálogo</a></li>
                       {%if 'NOME' in session %}
-                      <li><a type="button" style="margin-bottom: 1vmin; color:rgba(0, 0, 0, 0.808)" class=" btn-link" href="/dados_cadastro">Dados Cadastrais</a></li>
-                      <li><a type="button" style="margin-bottom: 1vmin; color:rgba(0, 0, 0, 0.808)" class=" btn-link" href="/logout" onclick="localStorage.clear()">Logout</a></li>
+                      <li><a type="button" style="margin-bottom: 1vmin;" class=" btn-link" href="/dados_cadastro">Dados Cadastrais</a></li>
+                      <li><a type="button" style="margin-bottom: 1vmin;" class=" btn-link" href="/logout" onclick="localStorage.clear()">Logout</a></li>
                      
                       {% endif %}
                     </ul>
@@ -42,7 +42,7 @@ background: linear-gradient(0deg, rgba(244,221,227,1) 0%, rgba(244,221,227,1) 11
                       </p><small class="rights"><span>&#174;</span> DiMani Atelier All Rights Reserved.</small>
                   </div>
                   <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
-                    <h6 class="text-muted bold-text"><b class="text-nowrap bd-highlight">Joelma Santana</b></h6><small><span><i class="fa fa-envelope" aria-hidden="true"></i></span> dimani@atelier.com.br</small>
+                    <h6 class="text-muted bold-text"><b class="text-nowrap bd-highlight">Joelma Santana</b></h6><small class="text-nowrap bd-highlight"><i class="fa fa-envelope " aria-hidden="true"></i></span> dimani@atelier.com.br</small>
                   </div>
               </div>
           </div>
