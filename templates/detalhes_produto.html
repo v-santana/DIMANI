@@ -41,7 +41,7 @@
                 </div>
 
                 <div class="form-group">
-                  <label for="observacao_produto">Personalização</label>
+                  <label for="observacao_produto">PERSONALIZAÇÃO</label>
                   <textarea class="form-control" id="observacao_produto" 
                   placeholder="Exemplo: Bordar iniciais na manga da blusa. (Máx: 200 caracteres) " maxlength="200"rows="3"></textarea>
                 </div>
@@ -62,7 +62,7 @@
                   </select>
                 </form>
                 <p></p><div>
-                <a class="btn btn-primary" role="button" data-toggle="modal" onclick="verifica_campo_nulo()" data-target="#modalExemplo">ADICIONAR AO CARRINHO</a>
+                <a class="btn button-fechar btn-block" style="margin-top: 6%; font-size: 19px;" role="button" data-toggle="modal" onclick="verifica_campo_nulo()" data-target="#modalExemplo"><i class="material-icons" style="font-size: 15px;">add_shopping_cart</i> ADICIONAR AO CARRINHO</a>
                 </div>
             </div>
         </div>
@@ -86,11 +86,11 @@
         </button>
       </div>
       <div class="modal-body">
-        Adicionar ao Carrinho e continuar comprando ou ir até o carrinho.
+        Adicionar ao Carrinho e continuar comprando ou ir até o carrinho?
       </div>
       <div class="modal-footer">
       	<a href='/catalogo'>
-        		<button type="button" class="btn btn-secondary" onclick="adiciona_carrinho()" >Continuar comprando</button>
+        		<button type="button" class="btn btn-secondary" onclick="adiciona_carrinho()">Continuar comprando</button>
     	</a>
         <a href='/carrinho'>
         		<button type="button" class="btn btn-primary" onclick="adiciona_carrinho()">Ir até o carrinho</button>
