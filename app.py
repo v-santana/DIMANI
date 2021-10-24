@@ -89,11 +89,11 @@ def detalhes_pedido(id_pedido):
 @app.route("/catalogo", methods=['GET','POST'])
 def catalogo():
     #lista o catálogo de produtos
-    catalogo_produtos = db_listar_produtos()
+    catalogo_produtos = db_listar_produtos_cliente()
     if request.method == "POST":
         if db_localizar_funcionario_email(session['EMAIL']): #verifica se é funcionario
             #cria o produto
-            produto = db_criar_produto(request.form['nome_produto'],request.form['descricao_produto'],request.form['qtd_produto'],request.form['valor_produto'],session['CPF'])
+            produto = db_criar_produto(request.form['nome_produto'],request.form['descricao_produto'],request.form['qtd_produto'],request.form['valor_produto'],'ATIVO',session['CPF'])
             id_produto = produto['id_produto']
             upload_file('imagem_produto',f"produto_{id_produto}.jpg") #sobe imagem do produto no sistema /static/images/produtos
             return redirect('/catalogo')
@@ -111,6 +111,20 @@ def editar_produto(id_produto):
         upload_file('imagem_nova_produto',f"produto_{id}.jpg") #sobe imagem do produto no sistema /static/images/produtos
         return redirect("/catalogo")
     return render_template('editar_produto.html', detalhes_produto=produto,eh_funcionario=db_localizar_funcionario_email)
+
+@app.route("/remover_produto/<id_produto>", methods=['GET','POST'])
+def remover_produto(id_produto):
+    #expande detalhes do produto selecionado no catálogo
+    produto = db_localiza_produto(id_produto)[0]
+    #se o formulário for enviado
+    if request.method == "POST":
+        if valida_login_funcionario(session['EMAIL'],request.form['senha_confirmacao']):
+            db_remover_produto(request.form['id_produto'])
+            return redirect("/catalogo")
+        else:
+            return render_template('remover_produto.html', detalhes_produto=produto, message="SENHA INVÁLIDA",eh_funcionario=db_localizar_funcionario_email)
+    return render_template('remover_produto.html', detalhes_produto=produto,eh_funcionario=db_localizar_funcionario_email, message="")
+
 
 @app.route("/detalhes_produto/<id_produto>", methods=['GET'])
 def detalhes_produto(id_produto):
@@ -151,15 +165,12 @@ def login():
                     efetua_login_cliente(cliente['ID_CONTA'],cliente['CPF'],cliente['DT_NASC'],cliente['EMAIL'],cliente['NOME'])
                     return redirect('/catalogo')
         else:
-            funcionario = db_localizar_funcionario_email(form_email)
-            if funcionario:
-                funcionario = funcionario[0]
-                if funcionario['EMAIL'] == form_email:
-                    if funcionario['SENHA'] == form_senha:
+                if valida_login_funcionario(form_email,form_senha):
+                        funcionario = db_localizar_funcionario_email(form_email)[0]
                         efetua_login_funcionario(funcionario['CPF'],funcionario['SALARIO'],funcionario['EMAIL'],funcionario['NOME'])
                         return redirect('/catalogo')
-            else:
-                return render_template('login.html', message="E-mail ou senha invalidos", eh_funcionario=db_localizar_funcionario_email)
+                else:
+                    return render_template('login.html', message="E-mail ou senha invalidos", eh_funcionario=db_localizar_funcionario_email)
 
     return render_template('login.html', message="", eh_funcionario=db_localizar_funcionario_email)
 

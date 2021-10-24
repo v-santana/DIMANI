@@ -1,5 +1,10 @@
 {% include 'head.html'%}
 
+{% if not eh_funcionario(session['EMAIL'])%}
+  <div class="container">
+    <h3 class="title"> Página não encontrada.</h3>
+  </div>
+{% else %}
 <form class="form-inline form needs-validation" method="POST" enctype="multipart/form-data" novalidate>
 <!-- Container com grid 1x2 1 linha 2 colunas-->
 <div class="container shadow-lg ">
@@ -68,7 +73,7 @@
   
   
   
-  
+{% endif %}  
 
 
 {% include 'footer.html'%}

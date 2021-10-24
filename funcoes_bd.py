@@ -266,9 +266,9 @@ def db_localizar_funcionario_email(email):
 
 ############################ TABELA PRODUTO ########################################## 
 
-def db_criar_produto(nome_produto,descricao,qtd_estoque,valor,cpf_funcionario,):
+def db_criar_produto(nome_produto,descricao,qtd_estoque,valor,status,cpf_funcionario):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("INSERT INTO TB_PRODUTO (NOME_PRODUTO,DESCRICAO, QTD_ESTOQUE,VALOR,CPF_FUNCIONARIO) VALUES (?,?,?,?,?)", [nome_produto,descricao,qtd_estoque,valor,cpf_funcionario])
+        cur.execute("INSERT INTO TB_PRODUTO (NOME_PRODUTO,DESCRICAO, QTD_ESTOQUE,VALOR,STATUS,CPF_FUNCIONARIO) VALUES (?,?,?,?,?,?)", [nome_produto,descricao,qtd_estoque,valor,status,cpf_funcionario])
         id_produto = cur.lastrowid
         con.commit()
         return {'id_produto':id_produto,'nome_produto':nome_produto,'descricao':descricao,'qtd_estoque':qtd_estoque,'valor':valor,'cpf_funcionario':cpf_funcionario}
@@ -278,6 +278,11 @@ def db_listar_produtos():
         cur.execute("SELECT * FROM TB_PRODUTO")
         return rows_to_dict(cur.description, cur.fetchall())
 
+def db_listar_produtos_cliente():
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute("SELECT * FROM TB_PRODUTO WHERE STATUS = 'ATIVO';")
+        return rows_to_dict(cur.description, cur.fetchall())
+    
 def db_localiza_produto(id_produto):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute("SELECT * FROM TB_PRODUTO WHERE ID_PRODUTO = (?)", [id_produto])
@@ -295,6 +300,16 @@ def db_atualizar_qtd_produto(id_produto, qtd_estoque,cpf_funcionario):
         cur.execute("UPDATE TB_PRODUTO SET QTD_ESTOQUE = (?), CPF_FUNCIONARIO = (?) WHERE ID_PRODUTO = (?) ", [qtd_estoque,cpf_funcionario,id_produto])
         con.commit()
         return {'id_produto':id_produto,'qtd_estoque':qtd_estoque,'cpf_funcionario':cpf_funcionario,}
+
+# REMOVER PRODUTO
+def db_remover_produto(id_produto):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute("UPDATE TB_PRODUTO SET STATUS = 'REMOVIDO' WHERE ID_PRODUTO = (?) ", [id_produto])
+        id_produto = cur.lastrowid
+        con.commit()
+        return {'id_produto':id_produto,'message':"PRODUTO REMOVIDO"}
+
+
 
 
 ############################ TABELA TB_TAMANHO_PRODUTO ########################################## 
@@ -505,6 +520,14 @@ def efetua_login_funcionario(cpf,salario,email,nome):
     session['SALARIO'] = salario
     session['NOME'] = nome
     return {'message':'Login efetuado'}
+
+def valida_login_funcionario(email,senha):
+        if db_localizar_funcionario_email(email):
+            funcionario = db_localizar_funcionario_email(email)[0]
+            if funcionario['EMAIL'] == email and funcionario['SENHA'] == senha:
+                return True
+        return False
+                
 
 def adiciona_carrinho(id_produto,nome_produto,descricao_produto,valor_produto):
     localStorage = localStoragePy('/DIMANI/app.py', 'text')
