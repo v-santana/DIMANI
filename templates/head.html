@@ -70,10 +70,11 @@
         transition-duration: 0.4s !important;
       }
       
-      .carrinho:hover{
+      .carrinho:focus, .carrinho:hover{
         color: #438759;
         background: white !important;
         outline-color: #438759;
+        background-color: #f3c4cf !important;
       }
 
 @media (min-width: 992px) { 
@@ -86,9 +87,6 @@
 
 .navbar .navbar-collapse {
   text-align: center;
-}
-.nav>li>a:focus, .nav>li>a:hover {
-  background-color: #f3c4cf !important;
 }
 }
   </style>
@@ -131,7 +129,7 @@
         {%endif%}
         {%if 'EMAIL' not in session%}
         <li class="nav-item">
-          <a href="/carrinho" class="notification">
+          <a href="/carrinho" class="notification carrinho">
             <span class="btn btn-light btn-sm">
               <i style="font-size:20px" class="fa">&#xf07a;</i>
               <span id="notif" class="badge"></span>
