@@ -1,9 +1,16 @@
 {% include 'head.html'%}
 
+<style>
+    .form-row>.col, .form-row>[class*=col-] {
+    padding-right: 15px;
+    padding-left: 15px;
+    }
+</style>
+
 <div class="form-group d-flex justify-content-center">
-    <img src="/static/images/BANNER_BRANCO_DIMANI.PNG" width="500px" alt="Fuzzy Cardigan">
+    <img src="/static/images/BANNER_BRANCO_DIMANI.PNG" style="margin: 2%;" width="500vmin" alt="login dimani">
 </div>
-<div class="container">
+<div class="form-signin">
     <form class="needs-validation" method="POST" novalidate>
         <div class="form-row">
             <div class="col-md-6 offset-md-3">
