@@ -2,13 +2,13 @@
 
 <style>
   
-    .card {
+  .card {
   box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.2);
   max-width: 290px;
   margin: auto;
   text-align: center;
-  font-family: arial;
-  margin-bottom: 20px;
+  font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+  margin-bottom: 30px;
 }
 
 .price {
@@ -45,6 +45,19 @@
 #button-incluir {
   width:1000vmin !important;
 }
+
+.grid-container {
+  display: grid;
+  grid-template-columns: auto auto auto auto;
+  grid-gap: 10px;
+  padding: 10px;
+}
+
+.grid-container > div {
+  text-align: center;
+}
+
+
 </style>
 {%if 'EMAIL' in session %}
   {% if eh_funcionario(session['EMAIL'])%}
@@ -52,12 +65,12 @@
 
 
 {% include 'incluir_produto.html'%}
-<div class="row">
+<div class="grid-container">
 {% for produto in catalogo %}
 
     <div class="card">
       
-        <img id="imagem-produto" src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" alt="Card image cap">
+        <img id="imagem-produto" src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" style="height: 290px; width: 290px; object-fit: cover;" alt="Card image cap">
         
         <h2>{{produto['NOME_PRODUTO']}}</h2>
         <p name="valor_produto_real" class="price">{{produto['VALOR']}}</p>
@@ -78,11 +91,11 @@
 {% endfor %}
 </div>
 {% else%}
-<div class="row">
+<div class="grid-container">
   {% for produto in catalogo %}
   
       <div class="card">
-          <img id="imagem-produto" src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" alt="Card image cap">
+          <img id="imagem-produto" src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" style="height: 290px; width: 290px; object-fit: cover;" alt="Card image cap">
           <h2>{{produto['NOME_PRODUTO']}}</h2>
           <p name="valor_produto_real" class="price">{{produto['VALOR']}}</p>
           <p>{{produto['DESCRICAO']}}</p>
@@ -98,11 +111,11 @@
   </div>
   {% endif%}
   {% else %}
-  <div class="row">
+  <div class="grid-container">
     {% for produto in catalogo %}
     
         <div class="card">
-            <img id="imagem-produto" src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" alt="Card image cap">
+            <img id="imagem-produto" src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" style="height: 290px; width: 290px; object-fit: cover;" alt="Card image cap">
             <h2>{{produto['NOME_PRODUTO']}}</h2>
             <p name="valor_produto_real" class="price">{{produto['VALOR']}}</p>
             <p>{{produto['DESCRICAO']}}</p>
