@@ -12,7 +12,6 @@
     <tr>
       <th scope="col">Nº PEDIDO</th>
       <th scope="col">VALOR TOTAL</th>
-      <th scope="col">ID CONTA</th>
       <th scope="col"> STATUS</th>
     </tr>
   </thead>
@@ -25,7 +24,6 @@
         <strong><a href="pedidos/{{pedido['ID_PEDIDO']}}" >{{pedido['ID_PEDIDO']}}</a></strong> 
       </td>
       <td name="valor_produto_real"  data-label="VALOR TOTAL" >{{pedido['VALOR_TOTAL']}}</td>
-      <td data-label="ID CONTA" >{{pedido['ID_CONTA']}}</td>
       <td  data-label="STATUS">{{pedido['STATUS']}}</td>
     </tr>
     {% endfor %}

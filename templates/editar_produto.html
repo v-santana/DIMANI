@@ -39,7 +39,7 @@
                 <!-- VALOR  -->
                 <div class="form-group">
                         <h3 class="card-text" >VALOR (R$)</h3>
-                        <input type="text" class="form-control" onkeyup="formataValor(this)" id="moeda validationCustom01" name="valor_produto" maxlength="23"  placeholder="Valor atual: {{'%0.2f'| format(detalhes_produto['VALOR']|float)}}" required>
+                        <input type="text" class="form-control" onkeyup="formataValor(this)" id="moeda validationCustom01" name="valor_produto" maxlength="23"  value="{{'%0.2f'| format(detalhes_produto['VALOR']|float)}}" required>
                         <div class="invalid-feedback">
                             Insira um valor válido ou insira o valor atual para prosseguir.
                         </div>  
