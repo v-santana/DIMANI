@@ -31,7 +31,7 @@
           <td data-label="PREÇO" name="valor_produto_real">{{pedido['PRECO']}}</td>
           <td data-label="VALOR TOTAL PRODUTO" name="valor_produto_real">{{pedido['PRECO'] * pedido['QTD_PRODUTO']}}</td>
           <td data-label="ID CONTA">{{pedido['ID_CONTA']}}</td>
-          <td data-label="OBSERVAÇÃO">{{pedido['OBSERVACAO']}}</td>
+          <td id="observacao" data-label="OBSERVAÇÃO">{{pedido['OBSERVACAO']}}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -68,7 +68,7 @@
           <td name="valor_produto_real">{{pedido['PRECO']}}</td>
           <td name="valor_produto_real">{{pedido['PRECO'] * pedido['QTD_PRODUTO']}}</td>
           <td>{{pedido['ID_CONTA']}}</td>
-          <td>{{pedido['OBSERVACAO']}}</td>
+          <td id="observacao">{{pedido['OBSERVACAO']}}</td>
         </tr>
         {% endfor %}
       </tbody>
@@ -77,3 +77,8 @@
 
 </div>
 {% include 'footer.html'%}
+<script type="text/javascript" charset="utf-8" async defer>
+document.getElementById("observacao").innerHTML = maiorQue(document.getElementById("observacao").innerHTML,10);
+
+
+</script>
