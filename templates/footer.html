@@ -214,10 +214,15 @@ function valores_em_real(){
 
 // Verifica se tem valores na página com a classe "valor_produto_real" e converte visualmente em real R$00,00
 valores_em_real();
-
-{% if not eh_funcionario %}
-  notif = document.getElementById("notif");
-  notif.innerHTML=localStorage.length;
+{%if 'EMAIL' in session %}
+  {% if not eh_funcionario(session['EMAIL']) %}
+    notif = document.getElementById("notif");
+    notif.innerHTML=localStorage.length;
+  {% else %}
+  {% endif %}
+{% else %}
+    notif = document.getElementById("notif");
+    notif.innerHTML=localStorage.length;
 {% endif %}
 
 
