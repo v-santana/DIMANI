@@ -5,7 +5,7 @@
     <h3 class="title"> Página não encontrada.</h3>
   </div>
 {% else %}
-<form class="form-inline form needs-validation" method="POST" enctype="multipart/form-data" novalidate>
+<form class="form-inline forms needs-validation" method="POST" enctype="multipart/form-data" novalidate>
 <!-- Container com grid 1x2 1 linha 2 colunas-->
 <div class="container shadow-lg ">
     <!-- Linha 1 -->
@@ -39,7 +39,7 @@
                 <!-- VALOR  -->
                 <div class="form-group">
                         <h3 class="card-text" >VALOR (R$)</h3>
-                        <input type="text" class="form-control" onkeyup="formataValor(this)" id="moeda validationCustom01" name="valor_produto" maxlength="23"  value="{{'%0.2f'| format(detalhes_produto['VALOR']|float)}}" required>
+                        <input type="text" class="form-control" onkeyup="formataValor(this)" id="moeda validationCustom01" name="valor_produto" maxlength="23"  placeholder="Valor atual: {{'%0.2f'| format(detalhes_produto['VALOR']|float)}}" required>
                         <div class="invalid-feedback">
                             Insira um valor válido ou insira o valor atual para prosseguir.
                         </div>  
