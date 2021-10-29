@@ -50,7 +50,7 @@ def index():
 
 @app.route("/", methods=['GET', 'POST'])
 def index_redirect():
-    return redirect ("home.html")
+    return redirect ("home")
 
 
 #PEDIDOS NA VISÃO FUNCIONARIO - Podemos fazer uma verificação para validar se está logado ou não, ou se é funcionário
