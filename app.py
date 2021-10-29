@@ -50,7 +50,7 @@ def index():
 
 @app.route("/", methods=['GET', 'POST'])
 def index_redirect():
-    return redirect ("home")
+    return redirect ("home.html")
 
 
 #PEDIDOS NA VISÃO FUNCIONARIO - Podemos fazer uma verificação para validar se está logado ou não, ou se é funcionário
@@ -226,9 +226,9 @@ def cadastro():
 
         ###### Verifica se email e CPF já existe no banco de dados ########
         if db_localizar_cliente_cpf(cpf):
-            return render_template('cadastro.html', estados=db_listar_estados(), cidades=None,mensagem="CPF já utilizado, verifique se já tem uma conta.") 
+            return render_template('cadastro.html', estados=db_listar_estados(), cidades=None,mensagem="CPF já utilizado, verifique se já tem uma conta.", eh_funcionario=db_localizar_funcionario_email) 
         elif db_localizar_cliente_email(email) or db_localizar_funcionario_email(email):
-            return render_template('cadastro.html', estados=db_listar_estados(), cidades=None,mensagem="E-mail já utilizado, por favor escolha outro e-mail ou verifique se já tem uma conta.") 
+            return render_template('cadastro.html', estados=db_listar_estados(), cidades=None,mensagem="E-mail já utilizado, por favor escolha outro e-mail ou verifique se já tem uma conta.", eh_funcionario=db_localizar_funcionario_email) 
         else:
             session['NOME'],session['CPF'],session['DT_NASC'],session['EMAIL']  = nome_completo,cpf,dt_nasc,email
             session['SENHA'],session['TELEFONE'],session['PIX'],session['TELEFONE'] = senha,telefone, pix, telefone
@@ -246,7 +246,7 @@ def cadastro_endereco():
         rua, numero, complemento = request.form['rua'],request.form['numero'], request.form['complemento']
         #Se a quantidade de cidades na consulta for maior que 1
         if len(id_cidade) > 1:
-            return render_template("cadastro_endereco.html", mensagem = "Escolha novamente a Cidade", estados=db_listar_estados(), cidades =  id_cidade, id_estado = int(id_estado),bairro=bairro, rua = rua, complemento = complemento, numero=numero,cep=cep)
+            return render_template("cadastro_endereco.html", mensagem = "Escolha novamente a Cidade", estados=db_listar_estados(), cidades =  id_cidade, id_estado = int(id_estado),bairro=bairro, rua = rua, complemento = complemento, numero=numero,cep=cep,eh_funcionario=db_localizar_funcionario_email)
         else:
             cidade=request.form['cidade']
             endereco = db_criar_endereco(rua,numero,bairro,complemento,cidade)
