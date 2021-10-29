@@ -17,6 +17,7 @@
     <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
     <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
     <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
     <script>
         $(function(){
             $('a').each(function(){
@@ -274,7 +275,7 @@
             <li class="nav-item">
               <li class="nav-item dropdown">
                 <a class="nav-link dropdown-toggle text nav-ola" style="margin-top: 5%; font-size:16px ;" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
-                  Olá, {{session['NOME'].split(" ")[0]}}
+                  <i style='font-size:20px; margin-right:2px' class='far'>&#xf2bd;</i>  Olá, {{session['NOME'].split(" ")[0]}}
                 </a>
                 <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
                     <a type="button" class="nav-link dropdown-item" href="/dados_cadastro">Dados Cadastrais</a>
