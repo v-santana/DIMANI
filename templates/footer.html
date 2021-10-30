@@ -125,15 +125,19 @@ function getRadioValor(name){
   return null;
 }
 
+String.prototype.replaceAll = function(str1, str2, ignore) 
+{
+    return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g,"\\$&"),(ignore?"gi":"g")),(typeof(str2)=="string")?str2.replace(/\$/g,"$$$$"):str2);
+} 
 
 function adiciona_carrinho(){
-  var id_produto = document.getElementById("id_produto").value.replace(",","");
-  var nome_produto = document.getElementById("nome_produto").textContent.replace(",","");
-  var descricao_produto = document.getElementById("descricao_produto").textContent.replace(",","");
-  var valor_produto = document.getElementById("valor_produto").value.replace(",","");
-  var qtd_produto = document.getElementById('customControlValidation1').value.replace(",","");
-  var observacao = document.getElementById('observacao_produto').value.replace(","," ");
-  var tamanho_produto = getRadioValor("options").replace(",","");
+  var id_produto = document.getElementById("id_produto").value.replaceAll(",","");
+  var nome_produto = document.getElementById("nome_produto").textContent.replaceAll(",","");
+  var descricao_produto = document.getElementById("descricao_produto").textContent.replaceAll(",","");
+  var valor_produto = document.getElementById("valor_produto").value.replaceAll(",","");
+  var qtd_produto = document.getElementById('customControlValidation1').value.replaceAll(",","");
+  var observacao = document.getElementById('observacao_produto').value.replaceAll(","," ");
+  var tamanho_produto = getRadioValor("options").replaceAll(",","");
   var produto =  [id_produto, nome_produto, descricao_produto,valor_produto,qtd_produto,tamanho_produto, observacao];
 
   localStorage.setItem("produto_"+id_produto+"_"+tamanho_produto, produto );
