@@ -17,9 +17,9 @@
               <input type="hidden" id="id_produto" name="id_produto" value="{{detalhes_produto['ID_PRODUTO']}}">
               <h2 class="title"  id="nome_produto">{{detalhes_produto['NOME_PRODUTO']}}</h2>
               <input type="hidden" id="valor_produto" value="{{detalhes_produto['VALOR']}}">
-              <h4 class="card-text" name="valor_produto_real" >{{detalhes_produto['VALOR']}}</h4>
+              <h4 class="card-text" style="font-size: 25px; color: #438759;" name="valor_produto_real" >{{detalhes_produto['VALOR']}}</h4>
               <p class="card-text" id="descricao_produto">{{detalhes_produto['DESCRICAO']}}</small></p>
-                <p><div class="form-group">
+                <p><div class="form-group" style="font-size: 17px;">
                   <label>TAMANHO </label><br>
                       <div class="btn-group btn-group-toggle" data-toggle="buttons">
                         <label class="btn btn-secondary">
@@ -34,13 +34,13 @@
                       </div>
                 </div>
 
-                <div class="form-group">
+                <div class="form-group" style="font-size: 17px;">
                   <label for="observacao_produto">PERSONALIZAÇÃO</label>
                   <textarea class="form-control" id="observacao_produto" 
                   placeholder="Exemplo: Bordar iniciais na manga da blusa. (Máx: 200 caracteres) " maxlength="200"rows="3"></textarea>
                 </div>
                 
-                <form class="form-inline">
+                <form class="form-inline" style="font-size: 14px;">
                   <label class="my-1 mr-2" for="customControlValidation1">QUANTIDADE</label>
                   <select class="custom-select my-1 mr-sm-2" id="customControlValidation1">
                       <option name="options_qtd" value="1">1</option>
