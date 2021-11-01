@@ -13,6 +13,7 @@
       <th scope="col">Nº PEDIDO</th>
       <th scope="col">VALOR TOTAL</th>
       <th scope="col"> STATUS</th>
+      <th scope="col">COMPROVANTE</th>
     </tr>
   </thead>
   <tbody>
@@ -25,6 +26,13 @@
       </td>
       <td name="valor_produto_real"  data-label="VALOR TOTAL" >{{pedido['VALOR_TOTAL']}}</td>
       <td  data-label="STATUS">{{pedido['STATUS']}}</td>
+      <td  data-label="COMPROVANTE">
+        {% if pedido['STATUS'] == "EM ANALISE"%}
+        <button class="btn btn-primary" type="button" data-toggle="modal" data-target="#exampleModal" data-whatever="{{pedido['ID_PEDIDO']}}" >ENCAMINHAR</button>
+        {% else %}
+        <p>Anexado ou pedido encerrado</p>
+        {% endif %}
+      </td>
     </tr>
     {% endfor %}
   </tbody>
@@ -105,6 +113,7 @@
   {% endif %}
 </div>
 {% include 'footer.html'%}
+{% include 'envio_comprovante.html' %}
 
 <!-- SCRIPT PARA PASSAR INFORMAÇÕES DA TABELA EXIBIDA EM PEDIDOS PARA O MODAL DE ALTERACAO DE STATUS -->
 <script type="text/javascript" charset="utf-8" async defer>

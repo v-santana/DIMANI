@@ -1,6 +1,7 @@
 from flask import Flask, url_for, make_response, request, render_template, redirect, send_from_directory,session,Blueprint,jsonify, flash
 from werkzeug.utils import secure_filename
 from flask_session import Session
+from flask_mail import Mail, Message
 from localStoragePy import localStoragePy
 from wtforms import Form, BooleanField, StringField, PasswordField, validators,IntegerField,SubmitField,HiddenField
 from contextlib import closing
@@ -547,3 +548,5 @@ def string_para_float(string):
     valor = valor.replace(',','.')
     valor = float(valor)
     return valor
+
+

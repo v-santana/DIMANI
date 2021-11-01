@@ -104,19 +104,26 @@ document.getElementById('concluir_pedido').onclick = function concluir_pedido() 
                 item_pronto['QUANTIDADE'] = parseInt(item[4])
                 item_pronto['OBSERVACAO'] = item[6]
                 array_carrinho.push(item_pronto)
+                console.log("carrinho não está vazio")
             }
-        }
-        $.ajax({
-            type: 'POST',
-            contentType: 'application/json',
-            data: JSON.stringify(array_carrinho),
-            dataType: 'json',
-            url: '/itens_carrinho',
-            success: function () {
-                
-            }});
-        localStorage.clear()
+            
+        } 
+        // verifica se o carrinho está vazio antes de enviar o pedido
+        if (localStorage.length != 0) {
+          $.ajax({
+              type: 'POST',
+              contentType: 'application/json',
+              data: JSON.stringify(array_carrinho),
+              dataType: 'json',
+              url: '/itens_carrinho',
+              success: function () {
+                  
+              }});
+          localStorage.clear()
+      } else {
+        alert("O carrinho está vazio!")
       }
+    }
 
 }
 </script>

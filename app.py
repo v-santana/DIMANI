@@ -2,7 +2,7 @@ from funcoes_bd import *
 
 ################ CONFIGURANDO APP PARA UPLOAD DE IMAGENS ################
 UPLOAD_FOLDER = 'static/images/produtos'
-ALLOWED_EXTENSIONS = set(['jpg','jpeg','png'])
+ALLOWED_EXTENSIONS = set(['jpg','jpeg','png','pdf'])
     
 def allowed_file(filename):
     return '.' in filename and \
@@ -25,14 +25,47 @@ def upload_file(name_file,nome_arquivo):
             print('imagem salva')
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], nome_arquivo))
 
+
+
 # Cria o objeto principal do Flask.
 app = Flask(__name__)
 app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 
 
+############### FLUXO DE COMPROVANTE DE PAGAMENTO ###############
+SECRET_KEY = os.urandom(32)
+app.config['SECRET_KEY'] = SECRET_KEY
+mail = Mail()
+
+app.config['MAIL_SERVER']='smtp.gmail.com'
+app.config['MAIL_PORT'] = 465
+app.config['MAIL_USERNAME'] = 'backup.gabrielbastos312@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Gabriele!0'
+app.config['MAIL_USE_TLS'] = False
+app.config['MAIL_USE_SSL'] = True
+app.config['MAIL_ASCII_ATTACHMENTS'] = True
+
+mail.init_app(app)
 
 
+############ ENVIO DE E-MAIL ##############
+def send_message(corpo,assunto,lista_de_contatos,email):
+    UPLOAD_FOLDER = 'temp'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    upload_file('comprovante',f"comprovante.pdf")
+    print(request.files)
+    msg = Message(assunto, sender = email,
+            recipients = lista_de_contatos,
+            body= corpo
+    )  
 
+    arquivo = f'{os.path.dirname(__file__)}/temp/comprovante.pdf'
+
+    with app.open_resource(arquivo) as fp:
+        msg.attach('comprovante', "application/pdf", fp.read())
+    mail.send(msg)
+    UPLOAD_FOLDER = 'static/images/produtos'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
 ############################
 #### Definições da API. ####
 ############################
@@ -62,6 +95,13 @@ def pedidos():
         #PEDIDOS NA VISÃO CLIENTE
         if db_localizar_cliente_email(session['EMAIL']):
             pedidos = db_listar_pedidos_cliente(session['ID_CONTA'])
+            if request.method == 'POST':
+                lista_de_contatos = []
+                for usuario in db_listar_funcionarios():
+                    lista_de_contatos.append(usuario['EMAIL'])
+                print(lista_de_contatos)
+
+                send_message(request.form['observacoes_comprovante'],f"COMPROVANTE PEDIDO Nº{request.form['id_pedido']}",lista_de_contatos,'backup.gabrielbastos312@gmail.com')
         
         #PEDIDOS NA VISÃO FUNCIONARIO
         elif db_localizar_funcionario_email(session['EMAIL']):
