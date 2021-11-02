@@ -39,8 +39,8 @@ mail = Mail()
 
 app.config['MAIL_SERVER']='smtp.gmail.com'
 app.config['MAIL_PORT'] = 465
-app.config['MAIL_USERNAME'] = 'backup.gabrielbastos312@gmail.com'
-app.config['MAIL_PASSWORD'] = 'Gabriele!0'
+app.config['MAIL_USERNAME'] = 'maildev.dimani@gmail.com'
+app.config['MAIL_PASSWORD'] = 'Ope_202!'
 app.config['MAIL_USE_TLS'] = False
 app.config['MAIL_USE_SSL'] = True
 app.config['MAIL_ASCII_ATTACHMENTS'] = True
@@ -101,7 +101,7 @@ def pedidos():
                     lista_de_contatos.append(usuario['EMAIL'])
                 print(lista_de_contatos)
 
-                send_message(request.form['observacoes_comprovante'],f"COMPROVANTE PEDIDO Nº{request.form['id_pedido']}",lista_de_contatos,'backup.gabrielbastos312@gmail.com')
+                send_message(request.form['observacoes_comprovante'],f"COMPROVANTE PEDIDO Nº{request.form['id_pedido']}",lista_de_contatos,'maildev.dimani@gmail.com')
         
         #PEDIDOS NA VISÃO FUNCIONARIO
         elif db_localizar_funcionario_email(session['EMAIL']):
