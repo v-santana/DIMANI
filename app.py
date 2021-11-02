@@ -95,13 +95,24 @@ def pedidos():
         #PEDIDOS NA VISÃO CLIENTE
         if db_localizar_cliente_email(session['EMAIL']):
             pedidos = db_listar_pedidos_cliente(session['ID_CONTA'])
+            ### LISTA DE TELEFONES ###
+            telefones = []
+            for cliente in db_localizar_telefones_cliente(session['ID_CONTA']):
+                telefones.append(cliente['TELEFONE'])
+            ###########################
             if request.method == 'POST':
                 lista_de_contatos = []
                 for usuario in db_listar_funcionarios():
                     lista_de_contatos.append(usuario['EMAIL'])
-                print(lista_de_contatos)
-
-                send_message(request.form['observacoes_comprovante'],f"COMPROVANTE PEDIDO Nº{request.form['id_pedido']}",lista_de_contatos,'maildev.dimani@gmail.com')
+                dados_pedido = db_localizar_pedido(request.form['id_pedido'])
+                html_comprovante = f'''Olá, segue dados referente ao comprovante\n
+                NOME: {session['NOME']}\n
+                Nº PEDIDO: {request.form['id_pedido']}\n
+                VALOR TOTAL: {dados_pedido[0]['VALOR_TOTAL']}\n
+                TELEFONE: {telefones}\n
+                OBSERVAÇÕES: {request.form['observacoes_comprovante']}'''
+                
+                send_message(html_comprovante,f"COMPROVANTE PEDIDO Nº{request.form['id_pedido']}",lista_de_contatos,'maildev.dimani@gmail.com')
         
         #PEDIDOS NA VISÃO FUNCIONARIO
         elif db_localizar_funcionario_email(session['EMAIL']):

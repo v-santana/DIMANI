@@ -359,7 +359,7 @@ def db_listar_pedidos():
 def db_localizar_pedido(id_pedido):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute('''SELECT * FROM TB_PEDIDO WHERE ID_PEDIDO = (?)''' , [id_pedido])
-        return rows_to_dict(cur.description, cur.fetchone())
+        return rows_to_dict(cur.description, cur.fetchall())
 
 def db_listar_pedidos_cliente(id_conta):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
@@ -548,5 +548,4 @@ def string_para_float(string):
     valor = valor.replace(',','.')
     valor = float(valor)
     return valor
-
 
