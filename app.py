@@ -243,6 +243,9 @@ def dados():
             atualiza_dados_cadastrais(session['ID_CONTA'],request.form['cpf'],request.form['nome_completo'],
                 request.form['dt_nasc'],request.form['telefone'],request.form['email'],request.form['chave_pix'])
             return redirect('/dados_cadastro')
+    elif 'SALARIO' in session:
+        funcionario = db_localizar_funcionario_email(session['EMAIL'])
+        return render_template('dados_funcionario.html', funcionario=funcionario, eh_funcionario=db_localizar_funcionario_email)    
     else:
         cliente = [""]
         telefone_cliente=[""]
