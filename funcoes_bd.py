@@ -258,12 +258,16 @@ def db_listar_funcionarios():
 
 def db_localizar_funcionario_email(email):
     with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute('''SELECT fu.CPF, fu.NOME, fu.EMAIL, fu.SENHA,fu.SALARIO,en.ID_ENDERECO, en.RUA, en.NUMERO FROM TB_FUNCIONARIO fu  INNER JOIN TB_ENDERECO en 
+        cur.execute('''SELECT fu.CPF, fu.NOME, fu.EMAIL, fu.SENHA,fu.SALARIO, fu.CPF_SUPERVISOR ,en.ID_ENDERECO, en.RUA, en.NUMERO FROM TB_FUNCIONARIO fu  INNER JOIN TB_ENDERECO en 
         ON  fu.ID_ENDERECO = en.ID_ENDERECO WHERE fu.EMAIL = (?)''' , [email])
         return rows_to_dict(cur.description, cur.fetchall())
 
     
-
+def db_atualizar_funcionario(cpf,nome, email,cpf_supervisor,salario):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute("UPDATE TB_FUNCIONARIO SET NOME = (?), EMAIL = (?), CPF_SUPERVISOR= (?), SALARIO = (?) WHERE CPF = (?) ", [nome, email,cpf_supervisor,salario,cpf])
+        con.commit()
+        return {'cpf':cpf,'nome':nome, 'email':email,'cpf_supervisor':cpf_supervisor,'salario':salario}
 
 ############################ TABELA PRODUTO ########################################## 
 
@@ -453,21 +457,6 @@ def db_atualizar_observacao_pedido(id_pedido,id_produto,observacao):
 
 
 
-############################ TABELA TB_PAGAMENTO ########################################## 
-
-def db_criar_pagamento(forma_pag,data_pag, id_conta,id_pedido):
-    with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("INSERT INTO TB_PAGAMENTO (FORMA_PAG,DATA_PAG,ID_CONTA,ID_PEDIDO) VALUES (?,?,?,?)", [forma_pag,data_pag, id_conta,id_pedido])
-        id_pag = cur.lastrowid
-        con.commit()
-        return {'forma_pag':forma_pag,'data_pag':data_pag, 'id_conta':id_conta,'id_pedido':id_pedido}
-
-def db_listar_pagamentos():
-    with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("SELECT * FROM TB_PAGAMENTO")
-        return rows_to_dict(cur.description, cur.fetchall())
-
-
 ############################ TABELA TB_TELEFONE_CLIENTE ########################################## 
 
 def db_criar_telefone_cliente(id_conta,telefone):
@@ -537,10 +526,19 @@ def adiciona_carrinho(id_produto,nome_produto,descricao_produto,valor_produto):
     return 
 
 def atualiza_dados_cadastrais(id_conta,cpf,nome_completo,dt_nasc,telefone,email,chave_pix):
-    db_atualizar_cliente(id_conta,nome_completo,dt_nasc,email,chave_pix)
-    db_atualizar_cpf_cliente(id_conta,cpf)
-    
-    return {'message': 'dados atualizados'}
+    try:
+        db_atualizar_cliente(id_conta,nome_completo,dt_nasc,email,chave_pix)
+        db_atualizar_cpf_cliente(id_conta,cpf)
+        return {'message': 'dados atualizados'}
+    except mariadb.IntegrityError:
+        return {'message': 'verifique os dados e insira corretamente'}
+
+def atualiza_dados_cadastrais_funcionario(cpf,nome, email,cpf_supervisor,salario):
+    try:
+        db_atualizar_funcionario(cpf,nome, email,cpf_supervisor,salario)
+        return {'message': 'dados atualizados'}
+    except mariadb.IntegrityError:
+        return {'message': 'verifique os dados e insira corretamente'}
 
 def string_para_float(string):
     valor = string

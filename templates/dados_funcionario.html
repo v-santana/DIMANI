@@ -22,7 +22,7 @@
         <div class="form-group">
             <div class="col-md-6 offset-md-3">
                 <label for="validationCustom01">CPF</label>
-                <input type="text" name="cpf" class="form-control" id="validationCustom01" value="{{funcionario[0]['CPF']}}" placeholder="Insira seu CPF" maxlength="11" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" required>
+                <input type="text" name="cpf" class="form-control" id="validationCustom01" value="{{funcionario[0]['CPF']}}" placeholder="Insira seu CPF" maxlength="11" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" readonly>
                 <div class="invalid-feedback">
                     Insira um CPF válido.
                 </div>
@@ -41,18 +41,6 @@
             </div>
         </div>
         <!-- /END NOME COMPLETO -->
-
-        <!-- DATA DE NASCIMENTO -->
-        <div class="form-group">
-            <div class="col-md-6 offset-md-3">
-                <label for="validationCustom03">Data de Nascimento</label>
-                <input type="date" name="dt_nasc" class="form-control" id="validationCustom03" value="{{funcionario}}[0]['DT_NASC']}}" placeholder="Sua data de nascimento" required>
-                <div class="invalid-feedback">
-                    Insira uma data válida.
-                </div>
-            </div>
-        </div>
-        <!-- /END DATA DE NASCIMENTO -->
 
         <!-- CELULAR -->
         <div class="form-group-inline">
@@ -84,16 +72,29 @@
 
         <!-- SENHA -->
         <!-- /END SENHA CONFIRMAÇÃO -->
-        <div class="form-group" >
-        <div class="col-md-6 offset-md-3">
-            <label >Chave pix (não obrigatório):</label><br>
-            <input style="margin-bottom: 2%;"type="text" name="chave_pix" class="form-control" id="validationCustom09" value="{{funcionario[0]['CHAVE_PIX']}}" placeholder="Insira a chave pix" required>
-            <div class="invalid-feedback">
-                Insira a chave pix
-            </div>
 
+        <!--  VALOR -->
+        <div class="col-md-6 offset-md-3">
+            <div class="form-group">
+                <label for="validationCustom01">SALARIO</label>
+                <input type="number" name="salario" class="form-control" id="validationCustom01" value="{{funcionario[0]['SALARIO']}}" min="1" step="any" required>
+                <div class="invalid-feedback">
+                    Insira o salario do funcionario.
+                </div>
+            </div>
         </div>
+        <!-- /END VALOR -->
+        <!-- CPF -->
+        <div class="form-group">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">CPF SUPERVISOR</label>
+                <input type="text" name="cpf_supervisor" class="form-control" id="validationCustom01" value="{{funcionario[0]['CPF_SUPERVISOR']}}" placeholder="Insira seu CPF" maxlength="11" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" required>
+                <div class="invalid-feedback">
+                    Insira um CPF válido.
+                </div>
+            </div>
         </div>
+        <!-- /END CPF -->
         <!-- BOTÃO PROSSEGUIR -->
         <div class="form-group">
             <div class="col-md-6 offset-md-3" style="margin-top: 2rem;">
