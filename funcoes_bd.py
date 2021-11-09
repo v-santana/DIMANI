@@ -139,12 +139,15 @@ def db_delete_cidade(id_cidade):
 ############################ TABELA ENDEREÇO ########################################## 
 
 def db_criar_endereco(rua,numero,bairro,complemento,id_cidade):
-    with closing(conectar()) as con, closing(con.cursor()) as cur:
-        cur.execute("INSERT INTO TB_ENDERECO (RUA,NUMERO,BAIRRO,COMPLEMENTO,ID_CIDADE) VALUES (?,?,?,?,?)", [rua,numero,bairro,complemento,id_cidade])
-        id_endereco = cur.lastrowid
-        con.commit()
-        return {'id_endereco': id_endereco , 'rua':rua,'numero':numero,'bairro':bairro, 'complemento':complemento,'id_cidade':id_cidade}
-
+    try:
+        with closing(conectar()) as con, closing(con.cursor()) as cur:
+            cur.execute("INSERT INTO TB_ENDERECO (RUA,NUMERO,BAIRRO,COMPLEMENTO,ID_CIDADE) VALUES (?,?,?,?,?)", [rua,numero,bairro,complemento,id_cidade])
+            id_endereco = cur.lastrowid
+            con.commit()
+            return {'id_endereco': id_endereco , 'rua':rua,'numero':numero,'bairro':bairro, 'complemento':complemento,'id_cidade':id_cidade}
+    except mariadb.IntegrityError:
+        return {'message': 'verifique os dados e insira corretamente'}
+    
 def db_listar_enderecos():
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute("SELECT * FROM TB_ENDERECO")
@@ -253,6 +256,12 @@ def db_criar_funcionario(cpf, nome, email,senha,salario,id_endereco,cpf_supervis
 def db_listar_funcionarios():
     with closing(conectar()) as con, closing(con.cursor()) as cur:
         cur.execute("SELECT * FROM TB_FUNCIONARIO")
+        return rows_to_dict(cur.description, cur.fetchall())
+
+def db_localizar_funcionario_cpf(cpf):
+    with closing(conectar()) as con, closing(con.cursor()) as cur:
+        cur.execute('''SELECT fu.CPF, fu.NOME, fu.EMAIL, fu.SENHA,fu.SALARIO, fu.CPF_SUPERVISOR ,en.ID_ENDERECO, en.RUA, en.NUMERO FROM TB_FUNCIONARIO fu  INNER JOIN TB_ENDERECO en 
+        ON  fu.ID_ENDERECO = en.ID_ENDERECO WHERE fu.CPF = (?)''' , [cpf])
         return rows_to_dict(cur.description, cur.fetchall())
 
 

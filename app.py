@@ -292,6 +292,7 @@ def cadastro():
             return redirect('/cadastro/endereco')
     return render_template('cadastro.html', estados=db_listar_estados(), cidades=None, mensagem="", eh_funcionario=db_localizar_funcionario_email)
 
+
 @app.route("/cadastro/endereco", methods=['POST','GET'])
 def cadastro_endereco():
     if request.method == 'POST':
@@ -313,6 +314,48 @@ def cadastro_endereco():
     return render_template("cadastro_endereco.html", mensagem = "", estados=db_listar_estados(), cidades=None, eh_funcionario=db_localizar_funcionario_email)
 
 
+
+@app.route("/cadastro_funcionario", methods=['POST','GET'])
+def cadastro_funcionario():
+    if request.method == 'POST':
+        ############# Variáveis do formulário dados de cadastro ###############
+        cpf,nome_completo,salario,telefone = request.form['cpf'],request.form['nome_completo'],request.form['salario'],request.form['telefone'] 
+        email,senha = request.form['email'],request.form['senha']
+        cpf_supervisor = request.form['cpf_supervisor']
+        print("FORM")
+        print(request.form)
+        ###### Verifica se email e CPF já existe no banco de dados ########
+        if db_localizar_funcionario_cpf(cpf):
+            return render_template('cadastro_funcionario.html', estados=db_listar_estados(), cidades=None,mensagem="CPF já utilizado, verifique se já tem uma conta.", eh_funcionario=db_localizar_funcionario_email) 
+        elif db_localizar_cliente_email(email) or db_localizar_funcionario_email(email):
+            return render_template('cadastro_funcionario.html', estados=db_listar_estados(), cidades=None,mensagem="E-mail já utilizado, por favor escolha outro e-mail ou verifique se já tem uma conta.", eh_funcionario=db_localizar_funcionario_email) 
+        else:
+            session['NOME_FUNCIONARIO'],session['CPF_FUNCIONARIO'],session['SALARIO_FUNCIONARIO'],session['EMAIL_FUNCIONARIO']  = nome_completo,cpf,salario,email
+            session['SENHA_FUNCIONARIO'],session['TELEFONE_FUNCIONARIO'],session['CPF_SUPERVISOR'] = senha,telefone, cpf_supervisor,
+            print("SESSION")
+            print(session)
+            return redirect('/cadastro_funcionario/endereco')
+    return render_template('cadastro_funcionario.html', estados=db_listar_estados(), cidades=None, mensagem="", eh_funcionario=db_localizar_funcionario_email)
+
+@app.route("/cadastro_funcionario/endereco", methods=['POST','GET'])
+def cadastro_endereco_funcionario():
+    if request.method == 'POST':
+        id_estado = request.form['estado']
+        cidade= request.form['cidade']
+        id_cidade = db_localizar_cidade_de_estado_por_nome(id_estado,request.form['cidade'])
+        cep = request.form['cep']
+        bairro=request.form['bairro']
+        rua, numero, complemento = request.form['rua'],request.form['numero'], request.form['complemento']
+        #Se a quantidade de cidades na consulta for maior que 1
+        if len(id_cidade) > 1:
+            return render_template("cadastro_endereco_funcionario.html", mensagem = "Escolha novamente a Cidade", estados=db_listar_estados(), cidades =  id_cidade, id_estado = int(id_estado),bairro=bairro, rua = rua, complemento = complemento, numero=numero,cep=cep,eh_funcionario=db_localizar_funcionario_email)
+        else:
+            cidade=request.form['cidade']
+            endereco = db_criar_endereco(rua,numero,bairro,complemento,cidade)
+            funcionario = db_criar_funcionario(cpf=session['CPF_FUNCIONARIO'],nome=session['NOME_FUNCIONARIO'],email=session['EMAIL_FUNCIONARIO'],salario=session['SALARIO_FUNCIONARIO'],senha=session['SENHA_FUNCIONARIO'],id_endereco=endereco['id_endereco'],cpf_supervisor=session['CPF_SUPERVISOR'])
+            telefone_funcionario = db_criar_telefone_funcionario(funcionario['cpf'],session['TELEFONE_FUNCIONARIO'])
+            return redirect('/catalogo')
+    return render_template("cadastro_endereco_funcionario.html", mensagem = "", estados=db_listar_estados(), cidades=None, eh_funcionario=db_localizar_funcionario_email)
 
 
 if __name__ == "__main__":

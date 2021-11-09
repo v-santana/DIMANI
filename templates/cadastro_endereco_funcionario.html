@@ -1,0 +1,8 @@
+{% include 'head.html'%}
+    {% if 'SALARIO'  in session %}
+        {% include 'form_endereco.html'%}
+    {% else %}
+        <p>Área restrita a funcionarios</p>
+    {% endif %}
+
+{% include 'footer.html'%}
