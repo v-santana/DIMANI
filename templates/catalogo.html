@@ -46,12 +46,16 @@
   width:1000vmin !important;
 }
 
-.grid-container {
-  display: grid;
-  grid-template-columns: auto auto auto auto;
-  grid-gap: 10px;
-  padding: 10px;
+@media (min-width: 1200px) {
+  
+  .grid-container {
+    display: grid;
+    grid-template-columns: auto auto auto auto;
+    grid-gap: 10px;
+    padding: 10px;
+  }
 }
+
 
 .grid-container > div {
   text-align: center;
@@ -111,7 +115,6 @@
   {% else %}
   <div class="grid-container">
     {% for produto in catalogo %}
-    
         <div class="card">
             <img id="imagem-produto" src="static/images/produtos/produto_{{produto['ID_PRODUTO']}}.jpg" style="height: 290px; width: 290px; object-fit: cover;" alt="Card image cap">
             <h2>{{produto['NOME_PRODUTO']}}</h2>
