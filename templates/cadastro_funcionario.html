@@ -100,7 +100,7 @@
                 <label for="validationCustom01">CPF SUPERVISOR</label>
                 <input type="text" name="cpf_supervisor" class="form-control" id="validationCustom01" placeholder="Insira o CPF de um Supervisor, caso seja um supervisor insira seu CPF" placeholder="Insira seu CPF" maxlength="11" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" required>
                 <div class="invalid-feedback">
-                    Insira um CPF válido.
+                    Insira o CPF de um Supervisor, caso seja um supervisor insira seu CPF.
                 </div>
             </div>
         </div>
@@ -136,22 +136,17 @@
             });
         }, false);
     })();
-
+//Verificações durante o submit do formulário de cadastro do funcionario
 $("#cadastro-funcionario").submit(function(event){
         senha1 = document.getElementById("password1")
 	    senha2 = document.getElementById("password2")
+        // verifica se as duas senhas são iguais
         if (senha1.value != senha2.value){
             senha2.classList.add('is-invalid')
             event.preventDefault();
         }
       });
 
-// Validação de senhas
-function validarSenha(){
-	
- 
-	
-}
 
 </script>
 

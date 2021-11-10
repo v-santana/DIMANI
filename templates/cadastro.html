@@ -40,9 +40,9 @@
         <div class="form-group">
             <div class="col-md-6 offset-md-3">
                 <label for="validationCustom01">Data de Nascimento</label>
-                <input type="date" name="dt_nasc" class="form-control" id="validationCustom01" placeholder="Sua data de nascimento" required>
+                <input type="date" name="dt_nasc" id="dt_nasc" min="1903-2-01"  class="form-control" id="validationCustom01" placeholder="Sua data de nascimento" required>
                 <div class="invalid-feedback">
-                    Insira uma data válida.
+                    Insira uma data de nascmineto válida. 
                 </div>
             </div>
         </div>
@@ -146,9 +146,25 @@
         }, false);
     })();
 
+//Verificações durante o submit do formulário de cadastro do cliente
 $("#cadastro-cliente").submit(function(event){
         senha1 = document.getElementById("password1")
 	    senha2 = document.getElementById("password2")
+        let data_limite = new Date(1903,01,01,01,01,01)
+        let hoje = new Date()
+        data_formulario = document.getElementById("dt_nasc")
+        //Verifica se a data é maior ou menor que datas limites - Maior que hoje ou menor que o limite.
+        if (data_formulario.valueAsDate < data_limite) {
+            data_formulario.classList.add('is-invalid')
+            console.log("Caiu no primeiro")
+            event.preventDefault();
+            } 
+        if (data_formulario > hoje ) {
+                data_formulario.classList.add('is-invalid')
+                console.log("Caiu no segundo")
+                event.preventDefault();
+        }
+        // verifica se as duas senhas são iguais    
         if (senha1.value != senha2.value){
             senha2.classList.add('is-invalid')
             event.preventDefault();
