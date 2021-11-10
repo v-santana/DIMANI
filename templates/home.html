@@ -1,4 +1,3 @@
-
 {% include 'head.html'%}
 
 <style>
@@ -7,6 +6,12 @@
   margin-left: auto;
   margin-right: auto;
   width: 50%;
+}
+@media (min-width: 486px) {
+.image-whatsapp{
+width:480px;
+height:160px;
+}
 }
 </style>
 
@@ -37,6 +42,6 @@
   </a>
 </div>
 
-<a href="https://api.whatsapp.com/send?phone=5511987278155" target="_blank"><img src="/static/images/w1.png" alt="HTML tutorial" class="center" style="width:480px;height:160px;"></a>
+<a href="https://api.whatsapp.com/send?phone=5511987278155" target="_blank"><img src="/static/images/w1.png" alt="HTML tutorial" class="center image-whatsapp" ></a>
 
 {% include 'footer.html'%}
