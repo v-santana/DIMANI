@@ -221,7 +221,7 @@ def login():
                         efetua_login_funcionario(funcionario['CPF'],funcionario['SALARIO'],funcionario['EMAIL'],funcionario['NOME'])
                         return redirect('/catalogo')
                 else:
-                    return render_template('login.html', message="E-mail ou senha invalidos", eh_funcionario=db_localizar_funcionario_email)
+                    return render_template('login.html', message="E-mail ou senha inválidos", eh_funcionario=db_localizar_funcionario_email)
 
     return render_template('login.html', message="", eh_funcionario=db_localizar_funcionario_email)
 
