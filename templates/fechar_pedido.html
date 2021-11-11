@@ -1,176 +1,180 @@
-{% extends "carrinho.html" %}
-{% block carrinho %}
+{% extends "carrinho.html" %} {% block carrinho %}
 
 <style>
-  .styled-table {
-    border-collapse: collapse;
-    margin: 25px 0;
-    font-size: 0.9em;
-    font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
-}
-
-
-@media (min-width: 450px) {
-  .styled-table {
-    min-width: 400px;
-  }
-}
-.styled-table thead tr {
-    background-color: grey;
-    color: #ffffff;
-    text-align: left;
-}
-
-.styled-table th,
-.styled-table td {
-    padding: 12px 15px;
-}
-
-.styled-table tbody tr {
-    border-bottom: 6px solid #dddddd;
-}
-
-.styled-table tbody tr:nth-of-type(even) {
-    background-color: #f3f3f3;
-}
-
-.styled-table tbody tr:last-of-type {
-    border-bottom: 2px solid #438759;
-}
-
-.btn-remover {
-  margin-top: 11% !important;
-}
-
+    .styled-table {
+        border-collapse: collapse;
+        margin: 25px 0;
+        font-size: 0.9em;
+        font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
+        box-shadow: 0 0 20px rgba(0, 0, 0, 0.15);
+    }
+    
+    @media (min-width: 450px) {
+        .styled-table {
+            min-width: 400px;
+        }
+    }
+    
+    .styled-table thead tr {
+        background-color: grey;
+        color: #ffffff;
+        text-align: left;
+    }
+    
+    .styled-table th,
+    .styled-table td {
+        padding: 12px 15px;
+    }
+    
+    .styled-table tbody tr {
+        border-bottom: 6px solid #dddddd;
+    }
+    
+    .styled-table tbody tr:nth-of-type(even) {
+        background-color: #f3f3f3;
+    }
+    
+    .styled-table tbody tr:last-of-type {
+        border-bottom: 2px solid #438759;
+    }
+    
+    .btn-remover {
+        margin-top: 11% !important;
+    }
 </style>
 
 <div class="container" style="margin-top:1%">
-  <div class="col-sm">
-    <a href="carrinho">
-      <button type="button" class="button btn-danger btn-md" style="margin: 25px 2px !important;">
+    <div class="col-sm">
+        <a href="carrinho">
+            <button type="button" class="button btn-danger btn-md" style="margin: 25px 2px !important;">
         <span class="glyphicon glyphicon-chevron-left"></span>VOLTAR PARA O CARRINHO</button>
-    </a>
-  </div>
-  <table class="styled-table" id="tabela">
-	<!-- CABEÇALHO DA TABELA -->
-  <thead id="thead">
-    <tr>
-      <th scope="col">ID PRODUTO</th>
-      <th scope="col">PRODUTO</th>
-      <th scope="col">DESCRIÇÃO</th>
-      <th scope="col">TAMANHO</th>
-      <th scope="col">QUANTIDADE</th>
-      <th scope="col">VALOR UNITÁRIO</th>
-      <th scope="col">VALOR TOTAL</th>
-      <th scope="col">OBSERVACAO</th>
-      <th scope="col">#</th>
-    </tr>
-  </thead>
-
-  <!-- linhas de body é inserida pelo script javascript "carregar_tabela_carrinho()" -->
-  <tbody id="tbody">
-
-  </tbody>
-</table>
-<div class="container">
-    <div class="row">
-      <div class="col-sm">
-        <a href="/home">
-          <button type="button" id="concluir_pedido" class="button button-fechar btn-md btn-block" style="margin: 25px 2px !important;">CONCLUIR PEDIDO</button>
         </a>
-  
-      </div>
     </div>
-  </div>
+    <table class="styled-table" id="tabela">
+        <!-- CABEÇALHO DA TABELA -->
+        <thead id="thead">
+            <tr>
+                <th scope="col">ID PRODUTO</th>
+                <th scope="col">PRODUTO</th>
+                <th scope="col">DESCRIÇÃO</th>
+                <th scope="col">TAMANHO</th>
+                <th scope="col">QUANTIDADE</th>
+                <th scope="col">VALOR UNITÁRIO</th>
+                <th scope="col">VALOR TOTAL</th>
+                <th scope="col">OBSERVACAO</th>
+                <th scope="col">#</th>
+            </tr>
+        </thead>
+
+        <!-- linhas de body é inserida pelo script javascript "carregar_tabela_carrinho()" -->
+        <tbody id="tbody">
+
+        </tbody>
+    </table>
+    <div class="container">
+        <div class="row">
+            <div class="col-sm">
+                <a href="/pedidos">
+                    <button type="button" id="concluir_pedido" class="button button-fechar btn-md btn-block" style="margin: 25px 2px !important;">CONCLUIR PEDIDO</button>
+                </a>
+
+            </div>
+        </div>
+    </div>
 </div>
 {% include 'footer.html'%}
 <script type="text/javascript" charset="utf-8" async defer>
-function maiorQue(texto,quantidade) {
-    var texto = texto;
-    if (texto == null){
-    return ""
-    }else {
-      if (texto.length >= quantidade){
-        texto = texto.slice(0,quantidade);
-        texto += "..."
-      }
-    }
-
-    console.log(texto)
-    return texto;
-
-}
-function  carrega_tabela_carrinho(){
-
-  var itens_storage = retorna_itens_lStorage()
-  tabela = document.getElementById("tabela")
-    for (item in itens_storage){
-      //href para excluir item 
-      tabela.appendChild(cria_tabela_carrinho(
-        [[itens_storage[item][0],itens_storage[item][1],maiorQue(itens_storage[item][2],15),itens_storage[item][5],itens_storage[item][4],formata_valor_com_cifrao(parseInt(itens_storage[item][3])),formata_valor_com_cifrao(itens_storage[item][3] * itens_storage[item][4]),maiorQue(itens_storage[item][6],20)]],item))
-  }
-
-};
-
-function carrega_tabela_carrinho_responsiva(){
-  function range(start, end) {
-    return Array.from({ length: end - start + 1 }, (_, i) => i)
-  }
-  let tr = document.getElementsByTagName('tbody')[0].rows 
-  for(n in range(1,tr.length)) {
-    tr[n].cells[0].setAttribute('data-label','ID PRODUTO')
-    tr[n].cells[1].setAttribute('data-label','PRODUTO')
-    tr[n].cells[2].setAttribute('data-label','DESCRIÇÃO')
-    tr[n].cells[3].setAttribute('data-label','TAMANHO')
-    tr[n].cells[4].setAttribute('data-label','QUANTIDADE')
-    tr[n].cells[5].setAttribute('data-label','VALOR UNITÁRIO')
-    tr[n].cells[6].setAttribute('data-label','VALOR TOTAL')
-    tr[n].cells[7].setAttribute('data-label','OBSERVAÇÃO')
-    
-
-  }
-}
-
-carrega_tabela_carrinho();
-carrega_tabela_carrinho_responsiva()
-document.getElementById('concluir_pedido').onclick = function concluir_pedido() {
-    let array_carrinho = []
-    let confirmacao = confirm("Deseja prosseguir com a conclusão do Pedido?")
-    if (confirmacao){
-        for (item in localStorage){
-            if (localStorage.getItem(item) !== null){
-                val = localStorage.getItem(item)
-                item = val.split(",")
-                console.log(item)
-                let item_pronto = {}
-                item_pronto['ID_PRODUTO']= parseInt(item[0])
-                item_pronto['TAMANHO'] = item[5]
-                item_pronto['QUANTIDADE'] = parseInt(item[4])
-                item_pronto['OBSERVACAO'] = item[6]
-                array_carrinho.push(item_pronto)
-                console.log("carrinho não está vazio")
+    function maiorQue(texto, quantidade) {
+        var texto = texto;
+        if (texto == null) {
+            return ""
+        } else {
+            if (texto.length >= quantidade) {
+                texto = texto.slice(0, quantidade);
+                texto += "..."
             }
-            
-        } 
-        // verifica se o carrinho está vazio antes de enviar o pedido
-        if (localStorage.length != 0) {
-          $.ajax({
-              type: 'POST',
-              contentType: 'application/json',
-              data: JSON.stringify(array_carrinho),
-              dataType: 'json',
-              url: '/itens_carrinho',
-              success: function () {
-                  
-              }});
-          localStorage.clear()
-      } else {
-        alert("O carrinho está vazio!")
-      }
+        }
+
+        console.log(texto)
+        return texto;
+
     }
 
-}
+    function carrega_tabela_carrinho() {
+
+        var itens_storage = retorna_itens_lStorage()
+        tabela = document.getElementById("tabela")
+        for (item in itens_storage) {
+            //href para excluir item 
+            tabela.appendChild(cria_tabela_carrinho(
+                [
+                    [itens_storage[item][0], itens_storage[item][1], maiorQue(itens_storage[item][2], 15), itens_storage[item][5], itens_storage[item][4], formata_valor_com_cifrao(parseInt(itens_storage[item][3])), formata_valor_com_cifrao(itens_storage[item][3] * itens_storage[item][4]), maiorQue(itens_storage[item][6], 20)]
+                ], item))
+        }
+
+    };
+
+    function carrega_tabela_carrinho_responsiva() {
+        function range(start, end) {
+            return Array.from({
+                length: end - start + 1
+            }, (_, i) => i)
+        }
+        let tr = document.getElementsByTagName('tbody')[0].rows
+        for (n in range(1, tr.length)) {
+            tr[n].cells[0].setAttribute('data-label', 'ID PRODUTO')
+            tr[n].cells[1].setAttribute('data-label', 'PRODUTO')
+            tr[n].cells[2].setAttribute('data-label', 'DESCRIÇÃO')
+            tr[n].cells[3].setAttribute('data-label', 'TAMANHO')
+            tr[n].cells[4].setAttribute('data-label', 'QUANTIDADE')
+            tr[n].cells[5].setAttribute('data-label', 'VALOR UNITÁRIO')
+            tr[n].cells[6].setAttribute('data-label', 'VALOR TOTAL')
+            tr[n].cells[7].setAttribute('data-label', 'OBSERVAÇÃO')
+
+
+        }
+    }
+
+    carrega_tabela_carrinho();
+    carrega_tabela_carrinho_responsiva()
+    document.getElementById('concluir_pedido').onclick = function concluir_pedido() {
+        let array_carrinho = []
+        let confirmacao = confirm("Deseja prosseguir com a conclusão do Pedido?")
+        if (confirmacao) {
+            for (item in localStorage) {
+                if (localStorage.getItem(item) !== null) {
+                    val = localStorage.getItem(item)
+                    item = val.split(",")
+                    console.log(item)
+                    let item_pronto = {}
+                    item_pronto['ID_PRODUTO'] = parseInt(item[0])
+                    item_pronto['TAMANHO'] = item[5]
+                    item_pronto['QUANTIDADE'] = parseInt(item[4])
+                    item_pronto['OBSERVACAO'] = item[6]
+                    array_carrinho.push(item_pronto)
+                    console.log("carrinho não está vazio")
+                }
+
+            }
+            // verifica se o carrinho está vazio antes de enviar o pedido
+            if (localStorage.length != 0) {
+                $.ajax({
+                    type: 'POST',
+                    contentType: 'application/json',
+                    data: JSON.stringify(array_carrinho),
+                    dataType: 'json',
+                    url: '/itens_carrinho',
+                    success: function() {
+
+                    }
+                });
+                localStorage.clear()
+            } else {
+                alert("O carrinho está vazio!")
+            }
+        }
+
+    }
 </script>
 
 {% endblock %}
