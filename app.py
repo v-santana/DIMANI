@@ -243,7 +243,7 @@ def esqueci_senha():
                     #verifica se e-mail e cpf são do mesmo cliente
                     if cliente['EMAIL'] == request.form['email']:
                         #cria texto de senha e encaminha via e-mail
-                        html_senha = f"Boa tarde {cliente['NOME'].split(' ')[0]},\nSegue sua senha conforme solicitado.\nSENHA:{cliente['SENHA']}"
+                        html_senha = f"Olá {cliente['NOME'].split(' ')[0]},\nSua senha de acesso no site DiMani Atelier é:\nSENHA: {cliente['SENHA']}\natt, DiMani Atelier."
                         send_senha(html_senha,f"ACESSO DIMANI" ,[cliente['EMAIL']],'maildev.dimani@gmail.com')
                         return render_template('esqueci_senha.html',mensagem="E-mail encaminhado, confira sua caixa de entrada.",eh_funcionario=db_localizar_funcionario_email)
                     else:
