@@ -11,18 +11,15 @@ def allowed_file(filename):
 def upload_file(name_file,nome_arquivo):
         if name_file not in request.files:
             flash('No file part')
-            print("sem arquivo anexado")
             return redirect('catalogo')
         file = request.files[name_file]
         
         # if user does not select file, browser also
         # submit a empty part without filename
         if file.filename == '':
-            print('nenhuma imagem selecionada')
             flash('No selected file')
             return redirect('catalogo')
         if file and allowed_file(file.filename):
-            print('imagem salva')
             file.save(os.path.join(app.config['UPLOAD_FOLDER'], nome_arquivo))
 
 
@@ -53,7 +50,6 @@ def send_message(corpo,assunto,lista_de_contatos,email):
     UPLOAD_FOLDER = 'temp'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
     upload_file('comprovante',f"comprovante.pdf")
-    print(request.files)
     msg = Message(assunto, sender = email,
             recipients = lista_de_contatos,
             body= corpo
@@ -66,13 +62,21 @@ def send_message(corpo,assunto,lista_de_contatos,email):
     mail.send(msg)
     UPLOAD_FOLDER = 'static/images/produtos'
     app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    
+    
 ############################
 #### Definições da API. ####
 ############################
 
-
-
-
+############ ENVIO DE E-MAIL SENHA ##############
+def send_senha(corpo,assunto,lista_de_contatos,email):
+    UPLOAD_FOLDER = 'temp'
+    app.config['UPLOAD_FOLDER'] = UPLOAD_FOLDER
+    msg = Message(assunto, sender = email,
+            recipients = lista_de_contatos,
+            body= corpo
+    )  
+    mail.send(msg)
 
 
 
@@ -229,7 +233,26 @@ def login():
 def logout():
         session.clear()
         return redirect('login')
-
+    
+@app.route('/esqueci_senha', methods = ['POST','GET'])
+def esqueci_senha():
+        if request.method == 'POST':
+            try:
+                #para clientes em localizar cliente pelo cpf
+                for cliente in db_localizar_cliente_cpf(request.form['cpf']):
+                    #verifica se e-mail e cpf são do mesmo cliente
+                    if cliente['EMAIL'] == request.form['email']:
+                        #cria texto de senha e encaminha via e-mail
+                        html_senha = f"Boa tarde {cliente['NOME'].split(' ')[0]},\nSegue sua senha conforme solicitado.\nSENHA:{cliente['SENHA']}"
+                        send_senha(html_senha,f"ACESSO DIMANI" ,[cliente['EMAIL']],'maildev.dimani@gmail.com')
+                        return render_template('esqueci_senha.html',mensagem="E-mail encaminhado, confira sua caixa de entrada.",eh_funcionario=db_localizar_funcionario_email)
+                    else:
+                        #retorna mensagem de e-mail não correspondente
+                        return render_template('esqueci_senha.html',mensagem="E-mail não correspondente ao CPF cadastrado, confira os dados e tente novamente.",eh_funcionario=db_localizar_funcionario_email)
+            except:
+                return render_template('esqueci_senha.html',mensagem="Ocorreu um erro inesperado, tente novamente ou contate um administrador.",eh_funcionario=db_localizar_funcionario_email)
+        return render_template('esqueci_senha.html',eh_funcionario=db_localizar_funcionario_email)
+    
 @app.route("/sobre", methods=['GET'])
 def sobre():
     return render_template('sobre.html', eh_funcionario=db_localizar_funcionario_email)
@@ -259,7 +282,6 @@ def editar_telefones():
     if 'ID_CONTA' in session:
         cliente = db_localizar_cliente(session['ID_CONTA'])
         telefone_cliente = db_localizar_telefones_cliente(cliente[0]['ID_CONTA'])
-        print(db_localizar_telefones_cliente(session['ID_CONTA']))
         if request.method == 'POST':
             resposta = db_criar_telefone_cliente(session['ID_CONTA'],request.form['adicionar_telefone'])
             return render_template('editar_telefone.html',telefone_cliente=telefone_cliente,message=resposta['message'], eh_funcionario=db_localizar_funcionario_email)
@@ -309,7 +331,6 @@ def cadastro_endereco():
             return render_template("cadastro_endereco.html", mensagem = "Cidade não localizada na base de dados", estados=db_listar_estados(), cidades=None, eh_funcionario=db_localizar_funcionario_email)
         else:
             cidade=request.form['cidade']
-            print(id_cidade)
             endereco = db_criar_endereco(rua,numero,bairro,complemento,id_cidade[0]['ID_CIDADE'])
             cliente = db_criar_cliente(session['CPF'],session['NOME'],session['DT_NASC'],session['EMAIL'],session['SENHA'],endereco['id_endereco'],session['EMAIL'])
             telefone_cliente = db_criar_telefone_cliente(cliente['id_conta'],session['TELEFONE'])
@@ -325,8 +346,6 @@ def cadastro_funcionario():
         cpf,nome_completo,salario,telefone = request.form['cpf'],request.form['nome_completo'],request.form['salario'],request.form['telefone'] 
         email,senha = request.form['email'],request.form['senha']
         cpf_supervisor = request.form['cpf_supervisor']
-        print("FORM")
-        print(request.form)
         ###### Verifica se email e CPF já existe no banco de dados ########
         if db_localizar_funcionario_cpf(cpf):
             return render_template('cadastro_funcionario.html', estados=db_listar_estados(), cidades=None,mensagem="CPF já utilizado, verifique se já tem uma conta.", eh_funcionario=db_localizar_funcionario_email) 
@@ -335,8 +354,6 @@ def cadastro_funcionario():
         else:
             session['NOME_FUNCIONARIO'],session['CPF_FUNCIONARIO'],session['SALARIO_FUNCIONARIO'],session['EMAIL_FUNCIONARIO']  = nome_completo,cpf,salario,email
             session['SENHA_FUNCIONARIO'],session['TELEFONE_FUNCIONARIO'],session['CPF_SUPERVISOR'] = senha,telefone, cpf_supervisor,
-            print("SESSION")
-            print(session)
             return redirect('/cadastro_funcionario/endereco')
     return render_template('cadastro_funcionario.html', estados=db_listar_estados(), cidades=None, mensagem="", eh_funcionario=db_localizar_funcionario_email)
 
@@ -349,7 +366,6 @@ def cadastro_endereco_funcionario():
         cep = request.form['cep']
         bairro=request.form['bairro']
         rua, numero, complemento = request.form['rua'],request.form['numero'], request.form['complemento']
-        print(request.form)
         #Se a quantidade de cidades na consulta for maior que 1
         if len(id_cidade) > 1:
             return render_template("cadastro_endereco_funcionario.html", mensagem = "Escolha novamente a Cidade", estados=db_listar_estados(), cidades =  id_cidade, id_estado = int(id_estado),bairro=bairro, rua = rua, complemento = complemento, numero=numero,cep=cep,eh_funcionario=db_localizar_funcionario_email)
@@ -357,7 +373,6 @@ def cadastro_endereco_funcionario():
             return render_template("cadastro_endereco.html", mensagem = "Cidade não localizada na base de dados", estados=db_listar_estados(), cidades=None, eh_funcionario=db_localizar_funcionario_email)
         else:
             cidade=request.form['cidade']
-            print(id_cidade)
             endereco = db_criar_endereco(rua,numero,bairro,complemento,id_cidade[0]['ID_CIDADE'])
             funcionario = db_criar_funcionario(cpf=session['CPF_FUNCIONARIO'],nome=session['NOME_FUNCIONARIO'],email=session['EMAIL_FUNCIONARIO'],salario=session['SALARIO_FUNCIONARIO'],senha=session['SENHA_FUNCIONARIO'],id_endereco=endereco['id_endereco'],cpf_supervisor=session['CPF_SUPERVISOR'])
             telefone_funcionario = db_criar_telefone_funcionario(funcionario['cpf'],session['TELEFONE_FUNCIONARIO'])

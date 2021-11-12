@@ -1,0 +1,47 @@
+{% include 'head.html'%}
+<img src="/static/images/BANNER_BRANCO_DIMANI.PNG" class="img-fluid" alt="BANNER DIMANI SOBRE">
+
+<div class="container">
+  <form class="forms needs-validation" id="cadastro-cliente" method="POST" novalidate>
+
+      <!-- TÍTULO FORM -->
+      <h2 class="form-title text-center">REDEFINIR SENHA</h2>
+      <h4 class="form-title text-info text-center" > {{mensagem}} </h4>
+      <!-- /END TÍTULO FORM -->
+
+      <!-- CPF -->
+      <div class="form-group">
+          <div class="col-md-6 offset-md-3">
+              <label for="validationCustom01">CPF</label>
+              <input type="text" name="cpf" class="form-control" id="validationCustom01" placeholder="Insira seu CPF" maxlength="11" pattern="(\d{3}\.?\d{3}\.?\d{3}-?\d{2})|(\d{2}\.?\d{3}\.?\d{3}/?\d{4}-?\d{2})" required>
+              <div class="invalid-feedback">
+                  Insira um CPF válido.
+              </div>
+          </div>
+      </div>
+      <!-- /END CPF -->
+      
+      <!-- E-MAIL -->
+      <div class="col-md-6 offset-md-3">
+          <label for="validationCustom01">E-mail</label>
+          <input type="email" name="email" class="form-control" id="validationCustom01" placeholder="Endereço de e-mail" maxlength="100" required>
+          
+          <div class="invalid-feedback">
+              Insira um endereço de e-mail válido.
+          </div>
+      </div>
+      <!-- /END E-MAIL -->
+
+      <!-- BOTÃO PROSSEGUIR -->
+      <div class="form-group">
+          <div class="col-md-6 offset-md-3" style="margin-top: 2rem;">
+              <button type="submit" class="btn btn-secondary btn-lg btn-block">Enviar</button>
+          </div>
+      </div>
+      <!-- /END BOTÃO PROSSEGUOR -->
+  </form>
+</div>
+
+
+
+{% include 'footer.html'%}
