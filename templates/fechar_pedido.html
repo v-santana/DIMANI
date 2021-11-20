@@ -71,16 +71,21 @@
 
         </tbody>
     </table>
-    <div class="container">
-        <div class="row">
-            <div class="col-sm">
-                <a href="/pedidos">
-                    <button type="button" id="concluir_pedido" class="button button-fechar btn-md btn-block" style="margin: 25px 2px !important;">CONCLUIR PEDIDO</button>
-                </a>
 
-            </div>
+    <div class="card" style="text-align: center;">
+        <div class="card-header" style="color: #438759;">
+            <h2><i class="small material-icons">local_atm</i> PAGAMENTO</h2>
         </div>
-    </div>
+        <div class="card-body">
+          <h4 class="card-title">A chave PIX para pagamento é: dimani@atelier.com.br</h4>
+          <h4 class="card-title">Os dados de transferência são: ag 7839 c/c 08387-5</h4>
+          <p class="card-text">Após realizar o pagamento, clique em Concluir Pedido, e você será redirecionado para a página de pedidos, onde poderá encaminhar o comprovante de pagamento.</p>
+          <a href="/pedidos">
+            <button type="button" id="concluir_pedido" class="button button-fechar btn-md btn-block" style="margin: 15px 2px !important;">CONCLUIR PEDIDO</button>
+        </a>
+        </div>
+      </div>
+
 </div>
 {% include 'footer.html'%}
 <script type="text/javascript" charset="utf-8" async defer>
