@@ -1,0 +1,70 @@
+<!-- Modal -->
+<div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <!-- Titulo do modal -->
+      <div class="modal-header">
+        <h3 class="modal-title" id="exampleModalLabel">Cadastrar produto</h3>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <!-- Corpo do modal -->
+      <div class="modal-body">
+        <form method="POST" name="form_incluir_produto" class="form" enctype="multipart/form-data">
+     
+      <!-- NOME PRODUTO -->
+        <div class="form-group">
+              <label for="validationCustom01">Nome Produto</label>
+              <input type="text" name="nome_produto" class="form-control" id="validationCustom01" placeholder="Insira o Nome do Produto" maxlength="99" required>
+              <div class="invalid-feedback">
+                  Insira o nome do produto.
+              </div>
+      </div>
+      <!-- /END NOME PRODUTO -->
+      <!--  DESCRICAO -->
+            <div class="form-group">
+              <label for="validationCustom01">Descrição</label>
+              <input type="text" name="descricao_produto" class="form-control" id="validationCustom01" maxlength="299" placeholder="Insira a Descrição do produto" maxlength="200" required>
+              <div class="invalid-feedback">
+                  Insira a Descrição do produto.
+              </div>
+      </div>
+      <!-- /END DESCRICAO -->
+      <!--  VALOR -->
+      <div class="form-group">
+          <label for="validationCustom01">Valor</label>
+          <input type="number" name="valor_produto" class="form-control" id="validationCustom01" placeholder="Insira o valor do produto (ex: 10,00)"  min="1" step="any" required>
+          <div class="invalid-feedback">
+              Insira o valor do produto.
+          </div>
+      </div>
+      <!-- /END VALOR -->
+      <!--  QUANTIDADE -->
+      <div class="form-group">
+        <label for="validationCustom01">Quantidade</label>
+        <input type="number" name="qtd_produto" class="form-control" id="validationCustom01" placeholder="Insira a quantidade do produto"  min="1" step="any" required>
+        <div class="invalid-feedback">
+            Insira a quantidade do produto.
+        </div>
+    </div>
+    <!-- /END QUANTIDADE -->
+      <!--  IMAGEM -->
+      <div class="form-group">
+        <label for="exampleFormControlFile1">Insira a imagem do produto.</label>
+        <input type="file" name="imagem_produto" class="form-control-file" id="exampleFormControlFile1" id="validationCustom01"  required>
+        <div class="invalid-feedback">
+          Insira a imagem do produto.
+      </div>
+      </div>
+      <!-- /END IMAGEM -->
+      </div>
+      <!-- Footer do modal -->
+      <div class="modal-footer">
+        <button type="button" class="btn btn-secondary" data-dismiss="modal">Fechar</button>
+        <button type="submit" class="btn btn-primary">Incluir produto</button>
+      </div>
+      </form>
+    </div>
+  </div>
+</div>

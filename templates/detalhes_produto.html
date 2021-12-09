@@ -1,0 +1,99 @@
+{% include 'head.html'%}
+
+<!-- Container com grid 1x2 1 linha 2 colunas-->
+<div class="container shadow-lg ">
+  <!-- Linha 1 -->
+  <div class="row">
+    <!-- Coluna1 -->
+    <div class="col">
+      <div class="card-body">
+        <img src="/static/images/produtos/produto_{{detalhes_produto['ID_PRODUTO']}}.jpg" style="height:82vmin;width:82vmin;;"class="img" alt="Imagem responsiva">
+
+    </div> 
+  </div>
+
+    <div class="col">
+            <div class="card-body">
+              <input type="hidden" id="id_produto" name="id_produto" value="{{detalhes_produto['ID_PRODUTO']}}">
+              <h2 class="title"  id="nome_produto">{{detalhes_produto['NOME_PRODUTO']}}</h2>
+              <input type="hidden" id="valor_produto" value="{{detalhes_produto['VALOR']}}">
+              <h4 class="card-text" style="font-size: 25px; color: #438759;" name="valor_produto_real" >{{detalhes_produto['VALOR']}}</h4>
+              <p class="card-text" id="descricao_produto">{{detalhes_produto['DESCRICAO']}}</small></p>
+                <p><div class="form-group" style="font-size: 17px;">
+                  <label>TAMANHO </label><br>
+                      <div class="btn-group btn-group-toggle" data-toggle="buttons">
+                        <label class="btn btn-secondary">
+                          <input type="radio" name="options" id="option2" value="P" autocomplete="off"> P
+                        </label>
+                        <label class="btn btn-secondary">
+                          <input type="radio" name="options" id="option3" value="M" autocomplete="off"> M
+                        </label>
+                        <label class="btn btn-secondary">
+                          <input type="radio" name="options" id="option4" value="G" autocomplete="off"> G
+                        </label>
+                      </div>
+                </div>
+
+                <div class="form-group" style="font-size: 17px;">
+                  <label for="observacao_produto">PERSONALIZAÇÃO</label>
+                  <textarea class="form-control" id="observacao_produto" 
+                  placeholder="Exemplo: Bordar iniciais na manga da blusa. (Máx: 200 caracteres) " maxlength="200"rows="3"></textarea>
+                </div>
+                
+                <form class="form-inline" style="font-size: 14px;">
+                  <label class="my-1 mr-2" for="customControlValidation1">QUANTIDADE</label>
+                  <select class="custom-select my-1 mr-sm-2" id="customControlValidation1">
+                      <option name="options_qtd" value="1">1</option>
+                      <option name="options_qtd" value="2">2</option>
+                      <option name="options_qtd" value="3">3</option>
+                      <option name="options_qtd" value="4">4</option>
+                      <option name="options_qtd" value="5">5</option>
+                      <option name="options_qtd" value="6">6</option>
+                      <option name="options_qtd" value="7">7</option>
+                      <option name="options_qtd" value="8">8</option>
+                      <option name="options_qtd" value="9">9</option>
+                      <option name="options_qtd" value="10">10</option>
+                  </select>
+                </form>
+                <p></p><div>
+                <a class="btn button-fechar btn-block" style="margin-top: 6%; font-size: 19px; color: white;" role="button" data-toggle="modal" onclick="verifica_campo_nulo()" data-target="#modalExemplo"><i class="material-icons" style="font-size: 15px;">add_shopping_cart</i> ADICIONAR AO CARRINHO</a>
+                </div>
+            </div>
+        </div>
+      </div>
+    </div>
+</div>
+
+
+
+
+
+
+<!-- Modal -->
+<div class="modal fade" id="modalExemplo" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel" aria-hidden="true">
+  <div class="modal-dialog" role="document">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" id="exampleModalLabel">Continuar comprando?</h5>
+        <button type="button" class="close" data-dismiss="modal" aria-label="Fechar">
+          <span aria-hidden="true">&times;</span>
+        </button>
+      </div>
+      <div class="modal-body">
+        Adicionar ao Carrinho e continuar comprando ou ir até o carrinho?
+      </div>
+      <div class="modal-footer">
+      	<a href='/catalogo'>
+        		<button type="button" class="btn btn-secondary" onclick="adiciona_carrinho()">Continuar comprando</button>
+    	</a>
+        <a href='/carrinho'>
+        		<button type="button" class="btn btn-primary" onclick="adiciona_carrinho()">Ir até o carrinho</button>
+      	</a>
+      </div>
+    </div>
+  </div>
+</div>
+
+
+
+{% include 'footer.html'%}

@@ -1,0 +1,115 @@
+{% include 'head.html'%}
+
+{% if not eh_funcionario(session['EMAIL'])%}
+  <div class="container">
+    <h3 class="title"> Página não encontrada.</h3>
+  </div>
+{% else %}
+<form class="form-inline forms needs-validation" method="POST" enctype="multipart/form-data" novalidate>
+<!-- Container com grid 1x2 1 linha 2 colunas-->
+<div class="container shadow-lg ">
+    <!-- Linha 1 -->
+    <div class="row">
+      <!-- Coluna1 -->
+      <div class="col">
+        <div class="card-body">
+          <img src="/static/images/produtos/produto_{{detalhes_produto['ID_PRODUTO']}}.jpg" style="height:82vmin;width:82vmin;;"class="img" alt="Imagem responsiva">
+  
+      </div> 
+    </div>
+  
+      <div class="col">
+            <div class="card-body">
+                <!-- ID_PRODUTO  -->
+                <input type="hidden" id="id_produto" name="id_produto" value="{{detalhes_produto['ID_PRODUTO']}}">
+                <div class="form-group">
+                    <h2 class="title">DADOS DO PRODUTO</h2>
+                </div>
+                <hr style="margin-top:0vmin !important; margin-bottom:0.5vmin !important">
+                <small><p class="text-muted">Para alterar o produto edite os dados abaixo</p></small>
+                <!-- NOME  -->
+                <div class="form-group">
+                    <h3 class="card-text" >NOME</h3>
+                    <input type="text" class="form-control" id="validationCustom01" name="nome_produto" value="{{detalhes_produto['NOME_PRODUTO']}}" maxlength="99" required>
+                    <div class="invalid-feedback">
+                        Insira um nome válido ou mantenha o nome atual para prosseguir.
+                    </div>  
+                </div><br>
+                <!--/END NOME  -->
+                <!-- VALOR  -->
+                <div class="form-group">
+                        <h3 class="card-text" >VALOR (R$)</h3>
+                        <input type="text" class="form-control" onkeyup="formataValor(this)" id="moeda validationCustom01" name="valor_produto" maxlength="23"  placeholder="Valor atual: {{'%0.2f'| format(detalhes_produto['VALOR']|float)}}" required>
+                        <div class="invalid-feedback">
+                            Insira um valor válido ou insira o valor atual para prosseguir.
+                        </div>  
+                </div>
+                <!--/END VALOR  -->
+                <!-- DESCRIÇÃO  -->
+                <br><div class="form-group">
+                    <h3 class="card-text" >DESCRIÇÃO</h3>
+                    <input type="text" class="form-control" id="validationCustom01" name="descricao_produto" value="{{detalhes_produto['DESCRICAO']}}" maxlength="299" required>
+                    <div class="invalid-feedback">
+                        Insira uma descrição válida ou insira a descrição atual para prosseguir.
+                    </div>  
+                </div>
+                <!--/END DESCRIÇÃO  -->
+
+                <!--  IMAGEM -->
+                <div class="form-group">
+                    <h3 class="card-text" >IMAGEM</h3>
+                    <input type="file" name="imagem_nova_produto" class="form-control-file" id="exampleFormControlFile1" id="validationCustom01">
+                </div>
+                <!-- /END IMAGEM -->
+                <hr style="margin-top:5vmin">
+                  <button class="btn btn-primary" type="submit" role="button" style="margin-bottom:0vmin">Confirmar Edição</button>
+                </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</form>
+  
+  
+  
+{% endif %}  
+
+
+{% include 'footer.html'%}
+<script type="text/javascript" charset="utf-8" async defer>
+// Formata o campo valor fonte: www.BB.com.br
+function formataValor(campo) {
+	campo.value = filtraCampoValor(campo); 
+	vr = campo.value;
+	tam = vr.length;
+
+	if ( tam <= 2 ){ 
+ 		campo.value = vr ; }
+ 	if ( (tam > 2) && (tam <= 5) ){
+ 		campo.value = vr.substr( 0, tam - 2 ) + ',' + vr.substr( tam - 2, tam ) ; }
+ 	if ( (tam >= 6) && (tam <= 8) ){
+ 		campo.value = vr.substr( 0, tam - 5 ) + '.' + vr.substr( tam - 5, 3 ) + ',' + vr.substr( tam - 2, tam ) ; }
+ 	if ( (tam >= 9) && (tam <= 11) ){
+ 		campo.value = vr.substr( 0, tam - 8 ) + '.' + vr.substr( tam - 8, 3 ) + '.' + vr.substr( tam - 5, 3 ) + ',' + vr.substr( tam - 2, tam ) ; }
+ 	if ( (tam >= 12) && (tam <= 14) ){
+ 		campo.value = vr.substr( 0, tam - 11 ) + '.' + vr.substr( tam - 11, 3 ) + '.' + vr.substr( tam - 8, 3 ) + '.' + vr.substr( tam - 5, 3 ) + ',' + vr.substr( tam - 2, tam ) ; }
+ 	if ( (tam >= 15) && (tam <= 18) ){
+ 		campo.value = vr.substr( 0, tam - 14 ) + '.' + vr.substr( tam - 14, 3 ) + '.' + vr.substr( tam - 11, 3 ) + '.' + vr.substr( tam - 8, 3 ) + '.' + vr.substr( tam - 5, 3 ) + ',' + vr.substr( tam - 2, tam ) ;}
+ 		
+}
+
+//fonte: www.BB.com.br
+function filtraCampoValor(campo){
+	var s = "";
+	var cp = "";
+	vr = campo.value;
+	tam = vr.length;
+	for (i = 0; i < tam ; i++) {  
+		if (vr.substring(i,i + 1) >= "0" && vr.substring(i,i + 1) <= "9"){
+		 	s = s + vr.substring(i,i + 1);}
+	} 
+	campo.value = s;
+	return cp = campo.value
+}
+</script>

@@ -1,0 +1,8 @@
+{% include 'head.html'%}
+    {% if 'NOME'  in session %}
+        {% include 'form_endereco.html'%}
+    {% else %}
+        <p>Retorne para cadastro</p>
+    {% endif %}
+
+{% include 'footer.html'%}

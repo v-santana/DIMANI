@@ -1,0 +1,306 @@
+{% block head %}
+
+<!DOCTYPE html>
+<html lang="pt-br">
+  <head>
+    <!-- Meta tags Obrigatórias -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/css/bootstrap.min.css" integrity="sha384-MCw98/SFnGE8fJT3GXwEOngsV7Zt27NXFoaoApmYm81iuXoPkFOJwJ8ERdknLPMO" crossorigin="anonymous">
+    <link rel="shortcut icon" href="/static/images/favicon.ico" />
+    <link rel="stylesheet" href="{{ url_for('static', filename='style.css') }}">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/css/bootstrap.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <script src="https://maxcdn.bootstrapcdn.com/bootstrap/3.4.0/js/bootstrap.min.js"></script>
+    <script src="http://code.jquery.com/jquery-2.1.4.min.js"></script>
+    <script src='https://kit.fontawesome.com/a076d05399.js' crossorigin='anonymous'></script>
+    <script>
+        $(function(){
+            $('a').each(function(){
+                if ($(this).prop('href') == window.location.href) {
+                    $(this).addClass('active'); $(this).parents('li').addClass('active');
+                }
+            });
+        });
+    </script>
+
+    <!-- Bootstrap CSS -->
+  <style>
+
+      /*
+      =====
+      DEPENDENCES
+      =====
+      */
+
+      .r-link{
+        display: var(--rLinkDisplay, inline-flex) !important;
+      }
+
+      .r-link[href]{
+        color: var(--rLinkColor) !important;
+        text-decoration: var(--rLinkTextDecoration, none) !important;
+      }
+
+      .r-list{
+        padding-left: var(--rListPaddingLeft, 0) !important;
+        margin-top: var(--rListMarginTop, 0) !important;
+        margin-bottom: var(--rListMarginBottom, 0) !important;
+        list-style: var(--rListListStyle, none) !important;
+      }
+
+
+      /*
+      =====
+      CORE STYLES
+      =====
+      */
+
+      .menu{
+        --rLinkColor: var(--menuLinkColor, currentColor);
+      }
+
+      .menu__link{
+        display: var(--menuLinkDisplay, block);
+      }
+
+      /*
+      focus state
+      */
+
+      .menu__link:focus{
+        outline: var(--menuLinkOutlineWidth, 2px) solid var(--menuLinkOutlineColor, currentColor);
+        outline-offset: var(--menuLinkOutlineOffset);
+      }
+
+      /*
+      fading siblings
+      */
+
+      .menu:hover .menu__link:not(:hover){
+        --rLinkColor: var(--menuLinkColorUnactive, rgba(22, 22, 22, .35));
+      }
+
+      #nav_bar .active {
+        border-bottom: 1px solid  rgb(48, 43, 43)
+}
+
+
+      /*
+      =====
+      PRESENTATION STYLES
+      =====
+      */
+
+      .menu__list{
+        display: flex;
+      }
+
+      .menu__link{
+        padding: var(--menuLinkPadding, 1.5rem 4rem);
+        font-weight: 600;
+        text-transform: uppercase;
+      }
+
+      /*
+      =====
+      TEXT UNDERLINED
+      =====
+      */
+
+      .text-underlined{
+        position: relative;
+        overflow: hidden;
+
+        will-change: color;
+        transition: color .25s ease-out;
+      }
+
+      .text-underlined::before,
+      .text-underlined::after{
+        content: "";
+        width: 0;
+        height: 3px;
+        background-color: var(--textUnderlinedLineColor, currentColor);
+
+        will-change: width;
+        transition: width .1s ease-out;
+
+        position: absolute;
+        bottom: 0;
+      }
+
+      .text-underlined::before{
+        left: 50%;
+        transform: translateX(-50%);
+      }
+
+      .text-underlined::after{
+        right: 50%;
+        transform: translateX(50%);
+      }
+
+      .text-underlined:hover::before,
+      .text-underlined:hover::after{
+        width: 100%;
+        transition-duration: .2s;
+      }
+
+
+
+  .notification {
+  color: white;
+  text-decoration: none;
+  padding: 15px 26px;
+  position: relative;
+  display: inline-block;
+  border-radius: 2px;
+}
+
+.notification:hover {
+  background: red;
+}
+
+.notification .badge {
+  position: absolute;
+  top: -1px;
+  right: 48px;
+  padding: 3px 5px;
+  border-radius: 50%;
+  background: red;
+  color: white;
+}
+
+.nav-item-menu {
+  margin-left: 4vmin;
+  margin-right: 4vmin;
+
+}
+
+.nav-item {
+  font-family: -apple-system, BlinkMacSystemFont, Segoe UI, Roboto, Open Sans, Ubuntu, Fira Sans, Helvetica Neue, sans-serif;
+}
+
+      .carrinho{
+        color: #438759;
+        border-color: #438759 !important;
+        cursor: pointer !important;
+        transition-duration: 0.4s !important;
+      }
+
+      .carrinho:focus, .carrinho:hover{
+        color: #438759;
+        background: white !important;
+        outline-color: #438759;
+        background-color: #f3ccd5 !important;
+      }
+
+      .nav-ola:focus, .nav-ola:hover{
+        background-color: #f3c4cf !important;
+      }
+
+
+
+
+
+@media (min-width: 992px) {
+.navbar .navbar-nav {
+  display: inline-block;
+  float: none;
+  vertical-align: top;
+  margin-left: 12.5vmin;
+}
+
+.navbar .navbar-collapse {
+  text-align: center;
+}
+
+.content {
+  min-height: calc(100vh - 70px);
+}
+
+.footer {
+  height: 50px;
+}
+
+}
+  </style>
+  <nav class="navbar sticky-top navbar-expand-lg navbar-light stroke shadow menu" style="background-color: #f3ccd5;">
+    <a class="navbar-left" href="/home">
+      <img src="/static/images/LOGO_NAVBAR.png" alt="logo da navbar dimani" style="max-width: 9vmin;">
+    </a>
+    <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Alterna navegação">
+      <span class="navbar-toggler-icon"></span>
+    </button>
+    <div class="collapse navbar-collapse " id="navbarNav">
+      <ul id="nav_bar" class="navbar-nav menu__list r-list">
+        <li class="nav-item nav-item-menu menu_group">
+          <a class="nav-link menu_link r-link text-underlined" href="/home"><h4>HOME</h4><span class="sr-only">(Página atual)</span></a>
+        </li>
+        <li class="nav-item nav-item-menu menu_group">
+          <a class="nav-link menu_link r-link text-underlined" href="/sobre"><h4>SOBRE</h4></a>
+        </li>
+        <li class="nav-item nav-item-menu menu_group">
+          <a class="nav-link menu_link r-link text-underlined" href="/catalogo"><h4>CATÁLOGO</h4></a>
+        </li>
+        {% if 'NOME' in session %}
+        <li class="nav-item nav-item-menu menu_group">
+            <a class="nav-link menu_link r-link text-underlined" href="/pedidos"><h4>PEDIDOS</h4></a>
+        </li>
+        {% endif%}
+      </ul>
+    </div>
+      <ul class="nav justify-content-right">
+        {%if 'EMAIL' in session%}
+        {% if not eh_funcionario(session['EMAIL'])%}
+        <li class="nav-item">
+          <a href="/carrinho" class="notification carrinho">
+            <span class="btn btn-light btn-sm">
+              <i style="font-size:20px" class="fa">&#xf07a;</i>
+              <span id="notif" class="badge"></span>
+          </a>
+        </li>
+        {%endif%}
+        {%endif%}
+        {%if 'EMAIL' not in session%}
+        <li class="nav-item">
+          <a href="/carrinho" class="notification carrinho">
+            <span class="btn btn-light btn-sm">
+              <i style="font-size:20px" class="fa">&#xf07a;</i>
+              <span id="notif" class="badge"></span>
+          </a>
+        </li>
+        {%endif%}
+        {% if 'NOME' not in session %}
+        <li class="nav-item">
+          <a class="btn" style="background-color: #438759; color: white; margin-top: 10%;" href="/login" >LOGIN</a>
+        </li>
+        {% else %}
+            <li class="nav-item">
+              <li class="nav-item dropdown">
+                <a class="nav-link dropdown-toggle text nav-ola" style="margin-top: 5%; font-size:16px ;" id="navbarDropdownMenuLink" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+                    Olá, {{session['NOME'].split(" ")[0]}}
+                </a>
+                <div class="dropdown-menu" aria-labelledby="navbarDropdownMenuLink">
+                    <a type="button" class="nav-link dropdown-item" href="/dados_cadastro">Dados Cadastrais</a>
+                    {% if 'SALARIO' in session %}
+                      <a type="button" class="nav-link dropdown-item" href="/cadastro_funcionario">Cadastrar Funcionário</a>
+                    {% endif %}
+                    <a class=" nav-link dropdown-item" onclick="localStorage.clear();" href="/logout">Sair</a>
+                  </div>
+
+            </li>
+        {% endif %}
+      </ul>
+  </nav>
+    <title>DIMANI ATELIER</title>
+  </head>
+
+  <body>
+    <div class="content">
+
+{% endblock%}

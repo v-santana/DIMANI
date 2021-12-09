@@ -1,0 +1,338 @@
+{% block footer %}
+
+</div>
+</body>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
+<footer class="footer container-fluid pb-0 mb-0 justify-content-center text-dark">
+    <div class="row my-5 justify-content-center py-5" style="background: rgb(244,221,227);
+      background: linear-gradient(0deg, rgba(244,221,227,1) 0%, rgba(244,221,227,1) 11%, rgba(255,255,255,1) 100%);">
+        <div class="col-11">
+            <div class="row ">
+                <div class="col-xl-8 col-md-4 col-sm-4 col-12 my-auto a">
+                    <h3 class="text-muted mb-md-0 mb-5 bold-text">DIMANI ATELIER</h3>
+                </div>
+                <!-- MENU -->
+                <!-- <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                    <h6 class="mb-3 mb-lg-4 bold-text "><b>MENU</b></h6>
+                    <ul class="list-unstyled">
+                      <li><a type="button" style="margin-bottom: 1vmin;" class="btn-link" href="/home">Home</a></li>
+                      <li><a type="button" style="margin-bottom: 1vmin;" class="btn-link" href="/sobre">Sobre</a></li>
+                      <li><a type="button" style="margin-bottom: 1vmin;" class="btn-link" href="/catalogo">Catálogo</a></li>
+                      {%if 'NOME' in session %}
+                      <li><a type="button" style="margin-bottom: 1vmin;" class=" btn-link" href="/dados_cadastro">Dados Cadastrais</a></li>
+                      <li><a type="button" style="margin-bottom: 1vmin;" class=" btn-link" href="/logout" onclick="localStorage.clear()">Logout</a></li>
+
+                      {% endif %}
+                    </ul>
+                </div> -->
+                <!-- ENDEREÇO -->
+                <!-- <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                  <h6 class="mb-3 mb-lg-4 bold-text "><b>ENDEREÇO</b></h6>
+                  <ul class="list-unstyled">
+                    <li><p style="margin-bottom: 1vmin;" class="mb-1">São Paulo - Pompéia</p></li>
+                    <li><p>Loja de Roupas</p></li>
+                  </ul>
+              </div> -->
+
+                <div class="row ">
+                    <div class="col-xl-8 col-md-4 col-sm-4 col-auto my-md-0 mt-5 order-sm-1 order-3 align-self-end">
+                        <p class="social text-muted mb-0 pb-0 bold-text">
+                            <a href="https://api.whatsapp.com/send?phone=5511987278155" target="_blank"><span class="mx-2"><i style="font-size:22px" class="fa fa-whatsapp" aria-hidden="true"></i></span></a>
+                            <a href="https://www.instagram.com/di_mani_atelier/" target="_blank"><span class="mx-2"><i style="font-size:22px" class="fa fa-instagram" aria-hidden="true"></i></span></a>
+                        </p><small class="rights"><span>&#174;</span> DiMani Atelier All Rights Reserved.</small>
+                    </div>
+                    <div class="col-xl-2 col-md-4 col-sm-4 col-auto order-2 align-self-end mt-3 ">
+                        <h6 class="text-muted bold-text"><b class="text-nowrap bd-highlight">Joelma Santana</b></h6><small class="text-nowrap bd-highlight"><i class="fa fa-envelope " aria-hidden="true"></i></span><a href="mailto: dimani@atelier.com.br"> dimani@atelier.com.br</a></small>
+                    </div>
+                </div>
+                <div class="col-xl-2 col-md-4 col-sm-4 col-12">
+                    <h6 class="mb-3 mb-lg-4 bold-text "><b>ENDEREÇO</b></h6>
+                    <ul class="list-unstyled">
+                        <li>
+                            <p style="margin-bottom: 1vmin;" class="mb-1">São Paulo - Pompéia</p>
+                        </li>
+                        <li>
+                            <p>Loja de Roupas</p>
+                        </li>
+                    </ul>
+                </div>
+            </div>
+        </div>
+</footer>
+
+<!-- JavaScript (Opcional) -->
+<script type="text/javascript" charset="utf-8" async defer>
+</script>
+
+<!-- jQuery primeiro, depois Popper.js, depois Bootstrap JS -->
+<script src="https://code.jquery.com/jquery-3.4.1.min.js" integrity="sha256-CSXorXvZcTkaix6Yvo6HppcZGetbYMGWSFlBw8HfCJo=" crossorigin="anonymous"></script>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js" integrity="sha384-ZMP7rVo3mIykV+2+9J3UJ46jBk0WLaUAdn689aCwoqbBJiSnjAK/l8WvCWPIPm49" crossorigin="anonymous"></script>
+<script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.3/js/bootstrap.min.js" integrity="sha384-ChfqqxuZUCnJSK3+MXmPNIyE6ZbWh2IMqE241rYiqJxyMiZ6OW/JmZQ5stwEULTy" crossorigin="anonymous"></script>
+
+<script type="text/javascript" charset="utf-8" async defer>
+    function maiorQue(texto, quantidade) {
+        var texto = texto;
+        if (texto == null) {
+            return ""
+        } else {
+            if (texto.length >= quantidade) {
+                texto = texto.slice(0, quantidade);
+                texto += "..."
+            }
+        }
+
+        return texto;
+
+    }
+
+    function confirma_status() {
+        var status = document.getElementById("validationCustom01").value;
+        var confirmar = confirm("Deseja alterar o status do pedido para " + status)
+        if (confirmar) {
+            alert("O status do pedido foi alterado para: " + status);
+        } else {
+            alert("O status do pedido não foi alterado!")
+            return false;
+
+        }
+    }
+
+
+    function formata_valor_com_cifrao(valor) {
+        //com R$
+        var formatado = valor.toLocaleString('pt-br', {
+            style: 'currency',
+            currency: 'BRL'
+        });
+        return formatado;
+    }
+
+    function formata_valor_sem_cifrao(valor) {
+        //sem R$
+        var formatado = valor.toLocaleString('pt-br', {
+            minimumFractionDigits: 2
+        });
+        return formatado;
+    }
+
+    function getRadioValor(name) {
+        var rads = document.getElementsByName(name);
+
+        for (var i = 0; i < rads.length; i++) {
+            if (rads[i].checked) {
+                return rads[i].value;
+            }
+
+        }
+
+        return null;
+    }
+
+    String.prototype.replaceAll = function(str1, str2, ignore) {
+        return this.replace(new RegExp(str1.replace(/([\/\,\!\\\^\$\{\}\[\]\(\)\.\*\+\?\|\<\>\-\&])/g, "\\$&"), (ignore ? "gi" : "g")), (typeof(str2) == "string") ? str2.replace(/\$/g, "$$$$") : str2);
+    }
+
+    function adiciona_carrinho() {
+        var id_produto = document.getElementById("id_produto").value.replaceAll(",", "");
+        var nome_produto = document.getElementById("nome_produto").textContent.replaceAll(",", "");
+        var descricao_produto = document.getElementById("descricao_produto").textContent.replaceAll(",", "");
+        var valor_produto = document.getElementById("valor_produto").value.replaceAll(",", "");
+        var qtd_produto = document.getElementById('customControlValidation1').value.replaceAll(",", "");
+        var observacao = document.getElementById('observacao_produto').value.replaceAll(",", " ");
+        var tamanho_produto = getRadioValor("options").replaceAll(",", "");
+        var produto = [id_produto, nome_produto, descricao_produto, valor_produto, qtd_produto, tamanho_produto, observacao];
+
+        localStorage.setItem("produto_" + id_produto + "_" + tamanho_produto, produto);
+        return produto;
+    }
+
+    function verifica_campo_nulo() {
+        if (getRadioValor("options") == null) {
+            alert("Por favor, escolha um tamanho para o produto");
+            location.reload()
+            return true
+        }
+    }
+
+    function limpa_carrinho() {
+        var confirmar = confirm("Deseja limpar o carrinho?")
+        if (confirmar) {
+            localStorage.clear()
+            location.reload()
+        }
+    }
+
+
+
+
+    function retorna_itens_lStorage() {
+        nome = {}
+        for (var i in window.localStorage) {
+            val = localStorage.getItem(i);
+            if (val != null) {
+                item = val.split(",");
+                nome[i] = item
+            }
+        }
+        return nome;
+    }
+
+
+
+
+    function cria_tabela_carrinho(conteudo, id_localStorage) {
+        var tabela = document.getElementById("tabela");
+        var thead = document.getElementById("thead");
+        var tbody = document.getElementById("tbody");
+        var thd = function(i) {
+            return (i == 0) ? "td" : "td";
+        };
+        for (var i = 0; i < conteudo.length; i++) {
+            var tr = document.createElement("tr");
+            console.log(tr)
+            var button = document.createElement("button");
+            var texto_button = document.createTextNode("Remover");
+            button.appendChild(texto_button)
+            button.className += "btn-danger btn btn-sm btn-remover"
+            button.setAttribute('data-label', '#')
+
+            // Define o evento de click como função para remover o produto com base no id_produto em local storage (funcao a estudar para melhorar)
+            button.onclick = function() {
+                var id_produto = id_localStorage;
+                var confirmar = confirm("Deseja excluir o item do carrinho?")
+                if (confirmar) {
+                    localStorage.removeItem(id_produto);
+                    alert("O item " + id_produto + " foi excluído!");
+                    location.reload()
+                } else {
+                    alert("Item " + id_produto + " não foi excluído!")
+                    location.reload()
+                }
+                cartao.remove();
+            }
+
+            for (var o = 0; o < conteudo[i].length; o++) {
+                var t = document.createElement(thd(i));
+                var texto = document.createTextNode(conteudo[i][o]);
+
+                t.appendChild(texto);
+                tr.appendChild(t);
+                tr.appendChild(button)
+            }
+            (i == 0) ? tbody.appendChild(tr): thead.appendChild(tr);
+        }
+        tabela.appendChild(tbody);
+        return tbody;
+    }
+
+
+
+    // Função que formata os valores para real (SOMENTE O TEXTO EXIBIDO)
+    function valores_em_real() {
+        var valor_real = document.getElementsByName("valor_produto_real")
+        for (var i = 0; i < valor_real.length; i++) {
+            valor_real[i].textContent = formata_valor_com_cifrao(parseFloat(valor_real[i].textContent))
+        }
+    }
+
+    // Verifica se tem valores na página com a classe "valor_produto_real" e converte visualmente em real R$00,00
+    valores_em_real();
+    {% if 'EMAIL' in session %}
+        {% if not eh_funcionario(session['EMAIL']) %}
+            notif = document.getElementById("notif");
+            notif.innerHTML = localStorage.length;
+    {% endif %}
+        {%else %}
+            notif = document.getElementById("notif");
+            notif.innerHTML = localStorage.length;
+        {% endif %}
+
+
+    // Exemplo de JavaScript inicial para desativar envios de formulário, se houver campos inválidos.
+    (function() {
+        'use strict';
+        window.addEventListener('load', function() {
+            // Pega todos os formulários que nós queremos aplicar estilos de validação Bootstrap personalizados.
+            var forms = document.getElementsByClassName('needs-validation');
+            // Faz um loop neles e evita o envio
+            var validation = Array.prototype.filter.call(forms, function(form) {
+                form.addEventListener('submit', function(event) {
+                    if (form.checkValidity() === false) {
+                        event.preventDefault();
+                        event.stopPropagation();
+                    }
+                    form.classList.add('was-validated');
+                }, false);
+            });
+        }, false);
+    })();
+
+
+    // CONSULTA API DE CEP DO CORREIO E PREENCHE AUTOMÁTICAMENTE OS CAMPOS.
+
+    // Registra o evento blur do campo "cep", ou seja, a pesquisa será feita
+    // quando o usuário sair do campo "cep"
+    $("#cep").blur(function() {
+        // Remove tudo o que não é número para fazer a pesquisa
+        var cep = this.value.replace(/[^0-9]/, "");
+
+        // Validação do CEP; caso o CEP não possua 8 números, então cancela
+        // a consulta
+        if (cep.length != 8) {
+            return false;
+        }
+
+
+        // A url de pesquisa consiste no endereço do webservice + o cep que
+        // o usuário informou + o tipo de retorno desejado (entre "json",
+        // "jsonp", "xml", "piped" ou "querty")
+        var url = "https://viacep.com.br/ws/" + cep + "/json/";
+
+        // Faz a pesquisa do CEP, tratando o retorno com try/catch para que
+        // caso ocorra algum erro (o cep pode não existir, por exemplo) a
+        // usabilidade não seja afetada, assim o usuário pode continuar//
+        // preenchendo os campos normalmente
+        $.getJSON(url, function(dadosRetorno) {
+            try {
+                // Preenche os campos de acordo com o retorno da pesquisa
+                $("#rua").val(dadosRetorno.logradouro);
+                $("#bairro").val(dadosRetorno.bairro);
+                $("#cidade").val(dadosRetorno.localidade);
+
+                // Transforma UF em números em ordem alfabética (não é código da UF)
+                var uf = {
+                    'AC': 1,
+                    'AL': 2,
+                    'AM': 3,
+                    'AP': 4,
+                    'BA': 5,
+                    'CE': 6,
+                    'DF': 7,
+                    'ES': 8,
+                    'GO': 9,
+                    'MA': 10,
+                    'MG': 11,
+                    'MS': 12,
+                    'MT': 13,
+                    'PA': 14,
+                    'PB': 15,
+                    'PE': 16,
+                    'PI': 17,
+                    'PR': 18,
+                    'RJ': 19,
+                    'RN': 20,
+                    'RO': 21,
+                    'RR': 22,
+                    'RS': 23,
+                    'SC': 24,
+                    'SE': 25,
+                    'SP': 26,
+                    'TO': 27,
+                }
+                $("#estado").val(uf[dadosRetorno.uf]);
+            } catch (ex) {}
+        });
+    });
+</script>
+
+{% endblock %}

@@ -1,0 +1,64 @@
+{% include 'head.html'%}
+
+<style>
+    .form-row>.col, .form-row>[class*=col-] {
+    padding-right: 15px;
+    padding-left: 15px;
+    }
+@media (min-width: 1200px) {   
+.imagem-login{
+    width: 500vmin !important;
+}
+}
+
+.imagem-login{
+    width: 100vmin !important;
+}
+
+</style>
+
+<div class="form-group d-flex justify-content-center">
+    <img src="/static/images/BANNER_BRANCO_DIMANI.PNG" class="imagem-login" style="margin: 2%;" alt="login dimani">
+</div>
+<div class="form-signin">
+    <form class="needs-validation" method="POST" novalidate>
+        <div class="form-row">
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom01">E-mail</label>
+                <input type="email" name="email" class="form-control" id="validationCustom01" placeholder="Endereço de e-mail" required>
+                <div class="invalid-feedback">
+                    Insira um endereço de e-mail válido.
+                </div>
+            </div>
+            <div class="col-md-6 offset-md-3">
+                <label for="validationCustom02">Senha</label>
+                <input type="password" name="senha" class="form-control" id="validationCustom02" placeholder="Insira a senha" required>
+                <div class="invalid-feedback">
+                    Digite uma senha.
+                </div>
+            </div>
+            <div class="col-md-6 offset-md-3 form-check" style="margin-top: 2%; margin-bottom:2%;" class="dropdown-divider">
+                <div class="row">
+                    <div class="col-sm">
+                        <a class="form-check" href="/cadastro">Novo por aqui? Cadastre-se</a>
+                    </div>
+                    <div class="col-sm">
+                        <a class="form-check" href="/esqueci_senha">Esqueceu sua senha?</a>
+                    </div>
+                </div>  
+                <div class="row">
+                    <div class="col-sm">
+                    <p class="text-danger"><strong>{{message}}</strong></p>
+                    </div>
+                </div>  
+            </div>
+            
+            <p>
+                <div class="col-md-6 offset-md-3">
+                    <button type="submit" style="background-color: #438759;" class="btn btn-lg btn-block">ACESSAR</button>
+                </div>
+            </p>
+    </form>
+    </div>
+
+    {% include 'footer.html'%}
