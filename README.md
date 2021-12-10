@@ -22,5 +22,7 @@ Com o mundo globalizado e com as pessoas cada vez mais conectadas à internet, t
 
 A proprietária Joelma Santana não conta com nenhum funcionário, sendo a única mão de obra no local, o estabelecimento não tem nenhuma filial, porém deseja expandir seu negócio em um futuro próximo. Sendo assim, a proprietária exerce as funções somente na matriz localizada no município de São Paulo, no bairro Pompéia.</h4>
 
-<a href="https://www.instagram.com/di_mani_atelier/">Instagram</a></br>
+
+[<img src = "https://img.shields.io/badge/instagram-%23E4405F.svg?&style=for-the-badge&logo=instagram&logoColor=white">](https://www.instagram.com/di_mani_atelier/)
+</br>
 <a href="https://dimaniatelier.pythonanywhere.com/">Site</a>
