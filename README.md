@@ -1,4 +1,4 @@
-<div align="center" style="height:50px; width:50px" ><img src="static/images/LOGO_NAVBAR.png"></div>
+<div align="center" ><img src="static/images/LOGO_NAVBAR.png" style="height:50px; width:50px"></div>
 <h1 align="center">DiMani Atelier</h1>
 <p align="center"><strong>SI4A - OPE</strong>
 <br>FACULDADE IMPACTA DE TECNOLOGIA</p>
