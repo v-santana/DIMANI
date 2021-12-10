@@ -27,4 +27,4 @@ A proprietária Joelma Santana não conta com nenhum funcionário, sendo a únic
 </br>
 
 
-[<img src="https://img.shields.io/badge/site-%2312100E.svg?&style=for-the-badge&logo=medium&logoColor=white" />](https://dimaniatelier.pythonanywhere.com)
+[<img src="https://img.shields.io/badge/website-000000?style=for-the-badge&logo=About.me&logoColor=white" />](https://dimaniatelier.pythonanywhere.com)
