@@ -25,4 +25,6 @@ A proprietária Joelma Santana não conta com nenhum funcionário, sendo a únic
 
 [<img src = "https://img.shields.io/badge/instagram-%23E4405F.svg?&style=for-the-badge&logo=instagram&logoColor=white">](https://www.instagram.com/di_mani_atelier/)
 </br>
-<a href="https://dimaniatelier.pythonanywhere.com/">Site</a>
+
+
+[<img src="https://img.shields.io/badge/site-%2312100E.svg?&style=for-the-badge&logo=medium&logoColor=white" />](https://dimaniatelier.pythonanywhere.com)
