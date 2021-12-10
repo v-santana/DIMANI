@@ -1,4 +1,4 @@
-<div align="center"><img src="static/images/LOGO_NAVBAR.png"></div>
+<div align="center" style="height:100px; width:100px" ><img src="static/images/LOGO_NAVBAR.png"></div>
 <h1 align="center">DiMani Atelier</h1>
 <p align="center"><strong>SI4A - OPE</strong>
 <br>FACULDADE IMPACTA DE TECNOLOGIA</p>
@@ -22,5 +22,5 @@ Com o mundo globalizado e com as pessoas cada vez mais conectadas à internet, t
 
 A proprietária Joelma Santana não conta com nenhum funcionário, sendo a única mão de obra no local, o estabelecimento não tem nenhuma filial, porém deseja expandir seu negócio em um futuro próximo. Sendo assim, a proprietária exerce as funções somente na matriz localizada no município de São Paulo, no bairro Pompéia.</h4>
 
-<h3 href="https://www.instagram.com/di_mani_atelier/">Instagram</h3></br>
-<h3 href="https://dimaniatelier.pythonanywhere.com/">Site</h3>.
+<a href="https://www.instagram.com/di_mani_atelier/">Instagram</a></br>
+<a href="https://dimaniatelier.pythonanywhere.com/">Site</a>.
